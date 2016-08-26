@@ -10,6 +10,9 @@
 		114A44C61D6C9EA300B5E0CD /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */; };
 		114A44CD1D6C9EA300B5E0CD /* Framezilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 114A44BF1D6C9EA300B5E0CD /* Framezilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		114A44D91D6CA3EA00B5E0CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44D81D6CA3EA00B5E0CD /* Quick.framework */; };
+		1182FF0C1D700E8900EFD4BC /* NUIMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0B1D700E8900EFD4BC /* NUIMaker.swift */; };
+		1182FF0E1D701BBF00EFD4BC /* NUIMakerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0D1D701BBF00EFD4BC /* NUIMakerHelper.swift */; };
+		1182FF101D703A1200EFD4BC /* UIView+Relations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		114A44C51D6C9EA300B5E0CD /* FramezillaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FramezillaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		114A44CC1D6C9EA300B5E0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		114A44D81D6CA3EA00B5E0CD /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
+		1182FF0B1D700E8900EFD4BC /* NUIMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMaker.swift; sourceTree = "<group>"; };
+		1182FF0D1D701BBF00EFD4BC /* NUIMakerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerHelper.swift; sourceTree = "<group>"; };
+		1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Relations.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +81,9 @@
 			children = (
 				114A44BF1D6C9EA300B5E0CD /* Framezilla.h */,
 				114A44C01D6C9EA300B5E0CD /* Info.plist */,
+				1182FF0B1D700E8900EFD4BC /* NUIMaker.swift */,
+				1182FF0D1D701BBF00EFD4BC /* NUIMakerHelper.swift */,
+				1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */,
 			);
 			path = Framezilla;
 			sourceTree = "<group>";
@@ -157,6 +166,7 @@
 				TargetAttributes = {
 					114A44BB1D6C9EA300B5E0CD = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					114A44C41D6C9EA300B5E0CD = {
@@ -205,6 +215,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1182FF0C1D700E8900EFD4BC /* NUIMaker.swift in Sources */,
+				1182FF101D703A1200EFD4BC /* UIView+Relations.swift in Sources */,
+				1182FF0E1D701BBF00EFD4BC /* NUIMakerHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +341,7 @@
 		114A44D11D6C9EA300B5E0CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -339,6 +353,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.Framezilla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -346,6 +361,7 @@
 		114A44D21D6C9EA300B5E0CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -364,6 +380,7 @@
 		114A44D41D6C9EA300B5E0CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = FramezillaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.FramezillaTests;
@@ -375,6 +392,7 @@
 		114A44D51D6C9EA300B5E0CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = FramezillaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.FramezillaTests;
