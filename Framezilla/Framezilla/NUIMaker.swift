@@ -10,23 +10,22 @@ import Foundation
 
 public final class NUIMaker {
     
-    private enum NUIHandlerPriority {
-        case High
+    enum NUIHandlerPriority: Int {
+        case High = 0
         case Middle
         case Low
     }
     
-    unowned let view: UIView
+    typealias HandlerType = () -> Void
     
-    private typealias HandlerType = () -> Void
+    unowned let view: UIView
     
     private var isTopFrameInstalled: Bool = false
     private var isLeftFrameInstalled: Bool = false
     
-    private var handlers: [(NUIHandlerPriority, HandlerType)] = []
-    private var relationParameters: [(NUIRelationType, [Any])] = []
-
-    private var newRect: CGRect
+    var handlers:           [(priority: NUIHandlerPriority, handler: HandlerType)] = []
+    var relationParameters: [(type: NUIRelationType, arguments: [Any])] = []
+    var newRect: CGRect
     
     public var and: NUIMaker {
         get {
@@ -34,7 +33,7 @@ public final class NUIMaker {
         }
     }
     
-    init(view: UIView) {
+    init(_ view: UIView) {
         self.view = view
         self.newRect = view.frame
     }

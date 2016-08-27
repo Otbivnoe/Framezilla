@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1103E8E31D719F19005AD5C0 /* UIView+Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103E8E21D719F19005AD5C0 /* UIView+Installer.swift */; };
+		1103E8E51D71A290005AD5C0 /* NUIMaker+Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103E8E41D71A290005AD5C0 /* NUIMaker+Configurations.swift */; };
 		114A44C61D6C9EA300B5E0CD /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */; };
 		114A44CD1D6C9EA300B5E0CD /* Framezilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 114A44BF1D6C9EA300B5E0CD /* Framezilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		114A44D91D6CA3EA00B5E0CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44D81D6CA3EA00B5E0CD /* Quick.framework */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1103E8E21D719F19005AD5C0 /* UIView+Installer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Installer.swift"; sourceTree = "<group>"; };
+		1103E8E41D71A290005AD5C0 /* NUIMaker+Configurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NUIMaker+Configurations.swift"; sourceTree = "<group>"; };
 		114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Framezilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		114A44BF1D6C9EA300B5E0CD /* Framezilla.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framezilla.h; sourceTree = "<group>"; };
 		114A44C01D6C9EA300B5E0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				1182FF0B1D700E8900EFD4BC /* NUIMaker.swift */,
 				1182FF0D1D701BBF00EFD4BC /* NUIMakerHelper.swift */,
 				1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */,
+				1103E8E21D719F19005AD5C0 /* UIView+Installer.swift */,
+				1103E8E41D71A290005AD5C0 /* NUIMaker+Configurations.swift */,
 			);
 			path = Framezilla;
 			sourceTree = "<group>";
@@ -218,6 +224,8 @@
 				1182FF0C1D700E8900EFD4BC /* NUIMaker.swift in Sources */,
 				1182FF101D703A1200EFD4BC /* UIView+Relations.swift in Sources */,
 				1182FF0E1D701BBF00EFD4BC /* NUIMakerHelper.swift in Sources */,
+				1103E8E51D71A290005AD5C0 /* NUIMaker+Configurations.swift in Sources */,
+				1103E8E31D719F19005AD5C0 /* UIView+Installer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
