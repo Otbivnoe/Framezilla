@@ -10,14 +10,14 @@ import Foundation
 import ObjectiveC
 
 enum NUIRelationType {
-    case NUIRelationTypeBottom
-    case NUIRelationTypeTop
-    case NUIRelationTypeLeft
-    case NUIRelationTypeRight
-    case NUIRelationTypeWidth
-    case NUIRelationTypeHeight
-    case NUIRelationTypeCenterX
-    case NUIRelationTypeCenterY
+    case Bottom
+    case Top
+    case Left
+    case Right
+    case Width
+    case Height
+    case CenterX
+    case CenterY
 }
 
 fileprivate var relationTypeAssociationKey: UInt8 = 0

@@ -10,14 +10,14 @@ import Foundation
 
 extension NUIMaker {
     
-    typealias HandlerType = () -> Void
-    
     func setFrameValue(_ value: CGFloat, forRelation type: NUIRelationType) {
         
         var frame = newRect
         switch type {
-            case .NUIRelationTypeWidth:  frame.size.width = value
-            case .NUIRelationTypeHeight: frame.size.height = value
+            case .Width:  frame.size.width = value
+            case .Height: frame.size.height = value
+            case .Left:   frame.origin.x = value
+            case .Top:    frame.origin.y = value
             default: break
         }
         newRect = frame
@@ -28,12 +28,12 @@ extension NUIMaker {
         let convertedRect = self.view.superview!.convert(view.frame, from: view.superview)
         
         switch relationType {
-            case .NUIRelationTypeTop:        return convertedRect.minY
-            case .NUIRelationTypeBottom:     return convertedRect.maxY
-            case .NUIRelationTypeCenterY:    return convertedRect.midY
-            case .NUIRelationTypeCenterX:    return convertedRect.midX
-            case .NUIRelationTypeRight:      return convertedRect.maxX
-            case .NUIRelationTypeLeft:       return convertedRect.minX
+            case .Top:        return convertedRect.minY
+            case .Bottom:     return convertedRect.maxY
+            case .CenterY:    return convertedRect.midY
+            case .CenterX:    return convertedRect.midX
+            case .Right:      return convertedRect.maxX
+            case .Left:       return convertedRect.minX
             default: return 0
         }
     }
