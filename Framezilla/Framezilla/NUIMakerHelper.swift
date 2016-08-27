@@ -9,20 +9,7 @@
 import Foundation
 
 extension NUIMaker {
-    
-    func setFrameValue(_ value: CGFloat, forRelation type: NUIRelationType) {
-        
-        var frame = newRect
-        switch type {
-            case .Width:  frame.size.width = value
-            case .Height: frame.size.height = value
-            case .Left:   frame.origin.x = value
-            case .Top:    frame.origin.y = value
-            default: break
-        }
-        newRect = frame
-    }
-    
+
     func convertedValue(relationType: NUIRelationType, forView view: UIView) -> CGFloat {
     
         let convertedRect = self.view.superview!.convert(view.frame, from: view.superview)
@@ -37,5 +24,20 @@ extension NUIMaker {
             default: return 0
         }
     }
+}
+
+extension CGRect {
     
+    mutating func setValue(_ value: CGFloat, forRelation type: NUIRelationType) {
+        
+        var frame = self
+        switch type {
+            case .Width:  frame.size.width = value
+            case .Height: frame.size.height = value
+            case .Left:   frame.origin.x = value
+            case .Top:    frame.origin.y = value
+            default: break
+        }
+        self = frame
+    }
 }

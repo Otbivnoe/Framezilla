@@ -17,7 +17,6 @@ public final class NUIMaker {
     }
     
     unowned let view: UIView
-    var newRect: CGRect
     
     private typealias HandlerType = () -> Void
     
@@ -27,6 +26,8 @@ public final class NUIMaker {
     private var handlers: [(NUIHandlerPriority, HandlerType)] = []
     private var relationParameters: [(NUIRelationType, [Any])] = []
 
+    private var newRect: CGRect
+    
     public var and: NUIMaker {
         get {
             return self
@@ -43,7 +44,7 @@ public final class NUIMaker {
     public func width(_ width: CGFloat) -> Self {
         
         let handler: HandlerType = { [unowned self] in
-            self.setFrameValue(width, forRelation: .Width)
+            self.newRect.setValue(width, forRelation: .Width)
         }
         handlers.append((.High, handler))
         relationParameters.append((.Height, [width]))
@@ -53,7 +54,7 @@ public final class NUIMaker {
     public func height(_ height: CGFloat) -> Self {
         
         let handler: HandlerType = { [unowned self] in
-            self.setFrameValue(height, forRelation: .Width)
+            self.newRect.setValue(height, forRelation: .Width)
         }
         handlers.append((.High, handler))
         relationParameters.append((.Height, [height]))
@@ -66,7 +67,7 @@ public final class NUIMaker {
             
             let handler: HandlerType = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) + inset
-                self.setFrameValue(x, forRelation: .Left)
+                self.newRect.setValue(x, forRelation: .Left)
                 self.isLeftFrameInstalled = true
             }
             self.handlers.append((.High, handler))
@@ -80,7 +81,7 @@ public final class NUIMaker {
             
             let handler: HandlerType = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) + inset
-                self.setFrameValue(y, forRelation: .Top)
+                self.newRect.setValue(y, forRelation: .Top)
                 self.isTopFrameInstalled = true
             }
             self.handlers.append((.High, handler))
@@ -139,7 +140,7 @@ public final class NUIMaker {
     private func setHighPriorityValue(_ value: CGFloat, forRelation type: NUIRelationType) {
         
         let handler: HandlerType = { [unowned self] in
-            self.setFrameValue(value, forRelation: type)
+            self.newRect.setValue(value, forRelation: type)
         }
         self.handlers.append((.High, handler))
         self.relationParameters.append((.Top, [value]))
