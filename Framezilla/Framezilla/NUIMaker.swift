@@ -169,6 +169,50 @@ public final class NUIMaker {
         }
     }
     
+    //MARK: Low priority
+    
+    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0) -> Self {
+        
+        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
+            
+            let handler = { [unowned self] in
+                let y = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.height/2 - offset
+                self.newRect.setValue(y, forRelation: .Top)
+            }
+            self.handlers.append((.Low, handler))
+        }
+    }
+    
+    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0) -> Self {
+        
+        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_centerX) { [unowned self] relationView, relationType in
+            
+            let handler = { [unowned self] in
+                let x = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.width/2 - offset
+                self.newRect.setValue(x, forRelation: .Left)
+            }
+            self.handlers.append((.Low, handler))
+        }
+    }
+    
+    @discardableResult public func setCenterX(value: CGFloat) -> Self {
+        
+        let handler = { [unowned self] in
+            self.newRect.setValue(value, forRelation: .CenterX)
+        }
+        self.handlers.append((.Low, handler))
+        return self
+    }
+    
+    @discardableResult public func setCenterY(value: CGFloat) -> Self {
+        
+        let handler = { [unowned self] in
+            self.newRect.setValue(value, forRelation: .CenterY)
+        }
+        self.handlers.append((.Low, handler))
+        return self
+    }
+    
     //MARK: Private
     
     private func checkSuperviewAndRelationType(for relationView: UIView, configurationBlock: (UIView, NUIRelationType) -> Void) -> Self {

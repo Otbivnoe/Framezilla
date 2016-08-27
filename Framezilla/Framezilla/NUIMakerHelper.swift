@@ -32,10 +32,12 @@ extension CGRect {
         
         var frame = self
         switch type {
-            case .Width:  frame.size.width = value
-            case .Height: frame.size.height = value
-            case .Left:   frame.origin.x = value
-            case .Top:    frame.origin.y = value
+            case .Width:   frame.size.width = value
+            case .Height:  frame.size.height = value
+            case .Left:    frame.origin.x = value
+            case .Top:     frame.origin.y = value
+            case .CenterX: frame.origin.x = value - self.width/2;
+            case .CenterY: frame.origin.y = value - self.height/2;
             default: break
         }
         self = frame
