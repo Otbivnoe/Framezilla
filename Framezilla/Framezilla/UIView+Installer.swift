@@ -27,6 +27,10 @@ public extension UIView {
     
     public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
         
+        guard self.superview != nil else {
+            assertionFailure("Can't configure frame for view without superview")
+            return
+        }
         NUIMaker.configurate(view: self, forState: state, with: installerBlock)
     }
 }
