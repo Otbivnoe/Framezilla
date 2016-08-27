@@ -9,16 +9,17 @@
 /* Begin PBXBuildFile section */
 		1103E8E31D719F19005AD5C0 /* UIView+Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103E8E21D719F19005AD5C0 /* UIView+Installer.swift */; };
 		1103E8E51D71A290005AD5C0 /* NUIMaker+Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103E8E41D71A290005AD5C0 /* NUIMaker+Configurations.swift */; };
-		114A44C61D6C9EA300B5E0CD /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */; };
+		1103E8F51D71B8FC005AD5C0 /* FramezillaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103E8F41D71B8FC005AD5C0 /* FramezillaTests.swift */; };
+		1103E8F71D71B8FC005AD5C0 /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */; };
+		1103E8FF1D71B93C005AD5C0 /* NUIMakerGeneralSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103E8FE1D71B93C005AD5C0 /* NUIMakerGeneralSpec.swift */; };
 		114A44CD1D6C9EA300B5E0CD /* Framezilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 114A44BF1D6C9EA300B5E0CD /* Framezilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		114A44D91D6CA3EA00B5E0CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A44D81D6CA3EA00B5E0CD /* Quick.framework */; };
 		1182FF0C1D700E8900EFD4BC /* NUIMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0B1D700E8900EFD4BC /* NUIMaker.swift */; };
 		1182FF0E1D701BBF00EFD4BC /* NUIMakerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0D1D701BBF00EFD4BC /* NUIMakerHelper.swift */; };
 		1182FF101D703A1200EFD4BC /* UIView+Relations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		114A44C71D6C9EA300B5E0CD /* PBXContainerItemProxy */ = {
+		1103E8F81D71B8FC005AD5C0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 114A44B31D6C9EA300B5E0CD /* Project object */;
 			proxyType = 1;
@@ -30,10 +31,14 @@
 /* Begin PBXFileReference section */
 		1103E8E21D719F19005AD5C0 /* UIView+Installer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Installer.swift"; sourceTree = "<group>"; };
 		1103E8E41D71A290005AD5C0 /* NUIMaker+Configurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NUIMaker+Configurations.swift"; sourceTree = "<group>"; };
+		1103E8E81D71B433005AD5C0 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/Framezilla-hhszcocdnmyinxervsbyyxwtlzfh/Build/Products/Debug-iphonesimulator/Quick.framework"; sourceTree = "<group>"; };
+		1103E8F21D71B8FC005AD5C0 /* FramezillaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FramezillaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1103E8F41D71B8FC005AD5C0 /* FramezillaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramezillaTests.swift; sourceTree = "<group>"; };
+		1103E8F61D71B8FC005AD5C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1103E8FE1D71B93C005AD5C0 /* NUIMakerGeneralSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerGeneralSpec.swift; sourceTree = "<group>"; };
 		114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Framezilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		114A44BF1D6C9EA300B5E0CD /* Framezilla.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framezilla.h; sourceTree = "<group>"; };
 		114A44C01D6C9EA300B5E0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		114A44C51D6C9EA300B5E0CD /* FramezillaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FramezillaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		114A44CC1D6C9EA300B5E0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		114A44D81D6CA3EA00B5E0CD /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		1182FF0B1D700E8900EFD4BC /* NUIMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMaker.swift; sourceTree = "<group>"; };
@@ -42,6 +47,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1103E8EF1D71B8FC005AD5C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1103E8F71D71B8FC005AD5C0 /* Framezilla.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		114A44B81D6C9EA300B5E0CD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -49,23 +62,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		114A44C21D6C9EA300B5E0CD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				114A44D91D6CA3EA00B5E0CD /* Quick.framework in Frameworks */,
-				114A44C61D6C9EA300B5E0CD /* Framezilla.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1103E8F31D71B8FC005AD5C0 /* FramezillaTests */ = {
+			isa = PBXGroup;
+			children = (
+				1103E8F41D71B8FC005AD5C0 /* FramezillaTests.swift */,
+				1103E8F61D71B8FC005AD5C0 /* Info.plist */,
+			);
+			path = FramezillaTests;
+			sourceTree = "<group>";
+		};
 		114A44B21D6C9EA300B5E0CD = {
 			isa = PBXGroup;
 			children = (
 				114A44BE1D6C9EA300B5E0CD /* Framezilla */,
 				114A44C91D6C9EA300B5E0CD /* FramezillaTests */,
+				1103E8F31D71B8FC005AD5C0 /* FramezillaTests */,
 				114A44BD1D6C9EA300B5E0CD /* Products */,
 				114A44D71D6CA3E900B5E0CD /* Frameworks */,
 			);
@@ -75,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */,
-				114A44C51D6C9EA300B5E0CD /* FramezillaTests.xctest */,
+				1103E8F21D71B8FC005AD5C0 /* FramezillaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				114A44CC1D6C9EA300B5E0CD /* Info.plist */,
+				1103E8FE1D71B93C005AD5C0 /* NUIMakerGeneralSpec.swift */,
 			);
 			path = FramezillaTests;
 			sourceTree = "<group>";
@@ -105,6 +120,7 @@
 		114A44D71D6CA3E900B5E0CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1103E8E81D71B433005AD5C0 /* Quick.framework */,
 				114A44D81D6CA3EA00B5E0CD /* Quick.framework */,
 			);
 			name = Frameworks;
@@ -124,6 +140,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1103E8F11D71B8FC005AD5C0 /* FramezillaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1103E8FA1D71B8FC005AD5C0 /* Build configuration list for PBXNativeTarget "FramezillaTests" */;
+			buildPhases = (
+				1103E8EE1D71B8FC005AD5C0 /* Sources */,
+				1103E8EF1D71B8FC005AD5C0 /* Frameworks */,
+				1103E8F01D71B8FC005AD5C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1103E8F91D71B8FC005AD5C0 /* PBXTargetDependency */,
+			);
+			name = FramezillaTests;
+			productName = FramezillaTests;
+			productReference = 1103E8F21D71B8FC005AD5C0 /* FramezillaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		114A44BB1D6C9EA300B5E0CD /* Framezilla */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 114A44D01D6C9EA300B5E0CD /* Build configuration list for PBXNativeTarget "Framezilla" */;
@@ -142,24 +176,6 @@
 			productReference = 114A44BC1D6C9EA300B5E0CD /* Framezilla.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		114A44C41D6C9EA300B5E0CD /* FramezillaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 114A44D31D6C9EA300B5E0CD /* Build configuration list for PBXNativeTarget "FramezillaTests" */;
-			buildPhases = (
-				114A44C11D6C9EA300B5E0CD /* Sources */,
-				114A44C21D6C9EA300B5E0CD /* Frameworks */,
-				114A44C31D6C9EA300B5E0CD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				114A44C81D6C9EA300B5E0CD /* PBXTargetDependency */,
-			);
-			name = FramezillaTests;
-			productName = FramezillaTests;
-			productReference = 114A44C51D6C9EA300B5E0CD /* FramezillaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -170,13 +186,13 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Nikita;
 				TargetAttributes = {
+					1103E8F11D71B8FC005AD5C0 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
 					114A44BB1D6C9EA300B5E0CD = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
-					};
-					114A44C41D6C9EA300B5E0CD = {
-						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -194,20 +210,20 @@
 			projectRoot = "";
 			targets = (
 				114A44BB1D6C9EA300B5E0CD /* Framezilla */,
-				114A44C41D6C9EA300B5E0CD /* FramezillaTests */,
+				1103E8F11D71B8FC005AD5C0 /* FramezillaTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		114A44BA1D6C9EA300B5E0CD /* Resources */ = {
+		1103E8F01D71B8FC005AD5C0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		114A44C31D6C9EA300B5E0CD /* Resources */ = {
+		114A44BA1D6C9EA300B5E0CD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,6 +233,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1103E8EE1D71B8FC005AD5C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1103E8F51D71B8FC005AD5C0 /* FramezillaTests.swift in Sources */,
+				1103E8FF1D71B93C005AD5C0 /* NUIMakerGeneralSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		114A44B71D6C9EA300B5E0CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -229,24 +254,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		114A44C11D6C9EA300B5E0CD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		114A44C81D6C9EA300B5E0CD /* PBXTargetDependency */ = {
+		1103E8F91D71B8FC005AD5C0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 114A44BB1D6C9EA300B5E0CD /* Framezilla */;
-			targetProxy = 114A44C71D6C9EA300B5E0CD /* PBXContainerItemProxy */;
+			targetProxy = 1103E8F81D71B8FC005AD5C0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1103E8FB1D71B8FC005AD5C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FramezillaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.FramezillaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		1103E8FC1D71B8FC005AD5C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FramezillaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.FramezillaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		114A44CE1D6C9EA300B5E0CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -385,33 +425,17 @@
 			};
 			name = Release;
 		};
-		114A44D41D6C9EA300B5E0CD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = FramezillaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.FramezillaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		114A44D51D6C9EA300B5E0CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = FramezillaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = otbivnoe.FramezillaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1103E8FA1D71B8FC005AD5C0 /* Build configuration list for PBXNativeTarget "FramezillaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1103E8FB1D71B8FC005AD5C0 /* Debug */,
+				1103E8FC1D71B8FC005AD5C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		114A44B61D6C9EA300B5E0CD /* Build configuration list for PBXProject "Framezilla" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -426,15 +450,6 @@
 			buildConfigurations = (
 				114A44D11D6C9EA300B5E0CD /* Debug */,
 				114A44D21D6C9EA300B5E0CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		114A44D31D6C9EA300B5E0CD /* Build configuration list for PBXNativeTarget "FramezillaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				114A44D41D6C9EA300B5E0CD /* Debug */,
-				114A44D51D6C9EA300B5E0CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
