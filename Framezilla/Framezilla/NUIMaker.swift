@@ -17,26 +17,25 @@ public final class NUIMaker {
     }
     
     unowned let view: UIView
-    
-    typealias HandlerType = () -> Void
-    
-    var isTopFrameInstalled: Bool = false
-    var isLeftFrameInstalled: Bool = false
-    
     var newRect: CGRect
+    
+    private typealias HandlerType = () -> Void
+    
+    private var isTopFrameInstalled: Bool = false
+    private var isLeftFrameInstalled: Bool = false
     
     private var handlers: [(NUIHandlerPriority, HandlerType)] = []
     private var relationParameters: [(NUIRelationType, [Any])] = []
 
+    public var and: NUIMaker {
+        get {
+            return self
+        }
+    }
+    
     init(view: UIView) {
         self.view = view
         self.newRect = view.frame
-    }
-    
-    //FIX: CHANGE
-    public func and() -> NUIMaker {
-        
-        return self
     }
     
     //MARK: High priority
