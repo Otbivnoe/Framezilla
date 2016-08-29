@@ -15,7 +15,8 @@ public extension UIView {
     
     public var nui_state: Int {
         get {
-            return objc_getAssociatedObject(self, &stateTypeAssociationKey) as! Int
+            let state = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? Int
+            return state ?? 0
         }
         set(newValue) {
             objc_setAssociatedObject(self, &stateTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

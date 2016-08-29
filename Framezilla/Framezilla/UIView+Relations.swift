@@ -26,9 +26,9 @@ fileprivate var relationTypeAssociationKey: UInt8 = 0
 
 extension UIView {
     
-    var relationType: NUIRelationType! {
+    var relationType: NUIRelationType? {
         get {
-            return objc_getAssociatedObject(self, &relationTypeAssociationKey) as! NUIRelationType
+            return objc_getAssociatedObject(self, &relationTypeAssociationKey) as? NUIRelationType
         }
         set(newValue) {
             objc_setAssociatedObject(self, &relationTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

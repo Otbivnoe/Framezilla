@@ -27,7 +27,7 @@ extension NUIMaker {
     private func configurateFrame() {
         
         handlers.sort {
-            $0.priority.rawValue >= $1.priority.rawValue
+            $0.priority.rawValue <= $1.priority.rawValue
         }
         
         for handler in handlers {

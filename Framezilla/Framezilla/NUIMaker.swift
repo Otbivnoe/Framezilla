@@ -8,13 +8,13 @@
 
 import Foundation
 
+enum NUIHandlerPriority: Int {
+    case High = 0
+    case Middle
+    case Low
+}
+
 public final class NUIMaker {
-    
-    enum NUIHandlerPriority: Int {
-        case High = 0
-        case Middle
-        case Low
-    }
     
     typealias HandlerType = () -> Void
     typealias RelationParametersType = (type: NUIRelationType, argument: Any)
@@ -93,7 +93,7 @@ public final class NUIMaker {
     @discardableResult public func height(_ height: CGFloat) -> Self {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(height, forRelation: .Width)
+            self.newRect.setValue(height, forRelation: .Height)
         }
         handlers.append((.High, handler))
         relationParameters.append((.Height, height))
