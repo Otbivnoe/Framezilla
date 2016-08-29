@@ -9,13 +9,15 @@
 import Foundation
 import ObjectiveC
 
-enum NUIRelationType {
+enum NUIRelationType: Int {
     case Bottom
     case Top
     case Left
     case Right
     case Width
+    case WidthTo
     case Height
+    case HeightTo
     case CenterX
     case CenterY
 }

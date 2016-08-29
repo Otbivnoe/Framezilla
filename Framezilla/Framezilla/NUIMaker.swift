@@ -17,14 +17,12 @@ public final class NUIMaker {
     }
     
     typealias HandlerType = () -> Void
-    
+    typealias RelationParametersType = (type: NUIRelationType, argument: Any)
+
     unowned let view: UIView
     
-    private var isTopFrameInstalled: Bool = false
-    private var isLeftFrameInstalled: Bool = false
-    
     var handlers:           [(priority: NUIHandlerPriority, handler: HandlerType)] = []
-    var relationParameters: [(type: NUIRelationType, arguments: [Any])] = []
+    var relationParameters: [RelationParametersType] = []
     var newRect: CGRect
     
     public var and: NUIMaker {
@@ -46,45 +44,127 @@ public final class NUIMaker {
             self.newRect.setValue(width, forRelation: .Width)
         }
         handlers.append((.High, handler))
-        relationParameters.append((.Height, [width]))
+        relationParameters.append((.Width, width))
         return self
     }
     
+    @discardableResult public func width(to view: UIView, multiplier: CGFloat = 1.0) -> Self {
+    
+        return checkSuperviewAndRelationType(for: view) { [unowned self] relationView, relationType in
+            
+            let handler = { [unowned self] in
+                if relationView != self.view {
+                    let width = self.relationSize(view: relationView, relationType: relationType) * multiplier
+                    self.newRect.setValue(width, forRelation: .Width)
+                }
+                else {
+                    if let heightParameters = self.relationParameters(relationType: .Height) {
+                        
+                        let width = heightParameters.argument as! CGFloat
+                        self.newRect.setValue(width, forRelation: .Width)
+                    }
+                    else if let heightToParameters = self.relationParameters(relationType: .HeightTo) {
+
+                        let (tempView, tempMultiplier, tempRelationType) = heightToParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let width = self.relationSize(view: tempView, relationType: tempRelationType) * (tempMultiplier * multiplier)
+                        self.newRect.setValue(width, forRelation: .Width)
+                    }
+                    else {
+                        guard let topParameters = self.relationParameters(relationType: .Top), let bottomParameters = self.relationParameters(relationType: .Bottom) else {
+                            assertionFailure("\(#function) : Not enough data for configure frame.")
+                            return
+                        }
+                        
+                        let (topView, topInset, topRelationType) = topParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let (bottomView, bottomInset, bottomRelationType) = bottomParameters.argument as! (UIView, CGFloat, NUIRelationType)
+
+                        let topViewY = self.convertedValue(relationType: topRelationType, forView: topView) + topInset
+                        let bottomViewY = self.convertedValue(relationType: bottomRelationType, forView: bottomView) - bottomInset
+                        
+                        self.newRect.setValue((bottomViewY - topViewY)*multiplier, forRelation: .Width)
+                    }
+                }
+            }
+            self.handlers.append((.High, handler))
+            self.relationParameters.append((.WidthTo, (relationView, multiplier, relationType)))
+        }
+    }
+
     @discardableResult public func height(_ height: CGFloat) -> Self {
         
         let handler = { [unowned self] in
             self.newRect.setValue(height, forRelation: .Width)
         }
         handlers.append((.High, handler))
-        relationParameters.append((.Height, [height]))
+        relationParameters.append((.Height, height))
         return self
     }
     
-    @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0) -> Self {
+    @discardableResult public func height(to view: UIView, multiplier: CGFloat = 1.0) -> Self {
+        
+        return checkSuperviewAndRelationType(for: view) { [unowned self] relationView, relationType in
+            
+            let handler = { [unowned self] in
+                if relationView != self.view {
+                    let height = self.relationSize(view: relationView, relationType: relationType) * multiplier
+                    self.newRect.setValue(height, forRelation: .Height)
+                }
+                else {
+                    if let widthParameters = self.relationParameters(relationType: .Width) {
+                        
+                        let height = widthParameters.argument as! CGFloat
+                        self.newRect.setValue(height, forRelation: .Height)
+                    }
+                    else if let widthToParameters = self.relationParameters(relationType: .WidthTo) {
+                        
+                        let (tempView, tempMultiplier, tempRelationType) = widthToParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let height = self.relationSize(view: tempView, relationType: tempRelationType) * (tempMultiplier * multiplier)
+                        self.newRect.setValue(height, forRelation: .Height)
+                    }
+                    else {
+                        guard let leftParameters = self.relationParameters(relationType: .Left), let rightParameters = self.relationParameters(relationType: .Right) else {
+                            assertionFailure("\(#function) : Not enough data for configure frame.")
+                            return
+                        }
+                        
+                        let (leftView, leftInset, leftRelationType) = leftParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let (rightView, rightInset, rightRelationType) = rightParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        
+                        let leftViewX = self.convertedValue(relationType: leftRelationType, forView: leftView) + leftInset
+                        let rightViewX = self.convertedValue(relationType: rightRelationType, forView: rightView) - rightInset
+                        
+                        self.newRect.setValue((rightViewX - leftViewX)*multiplier, forRelation: .Height)
+                    }
+                }
+            }
+            self.handlers.append((.High, handler))
+            self.relationParameters.append((.HeightTo, (relationView, multiplier, relationType)))
+        }
+    }
+    
+    @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
 
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_left) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) + inset
                 self.newRect.setValue(x, forRelation: .Left)
-                self.isLeftFrameInstalled = true
             }
             self.handlers.append((.High, handler))
-            self.relationParameters.append((.Left, [view, inset, relationType]))
+            self.relationParameters.append((.Left, (relationView, inset, relationType)))
         }
     }
     
-    @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0) -> Self {
+    @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
 
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_top) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) + inset
                 self.newRect.setValue(y, forRelation: .Top)
-                self.isTopFrameInstalled = true
             }
             self.handlers.append((.High, handler))
-            self.relationParameters.append((.Top, [view, inset, relationType]))
+            self.relationParameters.append((.Top, (relationView, inset, relationType)))
         }
     }
     
@@ -131,12 +211,12 @@ public final class NUIMaker {
         return self
     }
     
-    @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0) -> Self {
+    @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
         
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_bottom) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
-                if self.isTopFrameInstalled {
+                if self.isExistsRelationParameters(relationType: .Top) {
                     let height = fabs(self.newRect.minY - self.convertedValue(relationType: relationType, forView: relationView)) - inset
                     self.newRect.setValue(height, forRelation: .Height)
                 }
@@ -146,16 +226,16 @@ public final class NUIMaker {
                 }
             }
             self.handlers.append((.Middle, handler))
-            self.relationParameters.append((.Bottom, [view, inset, relationType]))
+            self.relationParameters.append((.Bottom, (relationView, inset, relationType)))
         }
     }
     
-    @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0) -> Self {
+    @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
         
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_right) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
-                if self.isLeftFrameInstalled {
+                if self.isExistsRelationParameters(relationType: .Left) {
                     let width = fabs(self.newRect.minX - self.convertedValue(relationType: relationType, forView: relationView)) - inset
                     self.newRect.setValue(width, forRelation: .Width)
                 }
@@ -165,13 +245,13 @@ public final class NUIMaker {
                 }
             }
             self.handlers.append((.Middle, handler))
-            self.relationParameters.append((.Bottom, [view, inset, relationType]))
+            self.relationParameters.append((.Right, (relationView, inset, relationType)))
         }
     }
     
     //MARK: Low priority
     
-    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0) -> Self {
+    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> Self {
         
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
             
@@ -183,7 +263,7 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0) -> Self {
+    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> Self {
         
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_centerX) { [unowned self] relationView, relationType in
             
@@ -231,7 +311,7 @@ public final class NUIMaker {
             self.newRect.setValue(value, forRelation: type)
         }
         self.handlers.append((.High, handler))
-        self.relationParameters.append((.Top, [value]))
+        self.relationParameters.append((type, value))
     }
 }
 

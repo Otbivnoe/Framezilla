@@ -24,6 +24,26 @@ extension NUIMaker {
             default: return 0
         }
     }
+    
+    func relationSize(view: UIView, relationType: NUIRelationType) -> CGFloat {
+
+        switch relationType {
+            case .Width:  return view.bounds.width
+            case .Height: return view.bounds.width
+            default:
+                return 0
+        }
+    }
+    
+    func relationParameters(relationType: NUIRelationType) -> RelationParametersType? {
+        
+        return relationParameters.filter({ (type: NUIRelationType, _) -> Bool in type == relationType }).first
+    }
+    
+    func isExistsRelationParameters(relationType: NUIRelationType) -> Bool {
+        
+        return relationParameters(relationType: relationType) != nil
+    }
 }
 
 extension CGRect {
