@@ -32,13 +32,14 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
-        
+
         view1.configureFrames { maker in
             maker.centerX()
             maker.centerY()
-            maker.width(50)
-            maker.height(to: self.view2.nui_height)
+            maker.width(to: self.view2)
+            maker.height(50)
         }
+
     }
     
 }

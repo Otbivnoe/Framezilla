@@ -36,6 +36,18 @@ public final class NUIMaker {
         self.newRect = view.frame
     }
     
+    //MARK: Additions
+    
+    @discardableResult public func edges(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) -> NUIMaker {
+        
+        return apply(self.top, top).apply(self.left, left).apply(self.bottom, bottom).apply(self.right, right)
+    }
+    
+    private func apply(_ f: ((UIView?, CGFloat) -> NUIMaker), _ inset: CGFloat?) -> NUIMaker {
+        
+        return (inset != nil) ? f(nil, inset!) : self
+    }
+    
     //MARK: High priority
     
     @discardableResult public func width(_ width: CGFloat) -> Self {
@@ -297,11 +309,8 @@ public final class NUIMaker {
     
     private func checkSuperviewAndRelationType(for relationView: UIView, configurationBlock: (UIView, NUIRelationType) -> Void) -> Self {
 
-        guard let relationType = relationView.relationType else {
-            assertionFailure("The view '\(relationView)' hasn't a relation type.")
-            return self
-        }
-        configurationBlock(relationView, relationType)
+        assert(relationView.relationType != nil, "The view '\(relationView)' hasn't a relation type.")
+        configurationBlock(relationView, relationView.relationType!)
         return self
     }
 
