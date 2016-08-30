@@ -154,6 +154,11 @@ public final class NUIMaker {
         }
     }
     
+    @discardableResult public func size(width: CGFloat, height: CGFloat) -> Self {
+        
+        return self.width(width).height(height)
+    }
+    
     @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
 
         return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_left) { [unowned self] relationView, relationType in
