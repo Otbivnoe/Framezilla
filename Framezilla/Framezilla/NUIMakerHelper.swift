@@ -29,7 +29,7 @@ extension NUIMaker {
 
         switch relationType {
             case .Width:  return view.bounds.width
-            case .Height: return view.bounds.width
+            case .Height: return view.bounds.height
             default:
                 return 0
         }
