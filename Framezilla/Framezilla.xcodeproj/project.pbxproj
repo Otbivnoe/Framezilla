@@ -16,6 +16,7 @@
 		1182FF101D703A1200EFD4BC /* UIView+Relations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */; };
 		11C49A1C1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A1B1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift */; };
 		11C49A1E1D7F1B3C00D3D8C9 /* NUIStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A1D1D7F1B3C00D3D8C9 /* NUIStateTests.swift */; };
+		11C49A201D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A1F1D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		1182FF0F1D703A1200EFD4BC /* UIView+Relations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Relations.swift"; sourceTree = "<group>"; };
 		11C49A1B1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerWidthHeightTests.swift; sourceTree = "<group>"; };
 		11C49A1D1D7F1B3C00D3D8C9 /* NUIStateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIStateTests.swift; sourceTree = "<group>"; };
+		11C49A1F1D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIBothSideRelationsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				114A44CC1D6C9EA300B5E0CD /* Info.plist */,
 				11C49A1B1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift */,
 				11C49A1D1D7F1B3C00D3D8C9 /* NUIStateTests.swift */,
+				11C49A1F1D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift */,
 			);
 			path = FramezillaTests;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 			files = (
 				11C49A1E1D7F1B3C00D3D8C9 /* NUIStateTests.swift in Sources */,
 				11C49A1C1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift in Sources */,
+				11C49A201D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
