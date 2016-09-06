@@ -9,31 +9,7 @@
 import XCTest
 @testable import Framezilla
 
-class NUIMakerWidthHeightTests: XCTestCase {
-    
-    var mainView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
-    var nestedView1: UIView = UIView(frame: CGRect(x: 100, y: 100, width: 300, height: 300))
-    var nestedView2: UIView = UIView(frame: CGRect(x: 50, y: 50, width: 200, height: 150))
-    
-    var testingView: UIView = UIView()
-
-    override func setUp() {
-        super.setUp()
-        
-        mainView.addSubview(nestedView1)
-        mainView.addSubview(testingView)
-        nestedView1.addSubview(nestedView2)
-
-        testingView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-        
-        nestedView1.removeFromSuperview()
-        nestedView2.removeFromSuperview()
-        testingView.removeFromSuperview()
-    }
+class NUIMakerWidthHeightTests: NUIBaseTest {
     
     func testThanJustSetting_width_configuresCorrectly() {
         

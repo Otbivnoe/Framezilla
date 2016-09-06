@@ -8,11 +8,8 @@
 
 import XCTest
 
-class NUIStateTests: XCTestCase {
-    
-    let mainView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
-    let testingView = UIView()
-    
+class NUIStateTests: NUIBaseTest {
+
     func testThanFrameForStatesChangesCorrectly() {
         
         mainView.addSubview(testingView)

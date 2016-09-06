@@ -8,26 +8,7 @@
 
 import XCTest
 
-class NUIBothSideRelationsTests: XCTestCase {
-    
-    var mainView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
-    var nestedView: UIView = UIView(frame: CGRect(x: 10, y: 10, width: 480, height: 480))
-    var testingView: UIView = UIView()
-    
-    override func setUp() {
-        super.setUp()
-        
-        mainView.addSubview(testingView)
-        mainView.addSubview(nestedView)
-        testingView.frame = CGRect.zero
-    }
-
-    override func tearDown() {
-        super.tearDown()
-
-        testingView.removeFromSuperview()
-        nestedView.removeFromSuperview()
-    }
+class NUIBothSideRelationsTests: NUIBaseTest {
     
     /* rigth-left */
     
@@ -46,10 +27,10 @@ class NUIBothSideRelationsTests: XCTestCase {
         testingView.configureFrames { maker in
             maker.centerY()
             maker.height(100)
-            maker.left(to: self.nestedView.nui_left, inset: 10)
-            maker.right(to: self.nestedView.nui_right, inset: 10)
+            maker.left(to: self.nestedView1.nui_left, inset: 10)
+            maker.right(to: self.nestedView1.nui_right, inset: 10)
         }
-        XCTAssertEqual(testingView.frame, CGRect(x: 20, y: 200, width: 460, height: 100))
+        XCTAssertEqual(testingView.frame, CGRect(x: 110, y: 200, width: 280, height: 100))
     }
     
     /* top-bottom */
@@ -69,9 +50,9 @@ class NUIBothSideRelationsTests: XCTestCase {
         testingView.configureFrames { maker in
             maker.centerX()
             maker.width(100)
-            maker.top(to: self.nestedView.nui_top, inset: 10)
-            maker.bottom(to: self.nestedView.nui_bottom, inset: 10)
+            maker.top(to: self.nestedView1.nui_top, inset: 10)
+            maker.bottom(to: self.nestedView1.nui_bottom, inset: 10)
         }
-        XCTAssertEqual(testingView.frame, CGRect(x: 200, y: 20, width: 100, height: 460))
+        XCTAssertEqual(testingView.frame, CGRect(x: 200, y: 110, width: 100, height: 280))
     }
 }

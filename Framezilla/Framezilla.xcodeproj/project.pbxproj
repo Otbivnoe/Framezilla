@@ -17,6 +17,9 @@
 		11C49A1C1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A1B1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift */; };
 		11C49A1E1D7F1B3C00D3D8C9 /* NUIStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A1D1D7F1B3C00D3D8C9 /* NUIStateTests.swift */; };
 		11C49A201D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A1F1D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift */; };
+		11C49A221D7F281F00D3D8C9 /* NUIMakerCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A211D7F281F00D3D8C9 /* NUIMakerCenterTests.swift */; };
+		11C49A241D7F2E4000D3D8C9 /* NUIMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A231D7F2E4000D3D8C9 /* NUIMakerTests.swift */; };
+		11C49A271D7F2F7500D3D8C9 /* NUIBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C49A261D7F2F7500D3D8C9 /* NUIBaseTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		11C49A1B1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerWidthHeightTests.swift; sourceTree = "<group>"; };
 		11C49A1D1D7F1B3C00D3D8C9 /* NUIStateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIStateTests.swift; sourceTree = "<group>"; };
 		11C49A1F1D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIBothSideRelationsTests.swift; sourceTree = "<group>"; };
+		11C49A211D7F281F00D3D8C9 /* NUIMakerCenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerCenterTests.swift; sourceTree = "<group>"; };
+		11C49A231D7F2E4000D3D8C9 /* NUIMakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerTests.swift; sourceTree = "<group>"; };
+		11C49A261D7F2F7500D3D8C9 /* NUIBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIBaseTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,9 @@
 				11C49A1B1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift */,
 				11C49A1D1D7F1B3C00D3D8C9 /* NUIStateTests.swift */,
 				11C49A1F1D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift */,
+				11C49A211D7F281F00D3D8C9 /* NUIMakerCenterTests.swift */,
+				11C49A231D7F2E4000D3D8C9 /* NUIMakerTests.swift */,
+				11C49A261D7F2F7500D3D8C9 /* NUIBaseTest.swift */,
 			);
 			path = FramezillaTests;
 			sourceTree = "<group>";
@@ -232,8 +241,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				11C49A1E1D7F1B3C00D3D8C9 /* NUIStateTests.swift in Sources */,
+				11C49A221D7F281F00D3D8C9 /* NUIMakerCenterTests.swift in Sources */,
 				11C49A1C1D7F09DB00D3D8C9 /* NUIMakerWidthHeightTests.swift in Sources */,
+				11C49A271D7F2F7500D3D8C9 /* NUIBaseTest.swift in Sources */,
 				11C49A201D7F234000D3D8C9 /* NUIBothSideRelationsTests.swift in Sources */,
+				11C49A241D7F2E4000D3D8C9 /* NUIMakerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
