@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "114A44C41D6C9EA300B5E0CD"
+               BlueprintIdentifier = "1103E8F11D71B8FC005AD5C0"
                BuildableName = "FramezillaTests.xctest"
                BlueprintName = "FramezillaTests"
                ReferencedContainer = "container:Framezilla.xcodeproj">

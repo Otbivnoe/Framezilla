@@ -24,7 +24,7 @@ extension NUIMaker {
             default: return 0
         }
     }
-    
+
     func relationSize(view: UIView, relationType: NUIRelationType) -> CGFloat {
 
         switch relationType {

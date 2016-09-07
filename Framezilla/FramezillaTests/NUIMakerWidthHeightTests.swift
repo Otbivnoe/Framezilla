@@ -27,6 +27,16 @@ class NUIMakerWidthHeightTests: NUIBaseTest {
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 50, height: 400))
     }
     
+    /* size */
+    
+    func testThan_size_configuresCorrectly() {
+        
+        testingView.configureFrames { maker in
+            maker.size(width: 100, height: 99)
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 100, height: 99))
+    }
+    
     /* with_to */
     
     func testThan_width_to_toAnotherView_width_configuresCorrectly() {
@@ -42,7 +52,7 @@ class NUIMakerWidthHeightTests: NUIBaseTest {
         testingView.configureFrames { maker in
             maker.width(to: self.nestedView2.nui_height, multiplier: 1)
         }
-        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 150, height: 50))
+        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 200, height: 50))
     }
     
     func testThan_width_to_toSelfView_height_configuresCorrectlyWithTopAndBottomSuperViewRelations() {
@@ -65,6 +75,15 @@ class NUIMakerWidthHeightTests: NUIBaseTest {
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 160, width: 115, height: 230))
     }
     
+    func testThan_width_to_configuresCorrectlyWithJustSettingHeight() {
+        
+        testingView.configureFrames { maker in
+            maker.height(100)
+            maker.width(to: self.testingView.nui_height, multiplier: 0.5)
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 50, height: 100))
+    }
+    
     /* height_to */
     
     func testThan_height_to_toAnotherView_width_configuresCorrectly() {
@@ -80,7 +99,7 @@ class NUIMakerWidthHeightTests: NUIBaseTest {
         testingView.configureFrames { maker in
             maker.height(to: self.nestedView2.nui_height, multiplier: 1)
         }
-        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 50, height: 150))
+        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 50, height: 200))
     }
     
     func testThan_height_to_toSelfView_width_configuresCorrectlyWithLeftAndRightSuperViewRelations() {
@@ -101,6 +120,15 @@ class NUIMakerWidthHeightTests: NUIBaseTest {
             maker.height(to: self.testingView.nui_width, multiplier: 0.5)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 110, y: 0, width: 280, height: 140))
+    }
+    
+    func testThan_height_to_configuresCorrectlyWithJustSettingWidth() {
+        
+        testingView.configureFrames { maker in
+            maker.width(100)
+            maker.height(to: self.testingView.nui_width, multiplier: 0.5)
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 0, width: 100, height: 50))
     }
     
     /* height_to with width_to */

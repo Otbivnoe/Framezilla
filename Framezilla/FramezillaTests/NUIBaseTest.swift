@@ -12,7 +12,7 @@ class NUIBaseTest: XCTestCase {
     
     var mainView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
     var nestedView1: UIView = UIView(frame: CGRect(x: 100, y: 100, width: 300, height: 300))
-    var nestedView2: UIView = UIView(frame: CGRect(x: 50, y: 50, width: 200, height: 150))
+    var nestedView2: UIView = UIView(frame: CGRect(x: 50, y: 50, width: 200, height: 200))
     
     var testingView: UIView = UIView()
     

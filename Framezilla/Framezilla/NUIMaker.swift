@@ -73,7 +73,7 @@ public final class NUIMaker {
                     if let heightParameters = self.relationParameters(relationType: .Height) {
                         
                         let width = heightParameters.argument as! CGFloat
-                        self.newRect.setValue(width, forRelation: .Width)
+                        self.newRect.setValue(width * multiplier, forRelation: .Width)
                     }
                     else if let heightToParameters = self.relationParameters(relationType: .HeightTo) {
 
@@ -83,7 +83,6 @@ public final class NUIMaker {
                     }
                     else {
                         guard let topParameters = self.relationParameters(relationType: .Top), let bottomParameters = self.relationParameters(relationType: .Bottom) else {
-                            assertionFailure("\(#function) : Not enough data for configure frame.")
                             return
                         }
                         
@@ -125,7 +124,7 @@ public final class NUIMaker {
                     if let widthParameters = self.relationParameters(relationType: .Width) {
                         
                         let height = widthParameters.argument as! CGFloat
-                        self.newRect.setValue(height, forRelation: .Height)
+                        self.newRect.setValue(height * multiplier, forRelation: .Height)
                     }
                     else if let widthToParameters = self.relationParameters(relationType: .WidthTo) {
                         
@@ -135,7 +134,6 @@ public final class NUIMaker {
                     }
                     else {
                         guard let leftParameters = self.relationParameters(relationType: .Left), let rightParameters = self.relationParameters(relationType: .Right) else {
-                            assertionFailure("\(#function) : Not enough data for configure frame.")
                             return
                         }
                         
