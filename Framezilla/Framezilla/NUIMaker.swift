@@ -24,6 +24,13 @@ public final class NUIMaker {
     var handlers:           [(priority: NUIHandlerPriority, handler: HandlerType)] = []
     var relationParameters: [RelationParametersType] = []
     var newRect: CGRect
+
+    init(_ view: UIView) {
+        self.view = view
+        self.newRect = view.frame
+    }
+    
+    //MARK: Additions
     
     public var and: NUIMaker {
         get {
@@ -31,12 +38,11 @@ public final class NUIMaker {
         }
     }
     
-    init(_ view: UIView) {
-        self.view = view
-        self.newRect = view.frame
+    public var naprimer: NUIMaker {
+        get {
+            return self
+        }
     }
-    
-    //MARK: Additions
     
     @discardableResult public func edges(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) -> NUIMaker {
         
@@ -50,7 +56,7 @@ public final class NUIMaker {
     
     //MARK: High priority
     
-    @discardableResult public func width(_ width: CGFloat) -> Self {
+    @discardableResult public func width(_ width: CGFloat) -> NUIMaker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(width, forRelation: .Width)
@@ -60,9 +66,9 @@ public final class NUIMaker {
         return self
     }
     
-    @discardableResult public func width(to view: UIView, multiplier: CGFloat = 1.0) -> Self {
+    @discardableResult public func width(to view: UIView, multiplier: CGFloat = 1.0) -> NUIMaker {
     
-        return checkSuperviewAndRelationType(for: view) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 if relationView != self.view {
@@ -101,7 +107,7 @@ public final class NUIMaker {
         }
     }
 
-    @discardableResult public func height(_ height: CGFloat) -> Self {
+    @discardableResult public func height(_ height: CGFloat) -> NUIMaker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(height, forRelation: .Height)
@@ -111,9 +117,9 @@ public final class NUIMaker {
         return self
     }
     
-    @discardableResult public func height(to view: UIView, multiplier: CGFloat = 1.0) -> Self {
+    @discardableResult public func height(to view: UIView, multiplier: CGFloat = 1.0) -> NUIMaker {
         
-        return checkSuperviewAndRelationType(for: view) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 if relationView != self.view {
@@ -152,14 +158,14 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func size(width: CGFloat, height: CGFloat) -> Self {
+    @discardableResult public func size(width: CGFloat, height: CGFloat) -> NUIMaker {
         
         return self.width(width).height(height)
     }
     
-    @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
+    @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
-        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_left) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview!.nui_left) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) + inset
@@ -170,9 +176,9 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
+    @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
-        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_top) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview!.nui_top) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) + inset
@@ -183,7 +189,7 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func container() -> Self {
+    @discardableResult public func container() -> NUIMaker {
         
         var frame = CGRect.zero
         for subview in self.view.subviews {
@@ -194,7 +200,7 @@ public final class NUIMaker {
         return self
     }
 
-    @discardableResult public func sizeToFit() -> Self {
+    @discardableResult public func sizeToFit() -> NUIMaker {
         
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, forRelation: .Width)
@@ -202,7 +208,7 @@ public final class NUIMaker {
         return self
     }
     
-    @discardableResult public func sizeThatFits(size: CGSize) -> Self {
+    @discardableResult public func sizeThatFits(size: CGSize) -> NUIMaker {
         
         let fitSize = view.sizeThatFits(size)
         let width = min(size.width, fitSize.width)
@@ -214,7 +220,7 @@ public final class NUIMaker {
     
     //MARK: Middle priority
     
-    @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> Self {
+    @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> NUIMaker {
         
         let handler = { [unowned self] in
             let width = self.view.superview!.bounds.width - (insets.left + insets.right)
@@ -226,9 +232,9 @@ public final class NUIMaker {
         return self
     }
     
-    @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
+    @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
-        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_bottom) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview!.nui_bottom) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 if self.isExistsRelationParameters(relationType: .Top) {
@@ -245,9 +251,9 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> Self {
+    @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
-        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_right) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview!.nui_right) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 if self.isExistsRelationParameters(relationType: .Left) {
@@ -266,9 +272,9 @@ public final class NUIMaker {
     
     //MARK: Low priority
     
-    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> Self {
+    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
-        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.height/2 - offset
@@ -278,9 +284,9 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> Self {
+    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
-        return checkSuperviewAndRelationType(for: view ?? self.view.superview!.nui_centerX) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview!.nui_centerX) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.width/2 - offset
@@ -290,7 +296,7 @@ public final class NUIMaker {
         }
     }
     
-    @discardableResult public func setCenterX(value: CGFloat) -> Self {
+    @discardableResult public func setCenterX(value: CGFloat) -> NUIMaker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(value, forRelation: .CenterX)
@@ -299,7 +305,7 @@ public final class NUIMaker {
         return self
     }
     
-    @discardableResult public func setCenterY(value: CGFloat) -> Self {
+    @discardableResult public func setCenterY(value: CGFloat) -> NUIMaker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(value, forRelation: .CenterY)
@@ -310,7 +316,7 @@ public final class NUIMaker {
     
     //MARK: Private
     
-    private func checkSuperviewAndRelationType(for relationView: UIView, configurationBlock: (UIView, NUIRelationType) -> Void) -> Self {
+    private func checkRelationType(for relationView: UIView, configurationBlock: (UIView, NUIRelationType) -> Void) -> NUIMaker {
 
         assert(relationView.relationType != nil, "The view '\(relationView)' hasn't a relation type.")
         configurationBlock(relationView, relationView.relationType!)
