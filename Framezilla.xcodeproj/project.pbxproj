@@ -14,7 +14,6 @@
 		115972291D84517800BC5C20 /* NUIMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972231D84517800BC5C20 /* NUIMakerTests.swift */; };
 		1159722A1D84517800BC5C20 /* NUIMakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972241D84517800BC5C20 /* NUIMakerWidthHeightTests.swift */; };
 		1159722B1D84517800BC5C20 /* NUIStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972251D84517800BC5C20 /* NUIStateTests.swift */; };
-		11E282841D846168009984D0 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E282831D846168009984D0 /* Package.swift */; };
 		11FB41371D844D2C00700A40 /* Framezilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FB41351D844D2C00700A40 /* Framezilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11FB41451D844F8F00700A40 /* NUIMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41401D844F8F00700A40 /* NUIMaker.swift */; };
 		11FB41461D844F8F00700A40 /* NUIMaker+Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41411D844F8F00700A40 /* NUIMaker+Configurations.swift */; };
@@ -43,7 +42,6 @@
 		115972231D84517800BC5C20 /* NUIMakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerTests.swift; sourceTree = "<group>"; };
 		115972241D84517800BC5C20 /* NUIMakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerWidthHeightTests.swift; sourceTree = "<group>"; };
 		115972251D84517800BC5C20 /* NUIStateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIStateTests.swift; sourceTree = "<group>"; };
-		11E282831D846168009984D0 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		11FB41321D844D2C00700A40 /* Framezilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Framezilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FB41351D844D2C00700A40 /* Framezilla.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framezilla.h; sourceTree = "<group>"; };
 		11FB413E1D844DD000700A40 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		11FB41261D844CD800700A40 = {
 			isa = PBXGroup;
 			children = (
-				11E282831D846168009984D0 /* Package.swift */,
 				11FB414A1D844FFA00700A40 /* Framezilla.podspec */,
 				11FB414B1D844FFA00700A40 /* LICENSE */,
 				11FB414C1D844FFA00700A40 /* README.md */,
@@ -251,7 +248,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11E282841D846168009984D0 /* Package.swift in Sources */,
 				11FB41461D844F8F00700A40 /* NUIMaker+Configurations.swift in Sources */,
 				11FB41451D844F8F00700A40 /* NUIMaker.swift in Sources */,
 				11FB41471D844F8F00700A40 /* NUIMakerHelper.swift in Sources */,
