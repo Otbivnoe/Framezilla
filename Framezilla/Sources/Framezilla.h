@@ -2,8 +2,8 @@
 //  Framezilla.h
 //  Framezilla
 //
-//  Created by Nikita on 23/08/16.
-//  Copyright © 2016 Nikita. All rights reserved.
+//  Created by Nikita on 10/09/16.
+//
 //
 
 #import <UIKit/UIKit.h>

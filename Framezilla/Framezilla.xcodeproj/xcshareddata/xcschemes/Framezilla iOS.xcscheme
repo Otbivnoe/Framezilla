@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "114A44BB1D6C9EA300B5E0CD"
+               BlueprintIdentifier = "11FB41311D844D2B00700A40"
                BuildableName = "Framezilla.framework"
-               BlueprintName = "Framezilla"
+               BlueprintName = "Framezilla iOS"
                ReferencedContainer = "container:Framezilla.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,14 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1103E8F11D71B8FC005AD5C0"
+               BlueprintIdentifier = "115972131D8450F500BC5C20"
                BuildableName = "FramezillaTests.xctest"
                BlueprintName = "FramezillaTests"
                ReferencedContainer = "container:Framezilla.xcodeproj">
@@ -43,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "114A44BB1D6C9EA300B5E0CD"
+            BlueprintIdentifier = "11FB41311D844D2B00700A40"
             BuildableName = "Framezilla.framework"
-            BlueprintName = "Framezilla"
+            BlueprintName = "Framezilla iOS"
             ReferencedContainer = "container:Framezilla.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "114A44BB1D6C9EA300B5E0CD"
+            BlueprintIdentifier = "11FB41311D844D2B00700A40"
             BuildableName = "Framezilla.framework"
-            BlueprintName = "Framezilla"
+            BlueprintName = "Framezilla iOS"
             ReferencedContainer = "container:Framezilla.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "114A44BB1D6C9EA300B5E0CD"
+            BlueprintIdentifier = "11FB41311D844D2B00700A40"
             BuildableName = "Framezilla.framework"
-            BlueprintName = "Framezilla"
+            BlueprintName = "Framezilla iOS"
             ReferencedContainer = "container:Framezilla.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
