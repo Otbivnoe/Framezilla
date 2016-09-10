@@ -13,6 +13,8 @@ fileprivate var stateTypeAssociationKey: UInt8 = 0
 
 public extension UIView {
     
+    /// Apply new configuration state without frame updating
+
     public var nui_state: Int {
         get {
             let state = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? Int
@@ -25,6 +27,11 @@ public extension UIView {
 }
 
 public extension UIView {
+    
+    /// Creates and configurates NUIMaker object for each view.
+    ///
+    /// - parameter state:          The state for which you configurate frame.
+    /// - parameter installerBlock: The installer block within which you can configurate frame relations.
     
     public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
 

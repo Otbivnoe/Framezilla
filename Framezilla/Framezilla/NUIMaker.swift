@@ -32,17 +32,45 @@ public final class NUIMaker {
     
     //MARK: Additions
     
+    ///	Optional semantic property for improvements readability.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     public var and: NUIMaker {
         get {
             return self
         }
     }
     
+    ///	ROFL semantic property.
+    ///
+    /// - note: RU only :)
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     public var naprimer: NUIMaker {
         get {
             return self
         }
     }
+    
+    /// Creates edges relation with optional parameters.
+    ///
+    /// It's useful method for configure some side relations in short form.
+    ///
+    /// ```
+    /// Instead of writing 
+    ///     maker.top(10).bottom(10).and.left(10)
+    /// just write 
+    ///     maker.edges(top:10, left:10, bottom:10) - it's more elegant.
+    /// ```
+    ///
+    /// - parameter top:    The top inset relation relatively superview.
+    /// - parameter left:   The left inset relation relatively superview.
+    /// - parameter bottom: The bottom inset relation relatively superview.
+    /// - parameter right:  The right inset relation relatively superview.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func edges(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) -> NUIMaker {
         
@@ -56,6 +84,12 @@ public final class NUIMaker {
     
     //MARK: High priority
     
+    /// Installs constant width for current view.
+    ///
+    /// - parameter width:    The width for view.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func width(_ width: CGFloat) -> NUIMaker {
         
         let handler = { [unowned self] in
@@ -66,6 +100,21 @@ public final class NUIMaker {
         return self
     }
     
+    /// Creates width relation relatively another view.
+    ///
+    /// Uses this method when you want that your view's width equals to another view's height with some multiplier, for example.
+    ///
+    /// - note: You can not use this method with other relations except for `nui_width` and `nui_height`.
+    ///
+    /// ``` 
+    ///     maker.width(to: view.nui_height, multiplier: 0.5)
+    /// ```
+    ///
+    /// - parameter view:       The view on which you set relation.
+    /// - parameter multiplier: The multiplier for views relation. 1 - default multiplier value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+
     @discardableResult public func width(to view: UIView, multiplier: CGFloat = 1.0) -> NUIMaker {
     
         return checkRelationType(for: view) { [unowned self] relationView, relationType in
@@ -106,6 +155,12 @@ public final class NUIMaker {
             self.relationParameters.append((.WidthTo, (relationView, multiplier, relationType)))
         }
     }
+    
+    /// Installs constant height for current view.
+    ///
+    /// - parameter height: The height for view.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
 
     @discardableResult public func height(_ height: CGFloat) -> NUIMaker {
         
@@ -116,6 +171,21 @@ public final class NUIMaker {
         relationParameters.append((.Height, height))
         return self
     }
+    
+    /// Creates height relation relatively another view.
+    ///
+    /// Uses this method when you want that your view's height equals to another view's width with some multiplier, for example.
+    ///
+    /// - note: You can not use this method with other relations except for `nui_width` and `nui_height`.
+    ///
+    /// ```
+    ///     maker.width(to: view.nui_height, multiplier: 0.5)
+    /// ```
+    ///
+    /// - parameter view:       The view on which you set relation.
+    /// - parameter multiplier: The multiplier for views relation. 1 - default multiplier value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func height(to view: UIView, multiplier: CGFloat = 1.0) -> NUIMaker {
         
@@ -158,10 +228,35 @@ public final class NUIMaker {
         }
     }
     
+    /// Installs constant width and height at the same time.
+    ///
+    /// - parameter width:  The width for view.
+    /// - parameter height: The height for view.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func size(width: CGFloat, height: CGFloat) -> NUIMaker {
         
         return self.width(width).height(height)
     }
+    
+    /// Creates left relation.
+    ///
+    /// Use this method when you want to join left side of current view with some horizontal side of another view.
+    ///
+    /// - note: It's important to specify view relation. E.g `nui_left`, `nui_centerX` and `nui_right`.
+    ///
+    /// ```
+    /// Correct:
+    ///     maker.left(to: view.nui_right)
+    /// Incorrect:
+    ///     maker.left(to: view)
+    /// ```
+    ///
+    /// - parameter view:  The view on which you set left relation. Superview - default view.
+    /// - parameter inset: The inset for additional space between views. 0 - default value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
@@ -176,6 +271,24 @@ public final class NUIMaker {
         }
     }
     
+    /// Creates top relation.
+    ///
+    /// Use this method when you want to join top side of current view with some vertical side of another view.
+    ///
+    /// - note: It's important to specify view relation. E.g `nui_top`, `nui_centerY` and `nui_bottom`.
+    ///
+    /// ```
+    /// Correct:
+    ///     maker.top(to: view.nui_bottom)
+    /// Incorrect:
+    ///     maker.top(to: view)
+    /// ```
+    ///
+    /// - parameter view:  The view on which you set top relation. Superview - default view.
+    /// - parameter inset: The inset for additional space between views. 0 - default value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
         return checkRelationType(for: view ?? self.view.superview!.nui_top) { [unowned self] relationView, relationType in
@@ -189,6 +302,16 @@ public final class NUIMaker {
         }
     }
     
+    /// Creates сontainer relation.
+    ///
+    /// Use this method when you want to set `width` and `height` by wrapping all subviews.
+    ///
+    /// - note: First, you should configure all subviews and then call this method for `container view`.
+    /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations by subview, because
+    ///         `container` sets width relatively width of subview and here is some ambiguous.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func container() -> NUIMaker {
         
         var frame = CGRect.zero
@@ -200,6 +323,10 @@ public final class NUIMaker {
         return self
     }
 
+    /// Resizes the current view so it just encloses its subviews.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func sizeToFit() -> NUIMaker {
         
         view.sizeToFit()
@@ -207,6 +334,15 @@ public final class NUIMaker {
         setHighPriorityValue(view.bounds.height, forRelation: .Height)
         return self
     }
+    
+    /// Calculate the size that best fits the specified size.
+    ///
+    /// ```
+    ///     maker.sizeThatFits(size: CGSize(width: cell.frame.width, height: cell.frame.height)
+    /// ```
+    /// - parameter size: The size for best-fitting.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func sizeThatFits(size: CGSize) -> NUIMaker {
         
@@ -220,6 +356,12 @@ public final class NUIMaker {
     
     //MARK: Middle priority
     
+    /// Creates edges relation for superview.
+    ///
+    /// - parameter insets: The insets for setting relations for superview. `UIEdgeInsets.zero` - default insets.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> NUIMaker {
         
         let handler = { [unowned self] in
@@ -231,6 +373,24 @@ public final class NUIMaker {
         self.handlers.append((.Middle, handler))
         return self
     }
+    
+    /// Creates bottom relation.
+    ///
+    /// Use this method when you want to join bottom side of current view with some vertical side of another view.
+    ///
+    /// - note: It's important to specify view relation. E.g `nui_top`, `nui_centerY` and `nui_bottom`.
+    ///
+    /// ```
+    /// Correct:
+    ///     maker.bottom(to: view.nui_bottom)
+    /// Incorrect:
+    ///     maker.bottom(to: view)
+    /// ```
+    ///
+    /// - parameter view:     The view on which you set top relation. Superview - default view.
+    /// - parameter inset:    The inset for additional space between views. 0 - default value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
@@ -250,6 +410,24 @@ public final class NUIMaker {
             self.relationParameters.append((.Bottom, (relationView, inset, relationType)))
         }
     }
+    
+    /// Creates right relation.
+    ///
+    /// Use this method when you want to join right side of current view with some horizontal side of another view.
+    ///
+    /// - note: It's important to specify view relation. E.g `nui_left`, `nui_centerX` and `nui_right`.
+    ///
+    /// ```
+    /// Correct:
+    ///     maker.right(to: view.nui_right)
+    /// Incorrect:
+    ///     maker.right(to: view)
+    /// ```
+    ///
+    /// - parameter view:     The view on which you set left relation. Superview - default view.
+    /// - parameter inset:    The inset for additional space between views. 0 - default value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
@@ -272,6 +450,24 @@ public final class NUIMaker {
     
     //MARK: Low priority
     
+    /// Creates centerY relation.
+    ///
+    /// Use this method when you want to join centerY of current view with some vertical side of another view.
+    ///
+    /// - note: It's important to specify view relation. E.g `nui_top`, `nui_centerY` and `nui_bottom`.
+    ///
+    /// ```
+    /// Correct:
+    ///     maker.centerY(to: view.nui_top)
+    /// Incorrect:
+    ///     maker.centerY(to: view)
+    /// ```
+    ///
+    /// - parameter view:   The view on which you set centerY relation. Superview - default view.
+    /// - parameter offset: Additional offset for centerY point. 0 - default value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
         return checkRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
@@ -283,6 +479,24 @@ public final class NUIMaker {
             self.handlers.append((.Low, handler))
         }
     }
+    
+    /// Creates centerX relation.
+    ///
+    /// Use this method when you want to join centerX of current view with some horizontal side of another view.
+    ///
+    /// - note: It's important to specify view relation. E.g `nui_left`, `nui_centerX` and `nui_right`.
+    ///
+    /// ```
+    /// Correct:
+    ///     maker.centerX(to: view.nui_left)
+    /// Incorrect:
+    ///     maker.centerX(to: view)
+    /// ```
+    ///
+    /// - parameter view:   The view on which you set centerX relation. Superview - default view.
+    /// - parameter offset: Additional offset for centerY point. 0 - default value.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
@@ -296,6 +510,12 @@ public final class NUIMaker {
         }
     }
     
+    /// Just setting centerX.
+    ///
+    /// - parameter value: The value for setting centerX.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
+    
     @discardableResult public func setCenterX(value: CGFloat) -> NUIMaker {
         
         let handler = { [unowned self] in
@@ -304,6 +524,12 @@ public final class NUIMaker {
         self.handlers.append((.Low, handler))
         return self
     }
+    
+    /// Just setting centerY.
+    ///
+    /// - parameter value: The value for setting centerY.
+    ///
+    /// - returns: `NUIMaker` instance for chaining relations.
     
     @discardableResult public func setCenterY(value: CGFloat) -> NUIMaker {
         
