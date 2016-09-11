@@ -260,6 +260,7 @@ public final class NUIMaker {
     
     @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
+        checkSuperView(view)
         return checkRelationType(for: view ?? self.view.superview!.nui_left) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
@@ -291,6 +292,7 @@ public final class NUIMaker {
     
     @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
+        checkSuperView(view)
         return checkRelationType(for: view ?? self.view.superview!.nui_top) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
@@ -364,6 +366,8 @@ public final class NUIMaker {
     
     @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> NUIMaker {
         
+        assert(self.view.superview != nil, "Can not create realtions without superview.")
+        
         let handler = { [unowned self] in
             let width = self.view.superview!.bounds.width - (insets.left + insets.right)
             let height = self.view.superview!.bounds.height - (insets.left + insets.right)
@@ -394,6 +398,7 @@ public final class NUIMaker {
     
     @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
+        checkSuperView(view)
         return checkRelationType(for: view ?? self.view.superview!.nui_bottom) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
@@ -431,6 +436,7 @@ public final class NUIMaker {
     
     @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
+        checkSuperView(view)
         return checkRelationType(for: view ?? self.view.superview!.nui_right) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
@@ -470,6 +476,7 @@ public final class NUIMaker {
     
     @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
+        checkSuperView(view)
         return checkRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
@@ -500,6 +507,7 @@ public final class NUIMaker {
     
     @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
+        checkSuperView(view)
         return checkRelationType(for: view ?? self.view.superview!.nui_centerX) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
@@ -541,6 +549,13 @@ public final class NUIMaker {
     }
     
     //MARK: Private
+    
+    private func checkSuperView(_ view: UIView?) {
+        
+        if (view == nil) {
+            assert(self.view.superview != nil, "Can not create realtions without superview.")
+        }
+    }
     
     private func checkRelationType(for relationView: UIView, configurationBlock: (UIView, NUIRelationType) -> Void) -> NUIMaker {
 
