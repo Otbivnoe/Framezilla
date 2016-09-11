@@ -7,7 +7,6 @@
 **Framezilla** is the child of [Framer](https://github.com/Otbivnoe/Framer) (analog of great layout framework which wraps manually calculation frames with a nice-chaining syntax), but only for Swift.
 
 # Installation :fire:
----
 
 ### CocoaPods
 
@@ -72,7 +71,6 @@ $ swift build
 ```
 
 # Features :boom:
----
 
 - [x] Edges with superview
 - [x] Width / Height
@@ -85,7 +83,6 @@ $ swift build
 - [x] States
 
 # Usage :rocket:
----
 
 ### Size (width, height)
 
@@ -301,11 +298,9 @@ set new state and animate it:
 ```
 
 # Author :muscle:
----
 
 Nikita Ermolenko, nikita.ermolenko@rosberry.com
 
 # License :exclamation:
----
 
 Framezilla is available under the MIT license. See the LICENSE file for more info.
