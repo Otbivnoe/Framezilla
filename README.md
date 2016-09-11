@@ -1,3 +1,5 @@
+![](img/framezilla.png)
+
 **Everyone wants to see smooth scrolling, that tableview or collectionview scrolls without any lags and it's right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not elegant, beautiful structure.**
 
 **So, it's library for those, who want to see smooth scrolling with elegant code under the hood!**
