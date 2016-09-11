@@ -260,8 +260,7 @@ public final class NUIMaker {
     
     @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
-        checkSuperView(view)
-        return checkRelationType(for: view ?? self.view.superview!.nui_left) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview?.nui_left) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) + inset
@@ -292,8 +291,7 @@ public final class NUIMaker {
     
     @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
 
-        checkSuperView(view)
-        return checkRelationType(for: view ?? self.view.superview!.nui_top) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview?.nui_top) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) + inset
@@ -398,8 +396,7 @@ public final class NUIMaker {
     
     @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
-        checkSuperView(view)
-        return checkRelationType(for: view ?? self.view.superview!.nui_bottom) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview?.nui_bottom) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 if self.isExistsRelationParameters(relationType: .Top) {
@@ -436,8 +433,7 @@ public final class NUIMaker {
     
     @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
         
-        checkSuperView(view)
-        return checkRelationType(for: view ?? self.view.superview!.nui_right) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview?.nui_right) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 if self.isExistsRelationParameters(relationType: .Left) {
@@ -476,8 +472,7 @@ public final class NUIMaker {
     
     @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
-        checkSuperView(view)
-        return checkRelationType(for: view ?? self.view.superview!.nui_centerY) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview?.nui_centerY) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.height/2 - offset
@@ -507,8 +502,7 @@ public final class NUIMaker {
     
     @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
         
-        checkSuperView(view)
-        return checkRelationType(for: view ?? self.view.superview!.nui_centerX) { [unowned self] relationView, relationType in
+        return checkRelationType(for: view ?? self.view.superview?.nui_centerX) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.width/2 - offset
@@ -549,18 +543,17 @@ public final class NUIMaker {
     }
     
     //MARK: Private
-    
-    private func checkSuperView(_ view: UIView?) {
-        
-        if (view == nil) {
-            assert(self.view.superview != nil, "Can not create realtions without superview.")
-        }
-    }
-    
-    private func checkRelationType(for relationView: UIView, configurationBlock: (UIView, NUIRelationType) -> Void) -> NUIMaker {
 
-        assert(relationView.relationType != nil, "The view '\(relationView)' hasn't a relation type.")
-        configurationBlock(relationView, relationView.relationType!)
+    
+    private func checkRelationType(for relationView: UIView?, configurationBlock: (UIView, NUIRelationType) -> Void) -> NUIMaker {
+
+        guard relationView != nil else {
+            assertionFailure("Can not configure relation with not correct view.")
+            return self
+        }
+        
+        assert(relationView!.relationType != nil, "The view '\(relationView)' hasn't a relation type.")
+        configurationBlock(relationView!, relationView!.relationType!)
         return self
     }
 
