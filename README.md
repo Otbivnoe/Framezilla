@@ -147,7 +147,7 @@ You can create edge relation, as shown above, but only use side relations.
 
 Also possible to create relations with another view, not a superview:
 
-![](img/bottomLeftRelation.png)]
+![](img/bottomLeftRelation.png)
 
 ```swift
   // Red view
@@ -193,7 +193,7 @@ What if you want to join the center point of the view with the top right point o
 
 ### PFF, OKAY.
 
-![](img/centered.png)]
+![](img/centered.png)
 
 ```swift
     view.configureFrames { maker in
@@ -205,7 +205,7 @@ What if you want to join the center point of the view with the top right point o
 
 ## SizeToFit and SizeThatFits
 
-Very often you should configure labels, so there are some methods for comfortable work with it.
+Very often you should configure labels, so there are some methods for comfortable work with them.
 
 #### SizeToFit
 
