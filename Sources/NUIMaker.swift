@@ -307,7 +307,7 @@ public final class NUIMaker {
     /// Use this method when you want to set `width` and `height` by wrapping all subviews.
     ///
     /// - note: First, you should configure all subviews and then call this method for `container view`.
-    /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations by subview, because
+    /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because
     ///         `container` sets width relatively width of subview and here is some ambiguous.
     ///
     /// - returns: `NUIMaker` instance for chaining relations.
