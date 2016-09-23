@@ -1,5 +1,5 @@
 //
-//  NUIMakerTests.swift
+//  MakerTests.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class NUIMakerTests: NUIBaseTest {
+class MakerTests: BaseTest {
     
     /* bottom_to with nui_top */
     

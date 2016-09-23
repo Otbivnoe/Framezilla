@@ -9,7 +9,7 @@
 import Foundation
 import ObjectiveC
 
-enum NUIRelationType: Int {
+enum RelationType: Int {
     case Bottom
     case Top
     case Left
@@ -26,9 +26,9 @@ fileprivate var relationTypeAssociationKey: UInt8 = 0
 
 extension UIView {
     
-    var relationType: NUIRelationType? {
+    var relationType: RelationType? {
         get {
-            return objc_getAssociatedObject(self, &relationTypeAssociationKey) as? NUIRelationType
+            return objc_getAssociatedObject(self, &relationTypeAssociationKey) as? RelationType
         }
         set(newValue) {
             objc_setAssociatedObject(self, &relationTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

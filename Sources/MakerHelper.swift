@@ -1,5 +1,5 @@
 //
-//  NUIMakerHelper.swift
+//  MakerHelper.swift
 //  Framezilla
 //
 //  Created by Nikita on 26/08/16.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension NUIMaker {
+extension Maker {
 
-    func convertedValue(relationType: NUIRelationType, forView view: UIView) -> CGFloat {
+    func convertedValue(relationType: RelationType, forView view: UIView) -> CGFloat {
     
         let convertedRect = self.view.superview!.convert(view.frame, from: view.superview)
         
@@ -25,7 +25,7 @@ extension NUIMaker {
         }
     }
 
-    func relationSize(view: UIView, relationType: NUIRelationType) -> CGFloat {
+    func relationSize(view: UIView, relationType: RelationType) -> CGFloat {
 
         switch relationType {
             case .Width:  return view.bounds.width
@@ -35,12 +35,12 @@ extension NUIMaker {
         }
     }
     
-    func relationParameters(relationType: NUIRelationType) -> RelationParametersType? {
+    func relationParameters(relationType: RelationType) -> RelationParametersType? {
         
-        return relationParameters.filter({ (type: NUIRelationType, _) -> Bool in type == relationType }).first
+        return relationParameters.filter({ (type: RelationType, _) -> Bool in type == relationType }).first
     }
     
-    func isExistsRelationParameters(relationType: NUIRelationType) -> Bool {
+    func isExistsRelationParameters(relationType: RelationType) -> Bool {
         
         return relationParameters(relationType: relationType) != nil
     }
@@ -48,7 +48,7 @@ extension NUIMaker {
 
 extension CGRect {
     
-    mutating func setValue(_ value: CGFloat, forRelation type: NUIRelationType) {
+    mutating func setValue(_ value: CGFloat, forRelation type: RelationType) {
         
         var frame = self
         switch type {

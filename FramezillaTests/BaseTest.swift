@@ -1,5 +1,5 @@
 //
-//  NUIBaseTest.swift
+//  BaseTest.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class NUIBaseTest: XCTestCase {
+class BaseTest: XCTestCase {
     
     var mainView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
     var nestedView1: UIView = UIView(frame: CGRect(x: 100, y: 100, width: 300, height: 300))

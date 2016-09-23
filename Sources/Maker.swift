@@ -1,5 +1,5 @@
 //
-//  NUIMaker.swift
+//  Maker.swift
 //  Framezilla
 //
 //  Created by Nikita on 26/08/16.
@@ -8,20 +8,20 @@
 
 import Foundation
 
-enum NUIHandlerPriority: Int {
+enum HandlerPriority: Int {
     case High = 0
     case Middle
     case Low
 }
 
-public final class NUIMaker {
+public final class Maker {
     
     typealias HandlerType = () -> Void
-    typealias RelationParametersType = (type: NUIRelationType, argument: Any)
+    typealias RelationParametersType = (type: RelationType, argument: Any)
 
     unowned let view: UIView
     
-    var handlers:           [(priority: NUIHandlerPriority, handler: HandlerType)] = []
+    var handlers:           [(priority: HandlerPriority, handler: HandlerType)] = []
     var relationParameters: [RelationParametersType] = []
     var newRect: CGRect
 
@@ -34,9 +34,9 @@ public final class NUIMaker {
     
     ///	Optional semantic property for improvements readability.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    public var and: NUIMaker {
+    public var and: Maker {
         get {
             return self
         }
@@ -46,9 +46,9 @@ public final class NUIMaker {
     ///
     /// - note: RU only :)
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    public var naprimer: NUIMaker {
+    public var naprimer: Maker {
         get {
             return self
         }
@@ -70,14 +70,14 @@ public final class NUIMaker {
     /// - parameter bottom: The bottom inset relation relatively superview.
     /// - parameter right:  The right inset relation relatively superview.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func edges(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) -> NUIMaker {
+    @discardableResult public func edges(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) -> Maker {
         
         return apply(self.top, top).apply(self.left, left).apply(self.bottom, bottom).apply(self.right, right)
     }
     
-    private func apply(_ f: ((UIView?, CGFloat) -> NUIMaker), _ inset: CGFloat?) -> NUIMaker {
+    private func apply(_ f: ((UIView?, CGFloat) -> Maker), _ inset: CGFloat?) -> Maker {
         
         return (inset != nil) ? f(nil, inset!) : self
     }
@@ -88,9 +88,9 @@ public final class NUIMaker {
     ///
     /// - parameter width:    The width for view.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func width(_ width: CGFloat) -> NUIMaker {
+    @discardableResult public func width(_ width: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(width, forRelation: .Width)
@@ -113,9 +113,9 @@ public final class NUIMaker {
     /// - parameter view:       The view on which you set relation.
     /// - parameter multiplier: The multiplier for views relation. 1 - default multiplier value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
 
-    @discardableResult public func width(to view: UIView, multiplier: CGFloat = 1.0) -> NUIMaker {
+    @discardableResult public func width(to view: UIView, multiplier: CGFloat = 1.0) -> Maker {
     
         return checkRelationType(for: view) { [unowned self] relationView, relationType in
             
@@ -132,7 +132,7 @@ public final class NUIMaker {
                     }
                     else if let heightToParameters = self.relationParameters(relationType: .HeightTo) {
 
-                        let (tempView, tempMultiplier, tempRelationType) = heightToParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let (tempView, tempMultiplier, tempRelationType) = heightToParameters.argument as! (UIView, CGFloat, RelationType)
                         let width = self.relationSize(view: tempView, relationType: tempRelationType) * (tempMultiplier * multiplier)
                         self.newRect.setValue(width, forRelation: .Width)
                     }
@@ -141,8 +141,8 @@ public final class NUIMaker {
                             return
                         }
                         
-                        let (topView, topInset, topRelationType) = topParameters.argument as! (UIView, CGFloat, NUIRelationType)
-                        let (bottomView, bottomInset, bottomRelationType) = bottomParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let (topView, topInset, topRelationType) = topParameters.argument as! (UIView, CGFloat, RelationType)
+                        let (bottomView, bottomInset, bottomRelationType) = bottomParameters.argument as! (UIView, CGFloat, RelationType)
 
                         let topViewY = self.convertedValue(relationType: topRelationType, forView: topView) + topInset
                         let bottomViewY = self.convertedValue(relationType: bottomRelationType, forView: bottomView) - bottomInset
@@ -160,9 +160,9 @@ public final class NUIMaker {
     ///
     /// - parameter height: The height for view.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
 
-    @discardableResult public func height(_ height: CGFloat) -> NUIMaker {
+    @discardableResult public func height(_ height: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(height, forRelation: .Height)
@@ -185,9 +185,9 @@ public final class NUIMaker {
     /// - parameter view:       The view on which you set relation.
     /// - parameter multiplier: The multiplier for views relation. 1 - default multiplier value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func height(to view: UIView, multiplier: CGFloat = 1.0) -> NUIMaker {
+    @discardableResult public func height(to view: UIView, multiplier: CGFloat = 1.0) -> Maker {
         
         return checkRelationType(for: view) { [unowned self] relationView, relationType in
             
@@ -204,7 +204,7 @@ public final class NUIMaker {
                     }
                     else if let widthToParameters = self.relationParameters(relationType: .WidthTo) {
                         
-                        let (tempView, tempMultiplier, tempRelationType) = widthToParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let (tempView, tempMultiplier, tempRelationType) = widthToParameters.argument as! (UIView, CGFloat, RelationType)
                         let height = self.relationSize(view: tempView, relationType: tempRelationType) * (tempMultiplier * multiplier)
                         self.newRect.setValue(height, forRelation: .Height)
                     }
@@ -213,8 +213,8 @@ public final class NUIMaker {
                             return
                         }
                         
-                        let (leftView, leftInset, leftRelationType) = leftParameters.argument as! (UIView, CGFloat, NUIRelationType)
-                        let (rightView, rightInset, rightRelationType) = rightParameters.argument as! (UIView, CGFloat, NUIRelationType)
+                        let (leftView, leftInset, leftRelationType) = leftParameters.argument as! (UIView, CGFloat, RelationType)
+                        let (rightView, rightInset, rightRelationType) = rightParameters.argument as! (UIView, CGFloat, RelationType)
                         
                         let leftViewX = self.convertedValue(relationType: leftRelationType, forView: leftView) + leftInset
                         let rightViewX = self.convertedValue(relationType: rightRelationType, forView: rightView) - rightInset
@@ -233,9 +233,9 @@ public final class NUIMaker {
     /// - parameter width:  The width for view.
     /// - parameter height: The height for view.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func size(width: CGFloat, height: CGFloat) -> NUIMaker {
+    @discardableResult public func size(width: CGFloat, height: CGFloat) -> Maker {
         
         return self.width(width).height(height)
     }
@@ -256,9 +256,9 @@ public final class NUIMaker {
     /// - parameter view:  The view on which you set left relation. Superview - default view.
     /// - parameter inset: The inset for additional space between views. 0 - default value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
+    @discardableResult public func left(to view: UIView? = nil, inset: CGFloat = 0.0) -> Maker {
 
         return checkRelationType(for: view ?? self.view.superview?.nui_left) { [unowned self] relationView, relationType in
             
@@ -287,9 +287,9 @@ public final class NUIMaker {
     /// - parameter view:  The view on which you set top relation. Superview - default view.
     /// - parameter inset: The inset for additional space between views. 0 - default value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
+    @discardableResult public func top(to view: UIView? = nil, inset: CGFloat = 0.0) -> Maker {
 
         return checkRelationType(for: view ?? self.view.superview?.nui_top) { [unowned self] relationView, relationType in
             
@@ -310,9 +310,9 @@ public final class NUIMaker {
     /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because
     ///         `container` sets width relatively width of subview and here is some ambiguous.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func container() -> NUIMaker {
+    @discardableResult public func container() -> Maker {
         
         var frame = CGRect.zero
         for subview in self.view.subviews {
@@ -325,9 +325,9 @@ public final class NUIMaker {
 
     /// Resizes the current view so it just encloses its subviews.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func sizeToFit() -> NUIMaker {
+    @discardableResult public func sizeToFit() -> Maker {
         
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, forRelation: .Width)
@@ -342,9 +342,9 @@ public final class NUIMaker {
     /// ```
     /// - parameter size: The size for best-fitting.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func sizeThatFits(size: CGSize) -> NUIMaker {
+    @discardableResult public func sizeThatFits(size: CGSize) -> Maker {
         
         let fitSize = view.sizeThatFits(size)
         let width = min(size.width, fitSize.width)
@@ -360,9 +360,9 @@ public final class NUIMaker {
     ///
     /// - parameter insets: The insets for setting relations for superview. `UIEdgeInsets.zero` - default insets.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> NUIMaker {
+    @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> Maker {
         
         assert(self.view.superview != nil, "Can not create realtions without superview.")
         
@@ -392,9 +392,9 @@ public final class NUIMaker {
     /// - parameter view:     The view on which you set top relation. Superview - default view.
     /// - parameter inset:    The inset for additional space between views. 0 - default value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
+    @discardableResult public func bottom(to view: UIView? = nil, inset: CGFloat = 0.0) -> Maker {
         
         return checkRelationType(for: view ?? self.view.superview?.nui_bottom) { [unowned self] relationView, relationType in
             
@@ -429,9 +429,9 @@ public final class NUIMaker {
     /// - parameter view:     The view on which you set left relation. Superview - default view.
     /// - parameter inset:    The inset for additional space between views. 0 - default value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> NUIMaker {
+    @discardableResult public func right(to view: UIView? = nil, inset: CGFloat = 0.0) -> Maker {
         
         return checkRelationType(for: view ?? self.view.superview?.nui_right) { [unowned self] relationView, relationType in
             
@@ -468,9 +468,9 @@ public final class NUIMaker {
     /// - parameter view:   The view on which you set centerY relation. Superview - default view.
     /// - parameter offset: Additional offset for centerY point. 0 - default value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
+    @discardableResult public func centerY(to view: UIView? = nil, offset: CGFloat = 0.0) -> Maker {
         
         return checkRelationType(for: view ?? self.view.superview?.nui_centerY) { [unowned self] relationView, relationType in
             
@@ -498,9 +498,9 @@ public final class NUIMaker {
     /// - parameter view:   The view on which you set centerX relation. Superview - default view.
     /// - parameter offset: Additional offset for centerY point. 0 - default value.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> NUIMaker {
+    @discardableResult public func centerX(to view: UIView? = nil, offset: CGFloat = 0.0) -> Maker {
         
         return checkRelationType(for: view ?? self.view.superview?.nui_centerX) { [unowned self] relationView, relationType in
             
@@ -516,9 +516,9 @@ public final class NUIMaker {
     ///
     /// - parameter value: The value for setting centerX.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func setCenterX(value: CGFloat) -> NUIMaker {
+    @discardableResult public func setCenterX(value: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(value, forRelation: .CenterX)
@@ -531,9 +531,9 @@ public final class NUIMaker {
     ///
     /// - parameter value: The value for setting centerY.
     ///
-    /// - returns: `NUIMaker` instance for chaining relations.
+    /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func setCenterY(value: CGFloat) -> NUIMaker {
+    @discardableResult public func setCenterY(value: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
             self.newRect.setValue(value, forRelation: .CenterY)
@@ -545,7 +545,7 @@ public final class NUIMaker {
     //MARK: Private
 
     
-    private func checkRelationType(for relationView: UIView?, configurationBlock: (UIView, NUIRelationType) -> Void) -> NUIMaker {
+    private func checkRelationType(for relationView: UIView?, configurationBlock: (UIView, RelationType) -> Void) -> Maker {
 
         guard relationView != nil else {
             assertionFailure("Can not configure relation with not correct view.")
@@ -557,7 +557,7 @@ public final class NUIMaker {
         return self
     }
 
-    private func setHighPriorityValue(_ value: CGFloat, forRelation type: NUIRelationType) {
+    private func setHighPriorityValue(_ value: CGFloat, forRelation type: RelationType) {
         
         let handler = { [unowned self] in
             self.newRect.setValue(value, forRelation: type)

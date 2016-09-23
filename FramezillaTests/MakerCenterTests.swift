@@ -1,5 +1,5 @@
 //
-//  NUIMakerCenterTests.swift
+//  MakerCenterTests.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class NUIMakerCenterTests: NUIBaseTest {
+class MakerCenterTests: BaseTest {
     
     /* super centerX */
     

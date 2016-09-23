@@ -1,5 +1,5 @@
 //
-//  NUIBothSideRelationsTests.swift
+//  BothSideRelationsTests.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class NUIBothSideRelationsTests: NUIBaseTest {
+class BothSideRelationsTests: BaseTest {
     
     /* rigth-left */
     

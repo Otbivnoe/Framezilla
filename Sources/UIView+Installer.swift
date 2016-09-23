@@ -28,13 +28,13 @@ public extension UIView {
 
 public extension UIView {
     
-    /// Creates and configurates NUIMaker object for each view.
+    /// Creates and configurates Maker object for each view.
     ///
     /// - parameter state:          The state for which you configurate frame.
     /// - parameter installerBlock: The installer block within which you can configurate frame relations.
     
     public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
 
-        NUIMaker.configurate(view: self, forState: state, with: installerBlock)
+        Maker.configurate(view: self, forState: state, with: installerBlock)
     }
 }

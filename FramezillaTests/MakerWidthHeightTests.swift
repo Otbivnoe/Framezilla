@@ -1,5 +1,5 @@
 //
-//  NUIMakerWidthHeightTests.swift
+//  MakerWidthHeightTests.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Framezilla
 
-class NUIMakerWidthHeightTests: NUIBaseTest {
+class MakerWidthHeightTests: BaseTest {
     
     func testThanJustSetting_width_configuresCorrectly() {
         

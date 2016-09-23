@@ -1,5 +1,5 @@
 //
-//  NUIMaker+Configurations.swift
+//  Maker+Configurations.swift
 //  Framezilla
 //
 //  Created by Nikita on 27/08/16.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-public typealias InstallerBlock = (NUIMaker) -> Void
+public typealias InstallerBlock = (Maker) -> Void
 
-extension NUIMaker {
+extension Maker {
     
     class func configurate(view: UIView, forState state:Int, with installerBlock: InstallerBlock) {
         
         if (view.nui_state == state) {
-            let maker = NUIMaker(view)
+            let maker = Maker(view)
             
             maker.newRect = view.frame
             installerBlock(maker)

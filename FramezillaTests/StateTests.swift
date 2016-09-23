@@ -1,5 +1,5 @@
 //
-//  NUIStateTests.swift
+//  StateTests.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class NUIStateTests: NUIBaseTest {
+class StateTests: BaseTest {
 
     func testThanFrameForStatesChangesCorrectly() {
         

@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		115972191D8450F500BC5C20 /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FB41321D844D2C00700A40 /* Framezilla.framework */; };
-		115972261D84517800BC5C20 /* NUIBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972201D84517800BC5C20 /* NUIBaseTest.swift */; };
-		115972271D84517800BC5C20 /* NUIBothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972211D84517800BC5C20 /* NUIBothSideRelationsTests.swift */; };
-		115972281D84517800BC5C20 /* NUIMakerCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972221D84517800BC5C20 /* NUIMakerCenterTests.swift */; };
-		115972291D84517800BC5C20 /* NUIMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972231D84517800BC5C20 /* NUIMakerTests.swift */; };
-		1159722A1D84517800BC5C20 /* NUIMakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972241D84517800BC5C20 /* NUIMakerWidthHeightTests.swift */; };
-		1159722B1D84517800BC5C20 /* NUIStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972251D84517800BC5C20 /* NUIStateTests.swift */; };
+		115972261D84517800BC5C20 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972201D84517800BC5C20 /* BaseTest.swift */; };
+		115972271D84517800BC5C20 /* BothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972211D84517800BC5C20 /* BothSideRelationsTests.swift */; };
+		115972281D84517800BC5C20 /* MakerCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972221D84517800BC5C20 /* MakerCenterTests.swift */; };
+		115972291D84517800BC5C20 /* MakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972231D84517800BC5C20 /* MakerTests.swift */; };
+		1159722A1D84517800BC5C20 /* MakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972241D84517800BC5C20 /* MakerWidthHeightTests.swift */; };
+		1159722B1D84517800BC5C20 /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972251D84517800BC5C20 /* StateTests.swift */; };
 		11FB41371D844D2C00700A40 /* Framezilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FB41351D844D2C00700A40 /* Framezilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		11FB41451D844F8F00700A40 /* NUIMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41401D844F8F00700A40 /* NUIMaker.swift */; };
-		11FB41461D844F8F00700A40 /* NUIMaker+Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41411D844F8F00700A40 /* NUIMaker+Configurations.swift */; };
-		11FB41471D844F8F00700A40 /* NUIMakerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41421D844F8F00700A40 /* NUIMakerHelper.swift */; };
+		11FB41451D844F8F00700A40 /* Maker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41401D844F8F00700A40 /* Maker.swift */; };
+		11FB41461D844F8F00700A40 /* Maker+Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41411D844F8F00700A40 /* Maker+Configurations.swift */; };
+		11FB41471D844F8F00700A40 /* MakerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41421D844F8F00700A40 /* MakerHelper.swift */; };
 		11FB41481D844F8F00700A40 /* UIView+Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41431D844F8F00700A40 /* UIView+Installer.swift */; };
 		11FB41491D844F8F00700A40 /* UIView+Relations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41441D844F8F00700A40 /* UIView+Relations.swift */; };
 /* End PBXBuildFile section */
@@ -36,18 +36,18 @@
 		115972141D8450F500BC5C20 /* FramezillaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FramezillaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		115972181D8450F500BC5C20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1159721F1D84517700BC5C20 /* FramezillaTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FramezillaTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		115972201D84517800BC5C20 /* NUIBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIBaseTest.swift; sourceTree = "<group>"; };
-		115972211D84517800BC5C20 /* NUIBothSideRelationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIBothSideRelationsTests.swift; sourceTree = "<group>"; };
-		115972221D84517800BC5C20 /* NUIMakerCenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerCenterTests.swift; sourceTree = "<group>"; };
-		115972231D84517800BC5C20 /* NUIMakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerTests.swift; sourceTree = "<group>"; };
-		115972241D84517800BC5C20 /* NUIMakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerWidthHeightTests.swift; sourceTree = "<group>"; };
-		115972251D84517800BC5C20 /* NUIStateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIStateTests.swift; sourceTree = "<group>"; };
+		115972201D84517800BC5C20 /* BaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTest.swift; sourceTree = "<group>"; };
+		115972211D84517800BC5C20 /* BothSideRelationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BothSideRelationsTests.swift; sourceTree = "<group>"; };
+		115972221D84517800BC5C20 /* MakerCenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerCenterTests.swift; sourceTree = "<group>"; };
+		115972231D84517800BC5C20 /* MakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerTests.swift; sourceTree = "<group>"; };
+		115972241D84517800BC5C20 /* MakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerWidthHeightTests.swift; sourceTree = "<group>"; };
+		115972251D84517800BC5C20 /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTests.swift; sourceTree = "<group>"; };
 		11FB41321D844D2C00700A40 /* Framezilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Framezilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FB41351D844D2C00700A40 /* Framezilla.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framezilla.h; sourceTree = "<group>"; };
 		11FB413E1D844DD000700A40 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
-		11FB41401D844F8F00700A40 /* NUIMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMaker.swift; sourceTree = "<group>"; };
-		11FB41411D844F8F00700A40 /* NUIMaker+Configurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NUIMaker+Configurations.swift"; sourceTree = "<group>"; };
-		11FB41421D844F8F00700A40 /* NUIMakerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NUIMakerHelper.swift; sourceTree = "<group>"; };
+		11FB41401D844F8F00700A40 /* Maker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maker.swift; sourceTree = "<group>"; };
+		11FB41411D844F8F00700A40 /* Maker+Configurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Maker+Configurations.swift"; sourceTree = "<group>"; };
+		11FB41421D844F8F00700A40 /* MakerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerHelper.swift; sourceTree = "<group>"; };
 		11FB41431D844F8F00700A40 /* UIView+Installer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Installer.swift"; sourceTree = "<group>"; };
 		11FB41441D844F8F00700A40 /* UIView+Relations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Relations.swift"; sourceTree = "<group>"; };
 		11FB414A1D844FFA00700A40 /* Framezilla.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framezilla.podspec; sourceTree = "<group>"; };
@@ -77,12 +77,12 @@
 		115972151D8450F500BC5C20 /* FramezillaTests */ = {
 			isa = PBXGroup;
 			children = (
-				115972201D84517800BC5C20 /* NUIBaseTest.swift */,
-				115972211D84517800BC5C20 /* NUIBothSideRelationsTests.swift */,
-				115972221D84517800BC5C20 /* NUIMakerCenterTests.swift */,
-				115972231D84517800BC5C20 /* NUIMakerTests.swift */,
-				115972241D84517800BC5C20 /* NUIMakerWidthHeightTests.swift */,
-				115972251D84517800BC5C20 /* NUIStateTests.swift */,
+				115972201D84517800BC5C20 /* BaseTest.swift */,
+				115972211D84517800BC5C20 /* BothSideRelationsTests.swift */,
+				115972221D84517800BC5C20 /* MakerCenterTests.swift */,
+				115972231D84517800BC5C20 /* MakerTests.swift */,
+				115972241D84517800BC5C20 /* MakerWidthHeightTests.swift */,
+				115972251D84517800BC5C20 /* StateTests.swift */,
 				115972181D8450F500BC5C20 /* Info.plist */,
 				1159721F1D84517700BC5C20 /* FramezillaTests-Bridging-Header.h */,
 			);
@@ -114,9 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				11FB413E1D844DD000700A40 /* Info-iOS.plist */,
-				11FB41401D844F8F00700A40 /* NUIMaker.swift */,
-				11FB41411D844F8F00700A40 /* NUIMaker+Configurations.swift */,
-				11FB41421D844F8F00700A40 /* NUIMakerHelper.swift */,
+				11FB41401D844F8F00700A40 /* Maker.swift */,
+				11FB41411D844F8F00700A40 /* Maker+Configurations.swift */,
+				11FB41421D844F8F00700A40 /* MakerHelper.swift */,
 				11FB41431D844F8F00700A40 /* UIView+Installer.swift */,
 				11FB41441D844F8F00700A40 /* UIView+Relations.swift */,
 				11FB41351D844D2C00700A40 /* Framezilla.h */,
@@ -235,12 +235,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1159722B1D84517800BC5C20 /* NUIStateTests.swift in Sources */,
-				115972271D84517800BC5C20 /* NUIBothSideRelationsTests.swift in Sources */,
-				115972291D84517800BC5C20 /* NUIMakerTests.swift in Sources */,
-				115972281D84517800BC5C20 /* NUIMakerCenterTests.swift in Sources */,
-				115972261D84517800BC5C20 /* NUIBaseTest.swift in Sources */,
-				1159722A1D84517800BC5C20 /* NUIMakerWidthHeightTests.swift in Sources */,
+				1159722B1D84517800BC5C20 /* StateTests.swift in Sources */,
+				115972271D84517800BC5C20 /* BothSideRelationsTests.swift in Sources */,
+				115972291D84517800BC5C20 /* MakerTests.swift in Sources */,
+				115972281D84517800BC5C20 /* MakerCenterTests.swift in Sources */,
+				115972261D84517800BC5C20 /* BaseTest.swift in Sources */,
+				1159722A1D84517800BC5C20 /* MakerWidthHeightTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,9 +248,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11FB41461D844F8F00700A40 /* NUIMaker+Configurations.swift in Sources */,
-				11FB41451D844F8F00700A40 /* NUIMaker.swift in Sources */,
-				11FB41471D844F8F00700A40 /* NUIMakerHelper.swift in Sources */,
+				11FB41461D844F8F00700A40 /* Maker+Configurations.swift in Sources */,
+				11FB41451D844F8F00700A40 /* Maker.swift in Sources */,
+				11FB41471D844F8F00700A40 /* MakerHelper.swift in Sources */,
 				11FB41481D844F8F00700A40 /* UIView+Installer.swift in Sources */,
 				11FB41491D844F8F00700A40 /* UIView+Relations.swift in Sources */,
 			);
