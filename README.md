@@ -1,4 +1,6 @@
-![](img/framezilla.png)
+<p align="center">
+  <img src="img/framezilla_green.png" alt="Framezilla"/>
+</p>
 
 **Everyone wants to see smooth scrolling, that tableview or collectionview scrolls without any lags and it's right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not elegant, beautiful structure.**
 
