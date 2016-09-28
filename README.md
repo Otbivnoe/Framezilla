@@ -50,7 +50,7 @@ github "Otbivnoe/Framezilla"
 
 Run `carthage update` to build the framework and drag the built `Framezilla.framework` into your Xcode project.
 
-### Swift Package Manager
+### Swift Package Manager (not available at the moment, sorry)
 
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
 
@@ -63,7 +63,7 @@ let package = Package(
     name: "{YOUR_PROJECT_NAME}",
     targets: [],
     dependencies: [
-        .Package(url: "https://github.com/Otbivnoe/Framezilla.git", majorVersion: 0)
+        .Package(url: "https://github.com/Otbivnoe/Framezilla.git", majorVersion: 1)
     ]
 )
 ```
