@@ -2,6 +2,12 @@
   <img src="img/framezilla_green.png" alt="Framezilla"/>
 </p>
 
+[![Build Status](https://travis-ci.org/Otbivnoe/Framezilla.svg?branch=master)](https://travis-ci.org/Otbivnoe/Framezilla)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Framezilla.svg)](https://img.shields.io/cocoapods/v/Framezilla.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform](https://img.shields.io/cocoapods/p/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
+![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg)
+
 **Everyone wants to see smooth scrolling, that tableview or collectionview scrolls without any lags and it's right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not elegant, beautiful structure.**
 
 **So, it's library for those, who want to see smooth scrolling with elegant code under the hood!**
