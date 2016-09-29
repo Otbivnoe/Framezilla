@@ -3,7 +3,7 @@
 </p>
 
 [![Build Status](https://travis-ci.org/Otbivnoe/Framezilla.svg?branch=master)](https://travis-ci.org/Otbivnoe/Framezilla)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Framezilla.svg)](https://img.shields.io/cocoapods/v/Framezilla.svg)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Framezilla.svg)](http://cocoapods.org/pods/Framezilla)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg)
