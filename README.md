@@ -311,6 +311,11 @@ set new state and animate it:
 
 Nikita Ermolenko, nikita.ermolenko@rosberry.com
 
+# Thanks :+1:
+Thanks [Artem Novichkov](https://github.com/artemnovichkov) for the name of the library!
+
+Thanks [Evgeny Mikhaylov](https://github.com/medvedzzz) for 'state' feature!
+
 # License :exclamation:
 
 Framezilla is available under the MIT license. See the LICENSE file for more info.
