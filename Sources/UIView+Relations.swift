@@ -10,16 +10,16 @@ import Foundation
 import ObjectiveC
 
 enum RelationType: Int {
-    case Bottom
-    case Top
-    case Left
-    case Right
-    case Width
-    case WidthTo
-    case Height
-    case HeightTo
-    case CenterX
-    case CenterY
+    case bottom
+    case top
+    case left
+    case right
+    case width
+    case widthTo
+    case height
+    case heightTo
+    case centerX
+    case centerY
 }
 
 fileprivate var relationTypeAssociationKey: UInt8 = 0
@@ -42,56 +42,56 @@ public extension UIView {
 
     public var nui_width: UIView {
         get {
-            relationType = .Width
+            relationType = .width
             return self
         }
     }
     
     public var nui_height: UIView {
         get {
-            relationType = .Height
+            relationType = .height
             return self
         }
     }
     
     public var nui_left: UIView {
         get {
-            relationType = .Left
+            relationType = .left
             return self
         }
     }
     
     public var nui_right: UIView {
         get {
-            relationType = .Right
+            relationType = .right
             return self
         }
     }
     
     public var nui_top: UIView {
         get {
-            relationType = .Top
+            relationType = .top
             return self
         }
     }
     
     public var nui_bottom: UIView {
         get {
-            relationType = .Bottom
+            relationType = .bottom
             return self
         }
     }
     
     public var nui_centerX: UIView {
         get {
-            relationType = .CenterX
+            relationType = .centerX
             return self
         }
     }
     
     public var nui_centerY: UIView {
         get {
-            relationType = .CenterY
+            relationType = .centerY
             return self
         }
     }

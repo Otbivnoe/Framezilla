@@ -9,9 +9,9 @@
 import Foundation
 
 enum HandlerPriority: Int {
-    case High = 0
-    case Middle
-    case Low
+    case high
+    case middle
+    case low
 }
 
 public final class Maker {
@@ -105,10 +105,10 @@ public final class Maker {
     @discardableResult public func width(_ width: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(width, forRelation: .Width)
+            self.newRect.setValue(width, forRelation: .width)
         }
-        handlers.append((.High, handler))
-        relationParameters.append((.Width, width))
+        handlers.append((.high, handler))
+        relationParameters.append((.width, width))
         return self
     }
     
@@ -134,22 +134,22 @@ public final class Maker {
             let handler = { [unowned self] in
                 if relationView != self.view {
                     let width = self.relationSize(view: relationView, relationType: relationType) * multiplier
-                    self.newRect.setValue(width, forRelation: .Width)
+                    self.newRect.setValue(width, forRelation: .width)
                 }
                 else {
-                    if let heightParameters = self.relationParameters(relationType: .Height) {
+                    if let heightParameters = self.relationParameters(relationType: .height) {
                         
                         let width = heightParameters.argument as! CGFloat
-                        self.newRect.setValue(width * multiplier, forRelation: .Width)
+                        self.newRect.setValue(width * multiplier, forRelation: .width)
                     }
-                    else if let heightToParameters = self.relationParameters(relationType: .HeightTo) {
+                    else if let heightToParameters = self.relationParameters(relationType: .heightTo) {
 
                         let (tempView, tempMultiplier, tempRelationType) = heightToParameters.argument as! (UIView, CGFloat, RelationType)
                         let width = self.relationSize(view: tempView, relationType: tempRelationType) * (tempMultiplier * multiplier)
-                        self.newRect.setValue(width, forRelation: .Width)
+                        self.newRect.setValue(width, forRelation: .width)
                     }
                     else {
-                        guard let topParameters = self.relationParameters(relationType: .Top), let bottomParameters = self.relationParameters(relationType: .Bottom) else {
+                        guard let topParameters = self.relationParameters(relationType: .top), let bottomParameters = self.relationParameters(relationType: .bottom) else {
                             return
                         }
                         
@@ -159,12 +159,12 @@ public final class Maker {
                         let topViewY = self.convertedValue(relationType: topRelationType, forView: topView) + topInset
                         let bottomViewY = self.convertedValue(relationType: bottomRelationType, forView: bottomView) - bottomInset
                         
-                        self.newRect.setValue((bottomViewY - topViewY)*multiplier, forRelation: .Width)
+                        self.newRect.setValue((bottomViewY - topViewY)*multiplier, forRelation: .width)
                     }
                 }
             }
-            self.handlers.append((.High, handler))
-            self.relationParameters.append((.WidthTo, (relationView, multiplier, relationType)))
+            self.handlers.append((.high, handler))
+            self.relationParameters.append((.widthTo, (relationView, multiplier, relationType)))
         }
     }
     
@@ -177,10 +177,10 @@ public final class Maker {
     @discardableResult public func height(_ height: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(height, forRelation: .Height)
+            self.newRect.setValue(height, forRelation: .height)
         }
-        handlers.append((.High, handler))
-        relationParameters.append((.Height, height))
+        handlers.append((.high, handler))
+        relationParameters.append((.height, height))
         return self
     }
     
@@ -206,22 +206,22 @@ public final class Maker {
             let handler = { [unowned self] in
                 if relationView != self.view {
                     let height = self.relationSize(view: relationView, relationType: relationType) * multiplier
-                    self.newRect.setValue(height, forRelation: .Height)
+                    self.newRect.setValue(height, forRelation: .height)
                 }
                 else {
-                    if let widthParameters = self.relationParameters(relationType: .Width) {
+                    if let widthParameters = self.relationParameters(relationType: .width) {
                         
                         let height = widthParameters.argument as! CGFloat
-                        self.newRect.setValue(height * multiplier, forRelation: .Height)
+                        self.newRect.setValue(height * multiplier, forRelation: .height)
                     }
-                    else if let widthToParameters = self.relationParameters(relationType: .WidthTo) {
+                    else if let widthToParameters = self.relationParameters(relationType: .widthTo) {
                         
                         let (tempView, tempMultiplier, tempRelationType) = widthToParameters.argument as! (UIView, CGFloat, RelationType)
                         let height = self.relationSize(view: tempView, relationType: tempRelationType) * (tempMultiplier * multiplier)
-                        self.newRect.setValue(height, forRelation: .Height)
+                        self.newRect.setValue(height, forRelation: .height)
                     }
                     else {
-                        guard let leftParameters = self.relationParameters(relationType: .Left), let rightParameters = self.relationParameters(relationType: .Right) else {
+                        guard let leftParameters = self.relationParameters(relationType: .left), let rightParameters = self.relationParameters(relationType: .right) else {
                             return
                         }
                         
@@ -231,12 +231,12 @@ public final class Maker {
                         let leftViewX = self.convertedValue(relationType: leftRelationType, forView: leftView) + leftInset
                         let rightViewX = self.convertedValue(relationType: rightRelationType, forView: rightView) - rightInset
                         
-                        self.newRect.setValue((rightViewX - leftViewX)*multiplier, forRelation: .Height)
+                        self.newRect.setValue((rightViewX - leftViewX)*multiplier, forRelation: .height)
                     }
                 }
             }
-            self.handlers.append((.High, handler))
-            self.relationParameters.append((.HeightTo, (relationView, multiplier, relationType)))
+            self.handlers.append((.high, handler))
+            self.relationParameters.append((.heightTo, (relationView, multiplier, relationType)))
         }
     }
     
@@ -276,10 +276,10 @@ public final class Maker {
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) + inset
-                self.newRect.setValue(x, forRelation: .Left)
+                self.newRect.setValue(x, forRelation: .left)
             }
-            self.handlers.append((.High, handler))
-            self.relationParameters.append((.Left, (relationView, inset, relationType)))
+            self.handlers.append((.high, handler))
+            self.relationParameters.append((.left, (relationView, inset, relationType)))
         }
     }
     
@@ -307,10 +307,10 @@ public final class Maker {
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) + inset
-                self.newRect.setValue(y, forRelation: .Top)
+                self.newRect.setValue(y, forRelation: .top)
             }
-            self.handlers.append((.High, handler))
-            self.relationParameters.append((.Top, (relationView, inset, relationType)))
+            self.handlers.append((.high, handler))
+            self.relationParameters.append((.top, (relationView, inset, relationType)))
         }
     }
     
@@ -330,8 +330,8 @@ public final class Maker {
         for subview in self.view.subviews {
             frame = frame.union(subview.frame)
         }
-        setHighPriorityValue(frame.width, forRelation: .Width)
-        setHighPriorityValue(frame.height, forRelation: .Height)
+        setHighPriorityValue(frame.width, forRelation: .width)
+        setHighPriorityValue(frame.height, forRelation: .height)
         return self
     }
 
@@ -342,8 +342,8 @@ public final class Maker {
     @discardableResult public func sizeToFit() -> Maker {
         
         view.sizeToFit()
-        setHighPriorityValue(view.bounds.width, forRelation: .Width)
-        setHighPriorityValue(view.bounds.height, forRelation: .Height)
+        setHighPriorityValue(view.bounds.width, forRelation: .width)
+        setHighPriorityValue(view.bounds.height, forRelation: .height)
         return self
     }
     
@@ -354,7 +354,7 @@ public final class Maker {
     @discardableResult public func heightToFit() -> Maker {
         
         view.sizeToFit()
-        setHighPriorityValue(view.bounds.height, forRelation: .Height)
+        setHighPriorityValue(view.bounds.height, forRelation: .height)
         return self
     }
     
@@ -365,7 +365,7 @@ public final class Maker {
     @discardableResult public func widthToFit() -> Maker {
         
         view.sizeToFit()
-        setHighPriorityValue(view.bounds.width, forRelation: .Width)
+        setHighPriorityValue(view.bounds.width, forRelation: .width)
         return self
     }
     
@@ -383,8 +383,8 @@ public final class Maker {
         let fitSize = view.sizeThatFits(size)
         let width = min(size.width, fitSize.width)
         let height = min(size.height, fitSize.height)
-        setHighPriorityValue(width, forRelation: .Width)
-        setHighPriorityValue(height, forRelation: .Height)
+        setHighPriorityValue(width, forRelation: .width)
+        setHighPriorityValue(height, forRelation: .height)
         return self
     }
     
@@ -406,7 +406,7 @@ public final class Maker {
             let frame = CGRect(x: insets.left, y: insets.top, width: width, height: height)
             self.newRect = frame
         }
-        self.handlers.append((.Middle, handler))
+        self.handlers.append((.middle, handler))
         return self
     }
     
@@ -433,17 +433,17 @@ public final class Maker {
         return checkRelationType(for: view ?? self.view.superview?.nui_bottom) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
-                if self.isExistsRelationParameters(relationType: .Top) {
+                if self.isExistsRelationParameters(relationType: .top) {
                     let height = fabs(self.newRect.minY - self.convertedValue(relationType: relationType, forView: relationView)) - inset
-                    self.newRect.setValue(height, forRelation: .Height)
+                    self.newRect.setValue(height, forRelation: .height)
                 }
                 else {
                     let y = self.convertedValue(relationType: relationType, forView: relationView) - inset - self.newRect.height
-                    self.newRect.setValue(y, forRelation: .Top)
+                    self.newRect.setValue(y, forRelation: .top)
                 }
             }
-            self.handlers.append((.Middle, handler))
-            self.relationParameters.append((.Bottom, (relationView, inset, relationType)))
+            self.handlers.append((.middle, handler))
+            self.relationParameters.append((.bottom, (relationView, inset, relationType)))
         }
     }
     
@@ -470,17 +470,17 @@ public final class Maker {
         return checkRelationType(for: view ?? self.view.superview?.nui_right) { [unowned self] relationView, relationType in
             
             let handler = { [unowned self] in
-                if self.isExistsRelationParameters(relationType: .Left) {
+                if self.isExistsRelationParameters(relationType: .left) {
                     let width = fabs(self.newRect.minX - self.convertedValue(relationType: relationType, forView: relationView)) - inset
-                    self.newRect.setValue(width, forRelation: .Width)
+                    self.newRect.setValue(width, forRelation: .width)
                 }
                 else {
                     let x = self.convertedValue(relationType: relationType, forView: relationView) - inset - self.newRect.width
-                    self.newRect.setValue(x, forRelation: .Left)
+                    self.newRect.setValue(x, forRelation: .left)
                 }
             }
-            self.handlers.append((.Middle, handler))
-            self.relationParameters.append((.Right, (relationView, inset, relationType)))
+            self.handlers.append((.middle, handler))
+            self.relationParameters.append((.right, (relationView, inset, relationType)))
         }
     }
     
@@ -510,9 +510,9 @@ public final class Maker {
             
             let handler = { [unowned self] in
                 let y = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.height/2 - offset
-                self.newRect.setValue(y, forRelation: .Top)
+                self.newRect.setValue(y, forRelation: .top)
             }
-            self.handlers.append((.Low, handler))
+            self.handlers.append((.low, handler))
         }
     }
     
@@ -540,9 +540,9 @@ public final class Maker {
             
             let handler = { [unowned self] in
                 let x = self.convertedValue(relationType: relationType, forView: relationView) - self.newRect.width/2 - offset
-                self.newRect.setValue(x, forRelation: .Left)
+                self.newRect.setValue(x, forRelation: .left)
             }
-            self.handlers.append((.Low, handler))
+            self.handlers.append((.low, handler))
         }
     }
     
@@ -555,9 +555,9 @@ public final class Maker {
     @discardableResult public func setCenterX(value: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(value, forRelation: .CenterX)
+            self.newRect.setValue(value, forRelation: .centerX)
         }
-        self.handlers.append((.Low, handler))
+        self.handlers.append((.low, handler))
         return self
     }
     
@@ -570,9 +570,9 @@ public final class Maker {
     @discardableResult public func setCenterY(value: CGFloat) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(value, forRelation: .CenterY)
+            self.newRect.setValue(value, forRelation: .centerY)
         }
-        self.handlers.append((.Low, handler))
+        self.handlers.append((.low, handler))
         return self
     }
     
@@ -596,7 +596,7 @@ public final class Maker {
         let handler = { [unowned self] in
             self.newRect.setValue(value, forRelation: type)
         }
-        self.handlers.append((.High, handler))
+        self.handlers.append((.high, handler))
         self.relationParameters.append((type, value))
     }
 }
