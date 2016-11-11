@@ -48,7 +48,19 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    public var naprimer: Maker {
+    public var например: Maker {
+        get {
+            return self
+        }
+    }
+    
+    ///	ROFL semantic property.
+    ///
+    /// - note: RU only :)
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    public var по_сути: Maker {
         get {
             return self
         }
@@ -332,6 +344,28 @@ public final class Maker {
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, forRelation: .Width)
         setHighPriorityValue(view.bounds.height, forRelation: .Height)
+        return self
+    }
+    
+    /// Resizes and moves the receiver view so it just encloses its subviews only for height.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func heightToFit() -> Maker {
+        
+        view.sizeToFit()
+        setHighPriorityValue(view.bounds.height, forRelation: .Height)
+        return self
+    }
+    
+    /// Resizes and moves the receiver view so it just encloses its subviews only for width.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func widthToFit() -> Maker {
+        
+        view.sizeToFit()
+        setHighPriorityValue(view.bounds.width, forRelation: .Width)
         return self
     }
     
