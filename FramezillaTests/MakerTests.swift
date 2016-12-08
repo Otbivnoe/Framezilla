@@ -311,6 +311,25 @@ class MakerTests: BaseTest {
     
     /* edges */
     
+    func testThanCorrectlyConfigures_equal_to_relationForNearSubview() {
+        
+        let insets = UIEdgeInsetsMake(5, 10, 15, 20)
+        testingView.configureFrames { maker in
+            maker.equal(to: nestedView1, insets: insets)
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: nestedView1.frame.minX + insets.left,
+                                                 y: nestedView1.frame.minY + insets.top,
+                                                 width: nestedView1.bounds.width-(insets.left + insets.right),
+                                                 height: nestedView1.bounds.height-(insets.top + insets.bottom)))
+    }
+    
+    func testThanCorrectlyConfigures_equal_to_dependsOnSuperview() {
+        testingView.configureFrames { maker in
+            maker.equal(to: mainView)
+        }
+        XCTAssertEqual(testingView.frame, mainView.frame)
+    }
+    
     func testThanCorrectlyConfigures_edge_insets_toSuperview() {
         
         testingView.configureFrames { maker in
