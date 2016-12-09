@@ -66,6 +66,21 @@ public final class Maker {
         }
     }
     
+    /// Creates edges relation for `view`.
+    ///
+    /// - parameter view: The view, against which sets relation.
+    /// - parameter insets: The insets for setting relations with `view`. `UIEdgeInsets.zero` - default insets.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func equal(to view: UIView, insets: UIEdgeInsets = .zero) -> Maker {
+       
+        return  top(to: view.nui_top, inset: insets.top)
+                .left(to: view.nui_left, inset: insets.left)
+                .bottom(to: view.nui_bottom, inset: insets.bottom)
+                .right(to: view.nui_right, inset: insets.right)
+    }
+    
     /// Creates edges relation with optional parameters.
     ///
     /// It's useful method for configure some side relations in short form.
@@ -396,7 +411,7 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func edges(insets: UIEdgeInsets = UIEdgeInsets.zero) -> Maker {
+    @discardableResult public func edges(insets: UIEdgeInsets = .zero) -> Maker {
         
         assert(self.view.superview != nil, "Can not create realtions without superview.")
         
