@@ -37,7 +37,7 @@ extension Maker {
     
     func relationParameters(relationType: RelationType) -> RelationParametersType? {
         
-        return relationParameters.filter({ (type: RelationType, _) -> Bool in type == relationType }).first
+        return relationParameters.filter { type, _ in type == relationType }.first
     }
     
     func isExistsRelationParameters(relationType: RelationType) -> Bool {
@@ -48,7 +48,7 @@ extension Maker {
 
 extension CGRect {
     
-    mutating func setValue(_ value: CGFloat, forRelation type: RelationType) {
+    mutating func setValue(_ value: CGFloat, for type: RelationType) {
         
         var frame = self
         switch type {

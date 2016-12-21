@@ -9,7 +9,7 @@
 import Foundation
 import ObjectiveC
 
-enum RelationType: Int {
+enum RelationType {
     case bottom
     case top
     case left
@@ -30,7 +30,7 @@ extension UIView {
         get {
             return objc_getAssociatedObject(self, &relationTypeAssociationKey) as? RelationType
         }
-        set(newValue) {
+        set {
             objc_setAssociatedObject(self, &relationTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
@@ -38,61 +38,43 @@ extension UIView {
 
 public extension UIView {
     
-    
-
     public var nui_width: UIView {
-        get {
-            relationType = .width
-            return self
-        }
+        relationType = .width
+        return self
     }
     
     public var nui_height: UIView {
-        get {
-            relationType = .height
-            return self
-        }
+        relationType = .height
+        return self
     }
     
     public var nui_left: UIView {
-        get {
-            relationType = .left
-            return self
-        }
+        relationType = .left
+        return self
     }
     
     public var nui_right: UIView {
-        get {
-            relationType = .right
-            return self
-        }
+        relationType = .right
+        return self
     }
     
     public var nui_top: UIView {
-        get {
-            relationType = .top
-            return self
-        }
+        relationType = .top
+        return self
     }
     
     public var nui_bottom: UIView {
-        get {
-            relationType = .bottom
-            return self
-        }
+        relationType = .bottom
+        return self
     }
     
     public var nui_centerX: UIView {
-        get {
-            relationType = .centerX
-            return self
-        }
+        relationType = .centerX
+        return self
     }
     
     public var nui_centerY: UIView {
-        get {
-            relationType = .centerY
-            return self
-        }
+        relationType = .centerY
+        return self
     }
 }
