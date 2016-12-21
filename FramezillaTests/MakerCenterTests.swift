@@ -10,6 +10,79 @@ import XCTest
 
 class MakerCenterTests: BaseTest {
     
+    /* super centerX without superview for related view */
+    
+    func testThanCorrectlyConfigures_centerX_forRelativelySuperViewWithoutOwnSuperView() {
+    
+        nestedView1.removeFromSuperview()
+        
+        let width: CGFloat = 10.0
+        let height: CGFloat = 10.0
+        nestedView2.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        nestedView2.configureFrames { maker in
+            maker.centerX()
+        }
+        XCTAssertEqual(nestedView2.frame, CGRect(x: nestedView1.bounds.width/2.0 - CGFloat(width/2),
+                                                 y: 0.0,
+                                                 width: width,
+                                                 height: height))
+    }
+    
+    
+    func testThanCorrectlyConfigures_centerX_forRelativelySuperViewWithoutOwnSuperViewWith_nonZeroOffset() {
+        
+        nestedView1.removeFromSuperview()
+        
+        let width: CGFloat = 10.0
+        let height: CGFloat = 10.0
+        let offset: CGFloat = 5.0
+        
+        nestedView2.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        nestedView2.configureFrames { maker in
+            maker.centerX(offset: offset)
+        }
+        XCTAssertEqual(nestedView2.frame, CGRect(x: nestedView1.bounds.width/2.0 - CGFloat(width/2) - offset,
+                                                 y: 0.0,
+                                                 width: width,
+                                                 height: height))
+    }
+    
+    /* super centerY without superview for related view */
+    
+    func testThanCorrectlyConfigures_centerY_forRelativelySuperViewWithoutOwnSuperView() {
+        
+        nestedView1.removeFromSuperview()
+        
+        let width: CGFloat = 10.0
+        let height: CGFloat = 10.0
+        nestedView2.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        nestedView2.configureFrames { maker in
+            maker.centerY()
+        }
+        XCTAssertEqual(nestedView2.frame, CGRect(x: 0.0,
+                                                 y: nestedView1.bounds.height/2.0 - CGFloat(height/2),
+                                                 width: width,
+                                                 height: height))
+    }
+    
+    
+    func testThanCorrectlyConfigures_centerY_forRelativelySuperViewWithoutOwnSuperViewWith_nonZeroOffset() {
+        
+        nestedView1.removeFromSuperview()
+        
+        let width: CGFloat = 10.0
+        let height: CGFloat = 10.0
+        let offset: CGFloat = 5.0
+        nestedView2.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        nestedView2.configureFrames { maker in
+            maker.centerY(offset: offset)
+        }
+        XCTAssertEqual(nestedView2.frame, CGRect(x: 0.0,
+                                                 y: nestedView1.bounds.height/2.0 - CGFloat(height/2) - offset,
+                                                 width: width,
+                                                 height: height))
+    }
+    
     /* super centerX */
     
     func testThanCorrectlyConfigures_centerX_forRelativelySuperViewWith_zeroOffset() {

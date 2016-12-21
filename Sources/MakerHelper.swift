@@ -8,30 +8,44 @@
 
 import Foundation
 
+fileprivate extension UIView {
+    
+    func contains(view: UIView) -> Bool {
+        if subviews.contains(view) {
+            return true
+        }
+        for subview in subviews {
+            if subview.contains(view: view) {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 extension Maker {
 
-    func convertedValue(relationType: RelationType, forView view: UIView) -> CGFloat {
-    
+    func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
+
         let convertedRect = self.view.superview!.convert(view.frame, from: view.superview)
-        
-        switch relationType {
+
+        switch type {
             case .top:        return convertedRect.minY
             case .bottom:     return convertedRect.maxY
-            case .centerY:    return convertedRect.midY
-            case .centerX:    return convertedRect.midX
+            case .centerY:    return view.contains(view: self.view) ? convertedRect.height / 2 : convertedRect.midY
+            case .centerX:    return view.contains(view: self.view) ? convertedRect.width / 2 : convertedRect.midX
             case .right:      return convertedRect.maxX
             case .left:       return convertedRect.minX
-            default: return 0
+            default:          return 0
         }
     }
+    
+    func relationSize(view: UIView, for type: RelationType) -> CGFloat {
 
-    func relationSize(view: UIView, relationType: RelationType) -> CGFloat {
-
-        switch relationType {
+        switch type {
             case .width:  return view.bounds.width
             case .height: return view.bounds.height
-            default:
-                return 0
+            default:      return 0
         }
     }
     
@@ -56,8 +70,8 @@ extension CGRect {
             case .height:  frame.size.height = value
             case .left:    frame.origin.x = value
             case .top:     frame.origin.y = value
-            case .centerX: frame.origin.x = value - self.width/2;
-            case .centerY: frame.origin.y = value - self.height/2;
+            case .centerX: frame.origin.x = value - width/2;
+            case .centerY: frame.origin.y = value - height/2;
             default: break
         }
         self = frame
