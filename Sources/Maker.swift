@@ -39,27 +39,7 @@ public final class Maker {
     public var and: Maker {
         return self
     }
-    
-    ///	ROFL semantic property.
-    ///
-    /// - note: RU only :)
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    public var например: Maker {
-        return self
-    }
-    
-    ///	ROFL semantic property.
-    ///
-    /// - note: RU only :)
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    public var по_сути: Maker {
-        return self
-    }
-    
+
     /// Creates edges relation for `view`.
     ///
     /// - parameter view: The view, against which sets relation.
