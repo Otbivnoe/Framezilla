@@ -10,12 +10,27 @@ import XCTest
 
 class MakerTests: BaseTest {
     
+    /* Array configurator */
+    
+    func testThatCorrectlyConfiguresFramesForArrayOfViews() {
+        
+        let label = UILabel(frame: .zero)
+        let view = UIView(frame: .zero)
+        
+        [label, view].configureFrames { maker in
+            maker.width(100)
+            maker.height(50)
+        }
+        XCTAssertEqual(label.frame, CGRect(x: 0, y: 0, width: 100, height: 50))
+        XCTAssertEqual(view.frame, CGRect(x: 0, y: 0, width: 100, height: 50))
+    }
+    
     /* bottom_to with nui_top */
     
     func testThanCorrectlyConfigures_bottom_to_withAnotherView_top_relationWith_zeroInset() {
         
         testingView.configureFrames { maker in
-            maker.bottom(to: self.nestedView2.nui_top)
+            maker.bottom(to: nestedView2.nui_top)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 100, width: 50, height: 50))
     }

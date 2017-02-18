@@ -38,3 +38,18 @@ public extension UIView {
         Maker.configurate(view: self, forState: state, with: installerBlock)
     }
 }
+
+public extension Array where Element: UIView {
+    
+    /// Creates and configurates Maker object for each view.
+    ///
+    /// - parameter state:          The state for which you configurate frame.
+    /// - parameter installerBlock: The installer block within which you can configurate frame relations.
+    
+    public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
+        
+        for view in self {
+            Maker.configurate(view: view, forState: state, with: installerBlock)
+        }
+    }
+}
