@@ -10,7 +10,7 @@ import XCTest
 
 class StateTests: BaseTest {
 
-    func testThanFrameForStatesChangesCorrectly() {
+    func testThatFrameForStatesChangesCorrectly() {
         
         mainView.addSubview(testingView)
         
