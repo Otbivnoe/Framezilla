@@ -348,9 +348,9 @@ class MakerTests: BaseTest {
     func testThatCorrectlyConfigures_edge_insets_toSuperview() {
         
         testingView.configureFrames { maker in
-            maker.edges(insets: UIEdgeInsetsMake(20, 20, 20, 20))
+            maker.edges(insets: UIEdgeInsetsMake(10, 20, 40, 60))
         }
-        XCTAssertEqual(testingView.frame, CGRect(x: 20, y: 20, width: 460, height: 460))
+        XCTAssertEqual(testingView.frame, CGRect(x: 20, y: 10, width: 420, height: 450))
     }
     
     func testThatCorrectlyConfigures_edge_toSuperview() {

@@ -391,7 +391,7 @@ public final class Maker {
         
         let handler = { [unowned self] in
             let width = self.view.superview!.bounds.width - (insets.left + insets.right)
-            let height = self.view.superview!.bounds.height - (insets.left + insets.right)
+            let height = self.view.superview!.bounds.height - (insets.top + insets.bottom)
             let frame = CGRect(x: insets.left, y: insets.top, width: width, height: height)
             self.newRect = frame
         }
