@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Framezilla
 
 class StateTests: BaseTest {
 
@@ -19,7 +20,7 @@ class StateTests: BaseTest {
 
         XCTAssertEqual(testingView.frame, CGRect(x: 230, y: 240, width: 40, height: 20))
         
-        testingView.nui_state = "DEFAULT VALUE"
+        testingView.nui_state = STATE_DEFAULT_VALUE
         configureFrames()
         
         XCTAssertEqual(testingView.frame, CGRect(x: 245, y: 245, width: 10, height: 10))
@@ -39,5 +40,4 @@ class StateTests: BaseTest {
             maker.centerX().and.centerY()
         }
     }
-
 }

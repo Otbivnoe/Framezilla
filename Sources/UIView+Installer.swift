@@ -9,12 +9,13 @@
 import Foundation
 import ObjectiveC
 
-fileprivate var STATE_DEFAULT_VALUE = "DEFAULT VALUE"
+var STATE_DEFAULT_VALUE = "DEFAULT VALUE"
+
 fileprivate var stateTypeAssociationKey: UInt8 = 0
 
 public extension UIView {
     
-    /// Apply new configuration state without frame updating
+    /// Apply new configuration state without frame updating.
 
     public var nui_state: AnyHashable? {
         get {
@@ -33,10 +34,10 @@ public extension UIView {
 
 public extension UIView {
     
-    /// Creates and configurates Maker object for each view.
+    /// Creates and configures `Maker` object for each view.
     ///
-    /// - parameter state:          The state for which you configurate frame.
-    /// - parameter installerBlock: The installer block within which you can configurate frame relations.
+    /// - parameter state:          The state for which you configure frame.
+    /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrames(state: AnyHashable = STATE_DEFAULT_VALUE, installerBlock: InstallerBlock) {
 
@@ -46,10 +47,10 @@ public extension UIView {
 
 public extension Array where Element: UIView {
     
-    /// Creates and configurates Maker object for each view.
+    /// Creates and configures `Maker` object for each view.
     ///
-    /// - parameter state:          The state for which you configurate frame.
-    /// - parameter installerBlock: The installer block within which you can configurate frame relations.
+    /// - parameter state:          The state for which you configure frame.
+    /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrames(state: AnyHashable = STATE_DEFAULT_VALUE, installerBlock: InstallerBlock) {
         
