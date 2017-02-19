@@ -12,7 +12,7 @@ public typealias InstallerBlock = (Maker) -> Void
 
 extension Maker {
     
-    class func configurate(view: UIView, forState state:Int, with installerBlock: InstallerBlock) {
+    class func configurate(view: UIView, for state: AnyHashable, with installerBlock: InstallerBlock) {
         
         if (view.nui_state == state) {
             let maker = Maker(view: view)

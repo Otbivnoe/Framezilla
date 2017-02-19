@@ -19,7 +19,7 @@ class StateTests: BaseTest {
 
         XCTAssertEqual(testingView.frame, CGRect(x: 230, y: 240, width: 40, height: 20))
         
-        testingView.nui_state = 0
+        testingView.nui_state = "DEFAULT VALUE"
         configureFrames()
         
         XCTAssertEqual(testingView.frame, CGRect(x: 245, y: 245, width: 10, height: 10))

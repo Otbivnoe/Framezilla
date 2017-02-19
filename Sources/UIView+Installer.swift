@@ -9,16 +9,22 @@
 import Foundation
 import ObjectiveC
 
+fileprivate var STATE_DEFAULT_VALUE = "DEFAULT VALUE"
+
 fileprivate var stateTypeAssociationKey: UInt8 = 0
 
 public extension UIView {
     
     /// Apply new configuration state without frame updating
 
-    public var nui_state: Int {
+    public var nui_state: AnyHashable? {
         get {
-            let state = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? Int
-            return state ?? 0
+            if let value = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? AnyHashable {
+                return value
+            }
+            else {
+                return STATE_DEFAULT_VALUE
+            }
         }
         set {
             objc_setAssociatedObject(self, &stateTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -33,9 +39,9 @@ public extension UIView {
     /// - parameter state:          The state for which you configurate frame.
     /// - parameter installerBlock: The installer block within which you can configurate frame relations.
     
-    public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
+    public func configureFrames(state: AnyHashable = STATE_DEFAULT_VALUE, installerBlock: InstallerBlock) {
 
-        Maker.configurate(view: self, forState: state, with: installerBlock)
+        Maker.configurate(view: self, for: state, with: installerBlock)
     }
 }
 
@@ -46,10 +52,10 @@ public extension Array where Element: UIView {
     /// - parameter state:          The state for which you configurate frame.
     /// - parameter installerBlock: The installer block within which you can configurate frame relations.
     
-    public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
+    public func configureFrames(state: AnyHashable = STATE_DEFAULT_VALUE, installerBlock: InstallerBlock) {
         
         for view in self {
-            Maker.configurate(view: view, forState: state, with: installerBlock)
+            Maker.configurate(view: view, for: state, with: installerBlock)
         }
     }
 }
