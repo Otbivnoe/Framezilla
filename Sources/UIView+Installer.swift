@@ -41,7 +41,7 @@ public extension UIView {
     
     public func configureFrames(state: AnyHashable = STATE_DEFAULT_VALUE, installerBlock: InstallerBlock) {
 
-        Maker.configurate(view: self, for: state, with: installerBlock)
+        Maker.configure(view: self, for: state, with: installerBlock)
     }
 }
 
@@ -55,7 +55,7 @@ public extension Array where Element: UIView {
     public func configureFrames(state: AnyHashable = STATE_DEFAULT_VALUE, installerBlock: InstallerBlock) {
         
         for view in self {
-            Maker.configurate(view: view, for: state, with: installerBlock)
+            Maker.configure(view: view, for: state, with: installerBlock)
         }
     }
 }
