@@ -10,7 +10,6 @@ import Foundation
 import ObjectiveC
 
 fileprivate var STATE_DEFAULT_VALUE = "DEFAULT VALUE"
-
 fileprivate var stateTypeAssociationKey: UInt8 = 0
 
 public extension UIView {

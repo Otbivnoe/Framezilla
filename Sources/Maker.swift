@@ -78,12 +78,12 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func edges(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) -> Maker {
+    @discardableResult public func edges(top: Number? = nil, left: Number? = nil, bottom: Number? = nil, right: Number? = nil) -> Maker {
         
         return apply(self.top, top).apply(self.left, left).apply(self.bottom, bottom).apply(self.right, right)
     }
     
-    private func apply(_ f: ((CGFloat) -> Maker), _ inset: CGFloat?) -> Maker {
+    private func apply(_ f: ((Number) -> Maker), _ inset: Number?) -> Maker {
         
         return (inset != nil) ? f(inset!) : self
     }
@@ -96,13 +96,13 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func width(_ width: CGFloat) -> Maker {
+    @discardableResult public func width(_ width: Number) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(width, for: .width)
+            self.newRect.setValue(width.value, for: .width)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.width, width))
+        relationParameters.append((.width, width.value))
         return self
     }
     
@@ -117,26 +117,26 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
 
-    @discardableResult public func width(to relationView: RelationView<SizeRelation>, multiplier: CGFloat = 1.0) -> Maker {
+    @discardableResult public func width(to relationView: RelationView<SizeRelation>, multiplier: Number = 1.0) -> Maker {
     
         let view = relationView.view
         let relationType = relationView.relationType
         
         let handler = { [unowned self] in
             if view != self.view {
-                let width = self.relationSize(view: view, for: relationType) * multiplier
+                let width = self.relationSize(view: view, for: relationType) * multiplier.value
                 self.newRect.setValue(width, for: .width)
             }
             else {
                 if let heightParameters = self.relationParameters(relationType: .height) {
                     
                     let width = heightParameters.argument as! CGFloat
-                    self.newRect.setValue(width * multiplier, for: .width)
+                    self.newRect.setValue(width * multiplier.value, for: .width)
                 }
                 else if let heightToParameters = self.relationParameters(relationType: .heightTo) {
 
                     let (tempView, tempMultiplier, tempRelationType) = heightToParameters.argument as! (UIView, CGFloat, RelationType)
-                    let width = self.relationSize(view: tempView, for: tempRelationType) * (tempMultiplier * multiplier)
+                    let width = self.relationSize(view: tempView, for: tempRelationType) * (tempMultiplier * multiplier.value)
                     self.newRect.setValue(width, for: .width)
                 }
                 else {
@@ -150,12 +150,12 @@ public final class Maker {
                     let topViewY = self.convertedValue(for: topRelationType, with: topView) + topInset
                     let bottomViewY = self.convertedValue(for: bottomRelationType, with: bottomView) - bottomInset
                     
-                    self.newRect.setValue((bottomViewY - topViewY)*multiplier, for: .width)
+                    self.newRect.setValue((bottomViewY - topViewY)*multiplier.value, for: .width)
                 }
             }
         }
         handlers.append((.high, handler))
-        relationParameters.append((.widthTo, (view, multiplier, relationType)))
+        relationParameters.append((.widthTo, (view, multiplier.value, relationType)))
         return self
         
     }
@@ -166,13 +166,13 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
 
-    @discardableResult public func height(_ height: CGFloat) -> Maker {
+    @discardableResult public func height(_ height: Number) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(height, for: .height)
+            self.newRect.setValue(height.value, for: .height)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.height, height))
+        relationParameters.append((.height, height.value))
         return self
     }
     
@@ -187,26 +187,26 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func height(to relationView: RelationView<SizeRelation>, multiplier: CGFloat = 1.0) -> Maker {
+    @discardableResult public func height(to relationView: RelationView<SizeRelation>, multiplier: Number = 1.0) -> Maker {
         
         let view = relationView.view
         let relationType = relationView.relationType
         
         let handler = { [unowned self] in
             if view != self.view {
-                let height = self.relationSize(view: view, for: relationType) * multiplier
+                let height = self.relationSize(view: view, for: relationType) * multiplier.value
                 self.newRect.setValue(height, for: .height)
             }
             else {
                 if let widthParameters = self.relationParameters(relationType: .width) {
                     
                     let height = widthParameters.argument as! CGFloat
-                    self.newRect.setValue(height * multiplier, for: .height)
+                    self.newRect.setValue(height * multiplier.value, for: .height)
                 }
                 else if let widthToParameters = self.relationParameters(relationType: .widthTo) {
                     
                     let (tempView, tempMultiplier, tempRelationType) = widthToParameters.argument as! (UIView, CGFloat, RelationType)
-                    let height = self.relationSize(view: tempView, for: tempRelationType) * (tempMultiplier * multiplier)
+                    let height = self.relationSize(view: tempView, for: tempRelationType) * (tempMultiplier * multiplier.value)
                     self.newRect.setValue(height, for: .height)
                 }
                 else {
@@ -220,12 +220,12 @@ public final class Maker {
                     let leftViewX = self.convertedValue(for: leftRelationType, with: leftView) + leftInset
                     let rightViewX = self.convertedValue(for: rightRelationType, with: rightView) - rightInset
                     
-                    self.newRect.setValue((rightViewX - leftViewX)*multiplier, for: .height)
+                    self.newRect.setValue((rightViewX - leftViewX)*multiplier.value, for: .height)
                 }
             }
         }
         handlers.append((.high, handler))
-        relationParameters.append((.heightTo, (view, multiplier, relationType)))
+        relationParameters.append((.heightTo, (view, multiplier.value, relationType)))
         return self
     }
     
@@ -236,7 +236,7 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func size(width: CGFloat, height: CGFloat) -> Maker {
+    @discardableResult public func size(width: Number, height: Number) -> Maker {
         
         return self.width(width).height(height)
     }
@@ -249,7 +249,7 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func left(inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func left(inset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
             assertionFailure("Can not configure left relation to superview without superview.")
             return self
@@ -268,17 +268,17 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func left(to relationView: RelationView<HorizontalRelation>, inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func left(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
        
         let view = relationView.view
         let type = relationView.relationType
 
         let handler = { [unowned self] in
-            let x = self.convertedValue(for: type, with: view) + inset
+            let x = self.convertedValue(for: type, with: view) + inset.value
             self.newRect.setValue(x, for: .left)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.left, (view, inset, type)))
+        relationParameters.append((.left, (view, inset.value, type)))
         return self
     }
     
@@ -290,12 +290,12 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func top(inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func top(inset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
             assertionFailure("Can not configure top relation to superview without superview.")
             return self
         }
-        return top(to: RelationView(view: superview, relation: .top), inset: inset)
+        return top(to: RelationView(view: superview, relation: .top), inset: inset.value)
     }
     
     /// Creates top relation.
@@ -309,17 +309,17 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func top(to relationView: RelationView<VerticalRelation>, inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func top(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
         
         let view = relationView.view
         let type = relationView.relationType
         
         let handler = { [unowned self] in
-            let y = self.convertedValue(for: type, with: view) + inset
+            let y = self.convertedValue(for: type, with: view) + inset.value
             self.newRect.setValue(y, for: .top)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.top, (view, inset, type)))
+        relationParameters.append((.top, (view, inset.value, type)))
         return self
     }
 
@@ -430,7 +430,7 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func bottom(inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func bottom(inset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
             assertionFailure("Can not configure bottom relation to superview without superview.")
             return self
@@ -449,23 +449,23 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func bottom(to relationView: RelationView<VerticalRelation>, inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func bottom(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
 
         let view = relationView.view
         let type = relationView.relationType
         
         let handler = { [unowned self] in
             if self.isExistsRelationParameters(relationType: .top) {
-                let height = fabs(self.newRect.minY - self.convertedValue(for: type, with: view)) - inset
+                let height = fabs(self.newRect.minY - self.convertedValue(for: type, with: view)) - inset.value
                 self.newRect.setValue(height, for: .height)
             }
             else {
-                let y = self.convertedValue(for: type, with: view) - inset - self.newRect.height
+                let y = self.convertedValue(for: type, with: view) - inset.value - self.newRect.height
                 self.newRect.setValue(y, for: .top)
             }
         }
         handlers.append((.middle, handler))
-        relationParameters.append((.bottom, (view, inset, type)))
+        relationParameters.append((.bottom, (view, inset.value, type)))
         return self
     }
     
@@ -477,12 +477,12 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func right(inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func right(inset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
             assertionFailure("Can not configure right relation to superview without superview.")
             return self
         }
-        return right(to: RelationView(view: superview, relation: .right), inset: inset)
+        return right(to: RelationView(view: superview, relation: .right), inset: inset.value)
     }
     
     /// Creates right relation.
@@ -496,23 +496,23 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func right(to relationView: RelationView<HorizontalRelation>, inset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func right(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
         
         let view = relationView.view
         let type = relationView.relationType
         
         let handler = { [unowned self] in
             if self.isExistsRelationParameters(relationType: .left) {
-                let width = fabs(self.newRect.minX - self.convertedValue(for: type, with: view)) - inset
+                let width = fabs(self.newRect.minX - self.convertedValue(for: type, with: view)) - inset.value
                 self.newRect.setValue(width, for: .width)
             }
             else {
-                let x = self.convertedValue(for: type, with: view) - inset - self.newRect.width
+                let x = self.convertedValue(for: type, with: view) - inset.value - self.newRect.width
                 self.newRect.setValue(x, for: .left)
             }
         }
         handlers.append((.middle, handler))
-        relationParameters.append((.right, (view, inset, type)))
+        relationParameters.append((.right, (view, inset.value, type)))
         return self
     }
     
@@ -526,12 +526,12 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func centerY(offset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func centerY(offset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
             assertionFailure("Can not configure centerY relation to superview without superview.")
             return self
         }
-        return centerY(to: RelationView(view: superview, relation: .centerY), offset: offset)
+        return centerY(to: RelationView(view: superview, relation: .centerY), offset: offset.value)
     }
     
     /// Creates centerY relation.
@@ -545,13 +545,13 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func centerY(to relationView: RelationView<VerticalRelation>, offset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func centerY(to relationView: RelationView<VerticalRelation>, offset: Number = 0.0) -> Maker {
  
         let view = relationView.view
         let type = relationView.relationType
         
         let handler = { [unowned self] in
-            let y = self.convertedValue(for: type, with: view) - self.newRect.height/2 - offset
+            let y = self.convertedValue(for: type, with: view) - self.newRect.height/2 - offset.value
             self.newRect.setValue(y, for: .top)
         }
         handlers.append((.low, handler))
@@ -566,12 +566,12 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func centerX(offset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func centerX(offset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
             assertionFailure("Can not configure centerX relation to superview without superview.")
             return self
         }
-        return centerX(to: RelationView(view: superview, relation: .centerX), offset: offset)
+        return centerX(to: RelationView(view: superview, relation: .centerX), offset: offset.value)
     }
     
     /// Creates centerX relation.
@@ -585,13 +585,13 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func centerX(to relationView: RelationView<HorizontalRelation>, offset: CGFloat = 0.0) -> Maker {
+    @discardableResult public func centerX(to relationView: RelationView<HorizontalRelation>, offset: Number = 0.0) -> Maker {
 
         let view = relationView.view
         let type = relationView.relationType
         
         let handler = { [unowned self] in
-            let x = self.convertedValue(for: type, with: view) - self.newRect.width/2 - offset
+            let x = self.convertedValue(for: type, with: view) - self.newRect.width/2 - offset.value
             self.newRect.setValue(x, for: .left)
         }
         handlers.append((.low, handler))
@@ -604,10 +604,10 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func setCenterX(value: CGFloat) -> Maker {
+    @discardableResult public func setCenterX(value: Number) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(value, for: .centerX)
+            self.newRect.setValue(value.value, for: .centerX)
         }
         handlers.append((.low, handler))
         return self
@@ -619,10 +619,10 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func setCenterY(value: CGFloat) -> Maker {
+    @discardableResult public func setCenterY(value: Number) -> Maker {
         
         let handler = { [unowned self] in
-            self.newRect.setValue(value, for: .centerY)
+            self.newRect.setValue(value.value, for: .centerY)
         }
         handlers.append((.low, handler))
         return self
