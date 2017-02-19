@@ -15,7 +15,7 @@ extension Maker {
     class func configurate(view: UIView, forState state:Int, with installerBlock: InstallerBlock) {
         
         if (view.nui_state == state) {
-            let maker = Maker(view)
+            let maker = Maker(view: view)
             
             maker.newRect = view.frame
             installerBlock(maker)

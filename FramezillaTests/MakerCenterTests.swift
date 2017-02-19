@@ -176,56 +176,56 @@ class MakerCenterTests: BaseTest {
     }
     
     
-    /* centerY with nui_left */
+    /* centerY with nui_top */
     
-    func testThatCorrectlyConfigures_centerY_withAnotherView_left_relationWith_zeroOffset() {
+    func testThatCorrectlyConfigures_centerY_withAnotherView_top_relationWith_zeroOffset() {
         
         testingView.configureFrames { maker in
-            maker.centerY(to: nestedView2.nui_left)
+            maker.centerY(to: nestedView2.nui_top)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 125, width: 50, height: 50))
     }
     
-    func testThatCorrectlyConfigures_centerY_withAnotherView_left_relationWith_nonZeroOffset() {
+    func testThatCorrectlyConfigures_centerY_withAnotherView_top_relationWith_nonZeroOffset() {
         
         testingView.configureFrames { maker in
-            maker.centerY(to: nestedView2.nui_left, offset: 10)
+            maker.centerY(to: nestedView2.nui_top, offset: 10)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 115, width: 50, height: 50))
     }
     
-    /* centerY with nui_centerX */
+    /* centerY with nui_centerY */
     
-    func testThatCorrectlyConfigures_centerY_withAnotherView_centerX_relationWith_zeroOffset() {
+    func testThatCorrectlyConfigures_centerY_withAnotherView_centerY_relationWith_zeroOffset() {
         
         testingView.configureFrames { maker in
-            maker.centerY(to: nestedView2.nui_centerX)
+            maker.centerY(to: nestedView2.nui_centerY)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 225, width: 50, height: 50))
     }
     
-    func testThatCorrectlyConfigures_centerY_withAnotherView_centerX_relationWith_nonZeroOffset() {
+    func testThatCorrectlyConfigures_centerY_withAnotherView_centerY_relationWith_nonZeroOffset() {
         
         testingView.configureFrames { maker in
-            maker.centerY(to: nestedView2.nui_centerX, offset: 10)
+            maker.centerY(to: nestedView2.nui_centerY, offset: 10)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 215, width: 50, height: 50))
     }
     
-    /* centerY with nui_right */
+    /* centerY with nui_bottom */
     
-    func testThatCorrectlyConfigures_centerY_withAnotherView_right_relationWith_zeroOffset() {
+    func testThatCorrectlyConfigures_centerY_withAnotherView_bottom_relationWith_zeroOffset() {
         
         testingView.configureFrames { maker in
-            maker.centerY(to: nestedView2.nui_right)
+            maker.centerY(to: nestedView2.nui_bottom)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 325, width: 50, height: 50))
     }
     
-    func testThatCorrectlyConfigures_centerY_withAnotherView_right_relationWith_nonZeroOffset() {
+    func testThatCorrectlyConfigures_centerY_withAnotherView_bottom_relationWith_nonZeroOffset() {
         
         testingView.configureFrames { maker in
-            maker.centerY(to: nestedView2.nui_right, offset: 10)
+            maker.centerY(to: nestedView2.nui_bottom, offset: 10)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 0, y: 315, width: 50, height: 50))
     }
