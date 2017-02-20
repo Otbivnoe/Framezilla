@@ -102,7 +102,7 @@ class MakerStackTests: BaseTest {
         XCTAssertEqual(view3.frame, CGRect(x: 60, y: 0, width: 30, height: 200))
         
         containterView.frame = CGRect(x: 0, y: 0, width: 200, height: 90)
-        containterView.nui_state = STATE_DEFAULT_VALUE
+        containterView.nui_state = DEFAULT_STATE
         configuresFrames()
         
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 200, height: 30))

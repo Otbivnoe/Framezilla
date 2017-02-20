@@ -21,7 +21,7 @@ public extension Array where Element: UIView {
     /// - parameter spacing:   Spacing between adjacent edges of arranged subviews.
     /// - parameter state:     The state for which you configure frame.
     
-    public func stack(axis: StackAxis, spacing: Number = 0.0, state: AnyHashable = STATE_DEFAULT_VALUE) {
+    public func stack(axis: StackAxis, spacing: Number = 0.0, state: AnyHashable = DEFAULT_STATE) {
         
         for view in self {
             guard let _ = view.superview else {
@@ -50,7 +50,7 @@ public extension Array where Element: UIView {
             let height = superview.bounds.height
 
             for (index, view) in self.enumerated() {
-                view.configureFrames { maker in
+                view.configureFrame { maker in
                     maker.size(width: width, height: height)
                     if index == 0 {
                         maker.left()
@@ -66,7 +66,7 @@ public extension Array where Element: UIView {
             let height = (superview.bounds.height - (count - 1) * spacing.value) / count
 
             for (index, view) in self.enumerated() {
-                view.configureFrames { maker in
+                view.configureFrame { maker in
                     maker.size(width: width, height: height)
                     if index == 0 {
                         maker.top()

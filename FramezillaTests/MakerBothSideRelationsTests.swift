@@ -14,7 +14,7 @@ class MakerBothSideRelationsTests: BaseTest {
     
     func testThatRightAndLeftForSuperviewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerY()
             maker.height(100)
             maker.left(inset: 10).and.right(inset: 10)
@@ -24,7 +24,7 @@ class MakerBothSideRelationsTests: BaseTest {
     
     func testThatRightAndLeftForAnotherViewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerY()
             maker.height(100)
             maker.left(to: nestedView1.nui_left, inset: 10)
@@ -37,7 +37,7 @@ class MakerBothSideRelationsTests: BaseTest {
     
     func testThatBottomtAndTopForSuperviewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerX()
             maker.width(100)
             maker.top(inset: 10).and.bottom(inset: 10)
@@ -47,7 +47,7 @@ class MakerBothSideRelationsTests: BaseTest {
     
     func testThatBottomtAndTopForAnotherViewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerX()
             maker.width(100)
             maker.top(to: nestedView1.nui_top, inset: 10)
