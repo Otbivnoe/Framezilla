@@ -9,16 +9,24 @@
 import Foundation
 import ObjectiveC
 
+public let DEFAULT_STATE = "DEFAULT STATE"
+
 fileprivate var stateTypeAssociationKey: UInt8 = 0
 
 public extension UIView {
     
-    /// Apply new configuration state without frame updating
-
-    public var nui_state: Int {
+    /// Apply new configuration state without frame updating.
+    ///
+    /// - note: Use `DEFAULT_STATE` for setting the state to the default value.
+    
+    public var nui_state: AnyHashable? {
         get {
-            let state = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? Int
-            return state ?? 0
+            if let value = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? AnyHashable {
+                return value
+            }
+            else {
+                return DEFAULT_STATE
+            }
         }
         set {
             objc_setAssociatedObject(self, &stateTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -28,13 +36,66 @@ public extension UIView {
 
 public extension UIView {
     
-    /// Creates and configurates Maker object for each view.
-    ///
-    /// - parameter state:          The state for which you configurate frame.
-    /// - parameter installerBlock: The installer block within which you can configurate frame relations.
-    
-    public func configureFrames(state: Int = 0, installerBlock: InstallerBlock) {
+    @available(*, deprecated, renamed: "configureFrame(state:installerBlock:)")
+    public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
 
-        Maker.configurate(view: self, forState: state, with: installerBlock)
+        Maker.configure(view: self, for: state, with: installerBlock)
+    }
+    
+    /// Configures frame of current view for special state.
+    ///
+    /// - note: When you configure frame without implicit state parameter (default value), frame configures for the `DEFAULT_STATE`.
+    ///
+    /// - parameter state:          The state for which you configure frame. Default value: `DEFAULT_STATE`.
+    /// - parameter installerBlock: The installer block within which you can configure frame relations.
+    
+    public func configureFrame(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
+        
+        Maker.configure(view: self, for: state, with: installerBlock)
+    }
+    
+    /// Configures frame of current view for special states.
+    ///
+    /// - note: Don't forget about `DEFAULT_VALUE`.
+    ///
+    /// - parameter states:         The states for which you configure frame.
+    /// - parameter installerBlock: The installer block within which you can configure frame relations.
+    
+    public func configureFrame(states: [AnyHashable], installerBlock: InstallerBlock) {
+        
+        for state in states {
+            Maker.configure(view: self, for: state, with: installerBlock)
+        }
+    }
+}
+
+public extension Array where Element: UIView {
+    
+    /// Configures frames of the views for special state.
+    ///
+    /// - note: When you configure frame without implicit state parameter (default value), frame configures for the `DEFAULT_STATE`.
+    ///
+    /// - parameter state:          The state for which you configure frame. Default value: `DEFAULT_STATE`.
+    /// - parameter installerBlock: The installer block within which you can configure frame relations.
+    
+    public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
+        
+        for view in self {
+            view.configureFrame(state: state, installerBlock: installerBlock)
+        }
+    }
+    
+    /// Configures frames of the views for special states.
+    ///
+    /// - note: Don't forget about `DEFAULT_VALUE`.
+    ///
+    /// - parameter states:         The states for which you configure frames.
+    /// - parameter installerBlock: The installer block within which you can configure frame relations.
+    
+    public func configureFrames(states: [AnyHashable], installerBlock: InstallerBlock) {
+        
+        for view in self {
+            view.configureFrame(states: states, installerBlock: installerBlock)
+        }
     }
 }

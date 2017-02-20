@@ -7,37 +7,107 @@
 //
 
 import XCTest
+@testable import Framezilla
 
 class StateTests: BaseTest {
 
-    func testThanFrameForStatesChangesCorrectly() {
+    private let view1 = UIView()
+    private let view2 = UIView()
+    
+    override func setUp() {
         
-        mainView.addSubview(testingView)
-        
-        testingView.nui_state = 1
-        configureFrames()
-
-        XCTAssertEqual(testingView.frame, CGRect(x: 230, y: 240, width: 40, height: 20))
-        
-        testingView.nui_state = 0
-        configureFrames()
-        
-        XCTAssertEqual(testingView.frame, CGRect(x: 245, y: 245, width: 10, height: 10))
+        super.setUp()
+        view1.frame = .zero
     }
     
-    private func configureFrames() {
+    /* single view */
+    
+    func testThatCorrectlyConfiguresFrameForSingleView() {
         
-        testingView.configureFrames { maker in
+        view1.nui_state = 1
+        configureFramesForSingleView()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 40, height: 20))
+        
+        view1.nui_state = DEFAULT_STATE
+        configureFramesForSingleView()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 10, height: 10))
+        
+        view1.nui_state = 2
+        configureFramesForSingleView()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 5, height: 5))
+        
+        view1.nui_state = 3
+        configureFramesForSingleView()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 5, height: 5))
+    }
+    
+    private func configureFramesForSingleView() {
+        
+        view1.frame = .zero
+        
+        view1.configureFrame { maker in
             maker.width(10)
             maker.height(10)
-            maker.centerX().and.centerY()
         }
         
-        testingView.configureFrames(state: 1) { maker in
+        view1.configureFrame(state: 1) { maker in
             maker.width(40)
             maker.height(20)
-            maker.centerX().and.centerY()
+        }
+        
+        view1.configureFrame(states: [2,3]) { maker in
+            maker.width(5)
+            maker.height(5)
         }
     }
-
+    
+    /* array of views */
+    
+    func testThatCorrectlyConfiguresFramesForArrayOfViews() {
+        
+        view1.nui_state = 1
+        view2.nui_state = 1
+        configureFramesForArrayOfViews()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 20, height: 20))
+        XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 20, height: 20))
+        
+        view1.nui_state = DEFAULT_STATE
+        view2.nui_state = DEFAULT_STATE
+        configureFramesForArrayOfViews()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 10, height: 10))
+        XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 10, height: 10))
+        
+        view1.nui_state = 2
+        view2.nui_state = 2
+        configureFramesForArrayOfViews()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
+        XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
+        
+        view1.nui_state = 3
+        view2.nui_state = 3
+        configureFramesForArrayOfViews()
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
+        XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
+    }
+    
+    private func configureFramesForArrayOfViews() {
+        
+        view1.frame = .zero
+        view2.frame = .zero
+        
+        [view1, view2].configureFrames { maker in
+            maker.width(10)
+            maker.height(10)
+        }
+        
+        [view1, view2].configureFrames(state: 1) { maker in
+            maker.width(20)
+            maker.height(20)
+        }
+        
+        [view1, view2].configureFrames(states: [2,3]) { maker in
+            maker.width(30)
+            maker.height(30)
+        }
+    }
 }

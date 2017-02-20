@@ -6,8 +6,28 @@
 //  Copyright © 2016 Nikita. All rights reserved.
 //
 
-import Foundation
-import ObjectiveC
+/// Phantom type for `nui_left`, `nui_right`, `nui_centerX` relations.
+
+public protocol HorizontalRelation {}
+
+/// Phantom type for `nui_top`, `nui_bottom`, `nui_centerY` relations.
+
+public protocol VerticalRelation {}
+
+/// Phantom type for `nui_height`, `nui_widht` relations.
+
+public protocol SizeRelation {}
+
+public final class RelationView<Relation> {
+
+    unowned var view: UIView
+    var relationType: RelationType
+    
+    init(view: UIView, relation: RelationType) {
+        self.view = view
+        self.relationType = relation
+    }
+}
 
 enum RelationType {
     case bottom
@@ -22,59 +42,53 @@ enum RelationType {
     case centerY
 }
 
-fileprivate var relationTypeAssociationKey: UInt8 = 0
-
-extension UIView {
-    
-    var relationType: RelationType? {
-        get {
-            return objc_getAssociatedObject(self, &relationTypeAssociationKey) as? RelationType
-        }
-        set {
-            objc_setAssociatedObject(self, &relationTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-}
-
 public extension UIView {
     
-    public var nui_width: UIView {
-        relationType = .width
-        return self
+    /// Width relation of current view.
+    
+    public var nui_width: RelationView<SizeRelation> {
+        return RelationView(view: self, relation: .width)
     }
     
-    public var nui_height: UIView {
-        relationType = .height
-        return self
+    /// Height relation of current view.
+    
+    public var nui_height: RelationView<SizeRelation> {
+        return RelationView<SizeRelation>(view: self, relation: .height)
     }
     
-    public var nui_left: UIView {
-        relationType = .left
-        return self
+    /// Left relation of current view.
+
+    public var nui_left: RelationView<HorizontalRelation> {
+        return RelationView<HorizontalRelation>(view: self, relation: .left)
     }
     
-    public var nui_right: UIView {
-        relationType = .right
-        return self
+    /// Right relation of current view.
+    
+    public var nui_right: RelationView<HorizontalRelation> {
+        return RelationView<HorizontalRelation>(view: self, relation: .right)
     }
     
-    public var nui_top: UIView {
-        relationType = .top
-        return self
+    /// Top relation of current view.
+    
+    public var nui_top: RelationView<VerticalRelation> {
+        return RelationView<VerticalRelation>(view: self, relation: .top)
     }
     
-    public var nui_bottom: UIView {
-        relationType = .bottom
-        return self
+    /// Bottom relation of current view.
+    
+    public var nui_bottom: RelationView<VerticalRelation> {
+        return RelationView<VerticalRelation>(view: self, relation: .bottom)
     }
     
-    public var nui_centerX: UIView {
-        relationType = .centerX
-        return self
+    /// CenterX relation of current view.
+    
+    public var nui_centerX: RelationView<HorizontalRelation> {
+        return RelationView<HorizontalRelation>(view: self, relation: .centerX)
     }
     
-    public var nui_centerY: UIView {
-        relationType = .centerY
-        return self
+    /// CenterY relation of current view.
+    
+    public var nui_centerY: RelationView<VerticalRelation> {
+        return RelationView<VerticalRelation>(view: self, relation: .centerY)
     }
 }

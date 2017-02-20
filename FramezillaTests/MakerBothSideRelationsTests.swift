@@ -1,5 +1,5 @@
 //
-//  BothSideRelationsTests.swift
+//  MakerBothSideRelationsTests.swift
 //  Framezilla
 //
 //  Created by Nikita on 06/09/16.
@@ -8,13 +8,13 @@
 
 import XCTest
 
-class BothSideRelationsTests: BaseTest {
+class MakerBothSideRelationsTests: BaseTest {
     
     /* rigth-left */
     
-    func testThanRightAndLeftForSuperviewConfiguresCorrectly() {
+    func testThatRightAndLeftForSuperviewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerY()
             maker.height(100)
             maker.left(inset: 10).and.right(inset: 10)
@@ -22,22 +22,22 @@ class BothSideRelationsTests: BaseTest {
         XCTAssertEqual(testingView.frame, CGRect(x: 10, y: 200, width: 480, height: 100))
     }
     
-    func testThanRightAndLeftForAnotherViewConfiguresCorrectly() {
+    func testThatRightAndLeftForAnotherViewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerY()
             maker.height(100)
-            maker.left(to: self.nestedView1.nui_left, inset: 10)
-            maker.right(to: self.nestedView1.nui_right, inset: 10)
+            maker.left(to: nestedView1.nui_left, inset: 10)
+            maker.right(to: nestedView1.nui_right, inset: 10)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 110, y: 200, width: 280, height: 100))
     }
     
     /* top-bottom */
     
-    func testThanBottomtAndTopForSuperviewConfiguresCorrectly() {
+    func testThatBottomtAndTopForSuperviewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerX()
             maker.width(100)
             maker.top(inset: 10).and.bottom(inset: 10)
@@ -45,13 +45,13 @@ class BothSideRelationsTests: BaseTest {
         XCTAssertEqual(testingView.frame, CGRect(x: 200, y: 10, width: 100, height: 480))
     }
     
-    func testThanBottomtAndTopForAnotherViewConfiguresCorrectly() {
+    func testThatBottomtAndTopForAnotherViewConfiguresCorrectly() {
         
-        testingView.configureFrames { maker in
+        testingView.configureFrame { maker in
             maker.centerX()
             maker.width(100)
-            maker.top(to: self.nestedView1.nui_top, inset: 10)
-            maker.bottom(to: self.nestedView1.nui_bottom, inset: 10)
+            maker.top(to: nestedView1.nui_top, inset: 10)
+            maker.bottom(to: nestedView1.nui_bottom, inset: 10)
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 200, y: 110, width: 100, height: 280))
     }

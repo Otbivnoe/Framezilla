@@ -70,8 +70,8 @@ extension CGRect {
             case .height:  frame.size.height = value
             case .left:    frame.origin.x = value
             case .top:     frame.origin.y = value
-            case .centerX: frame.origin.x = value - width/2;
-            case .centerY: frame.origin.y = value - height/2;
+            case .centerX: frame.origin.x = value - width/2
+            case .centerY: frame.origin.y = value - height/2
             default: break
         }
         self = frame

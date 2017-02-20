@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		115972191D8450F500BC5C20 /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11FB41321D844D2C00700A40 /* Framezilla.framework */; };
 		115972261D84517800BC5C20 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972201D84517800BC5C20 /* BaseTest.swift */; };
-		115972271D84517800BC5C20 /* BothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972211D84517800BC5C20 /* BothSideRelationsTests.swift */; };
+		115972271D84517800BC5C20 /* MakerBothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972211D84517800BC5C20 /* MakerBothSideRelationsTests.swift */; };
 		115972281D84517800BC5C20 /* MakerCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972221D84517800BC5C20 /* MakerCenterTests.swift */; };
 		115972291D84517800BC5C20 /* MakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972231D84517800BC5C20 /* MakerTests.swift */; };
 		1159722A1D84517800BC5C20 /* MakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115972241D84517800BC5C20 /* MakerWidthHeightTests.swift */; };
@@ -20,6 +20,9 @@
 		11FB41471D844F8F00700A40 /* MakerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41421D844F8F00700A40 /* MakerHelper.swift */; };
 		11FB41481D844F8F00700A40 /* UIView+Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41431D844F8F00700A40 /* UIView+Installer.swift */; };
 		11FB41491D844F8F00700A40 /* UIView+Relations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41441D844F8F00700A40 /* UIView+Relations.swift */; };
+		8497C0111E59EB7700447E2F /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0101E59EB7700447E2F /* Number.swift */; };
+		8497C0131E59FA4B00447E2F /* Array+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0121E59FA4B00447E2F /* Array+Stack.swift */; };
+		8497C0151E5A056400447E2F /* MakerStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0141E5A056400447E2F /* MakerStackTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +40,7 @@
 		115972181D8450F500BC5C20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1159721F1D84517700BC5C20 /* FramezillaTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FramezillaTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		115972201D84517800BC5C20 /* BaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTest.swift; sourceTree = "<group>"; };
-		115972211D84517800BC5C20 /* BothSideRelationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BothSideRelationsTests.swift; sourceTree = "<group>"; };
+		115972211D84517800BC5C20 /* MakerBothSideRelationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerBothSideRelationsTests.swift; sourceTree = "<group>"; };
 		115972221D84517800BC5C20 /* MakerCenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerCenterTests.swift; sourceTree = "<group>"; };
 		115972231D84517800BC5C20 /* MakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerTests.swift; sourceTree = "<group>"; };
 		115972241D84517800BC5C20 /* MakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerWidthHeightTests.swift; sourceTree = "<group>"; };
@@ -53,6 +56,9 @@
 		11FB414A1D844FFA00700A40 /* Framezilla.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framezilla.podspec; sourceTree = "<group>"; };
 		11FB414B1D844FFA00700A40 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		11FB414C1D844FFA00700A40 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8497C0101E59EB7700447E2F /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
+		8497C0121E59FA4B00447E2F /* Array+Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Stack.swift"; sourceTree = "<group>"; };
+		8497C0141E5A056400447E2F /* MakerStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerStackTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				115972201D84517800BC5C20 /* BaseTest.swift */,
-				115972211D84517800BC5C20 /* BothSideRelationsTests.swift */,
+				115972211D84517800BC5C20 /* MakerBothSideRelationsTests.swift */,
+				8497C0141E5A056400447E2F /* MakerStackTests.swift */,
 				115972221D84517800BC5C20 /* MakerCenterTests.swift */,
 				115972231D84517800BC5C20 /* MakerTests.swift */,
 				115972241D84517800BC5C20 /* MakerWidthHeightTests.swift */,
@@ -120,6 +127,8 @@
 				11FB41431D844F8F00700A40 /* UIView+Installer.swift */,
 				11FB41441D844F8F00700A40 /* UIView+Relations.swift */,
 				11FB41351D844D2C00700A40 /* Framezilla.h */,
+				8497C0101E59EB7700447E2F /* Number.swift */,
+				8497C0121E59FA4B00447E2F /* Array+Stack.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -164,6 +173,7 @@
 				11FB412E1D844D2B00700A40 /* Frameworks */,
 				11FB412F1D844D2B00700A40 /* Headers */,
 				11FB41301D844D2B00700A40 /* Resources */,
+				840FDB2C1E5B3977004F836A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -230,17 +240,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		840FDB2C1E5B3977004F836A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		115972101D8450F500BC5C20 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1159722B1D84517800BC5C20 /* StateTests.swift in Sources */,
-				115972271D84517800BC5C20 /* BothSideRelationsTests.swift in Sources */,
+				115972271D84517800BC5C20 /* MakerBothSideRelationsTests.swift in Sources */,
 				115972291D84517800BC5C20 /* MakerTests.swift in Sources */,
 				115972281D84517800BC5C20 /* MakerCenterTests.swift in Sources */,
 				115972261D84517800BC5C20 /* BaseTest.swift in Sources */,
 				1159722A1D84517800BC5C20 /* MakerWidthHeightTests.swift in Sources */,
+				8497C0151E5A056400447E2F /* MakerStackTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +278,9 @@
 			files = (
 				11FB41461D844F8F00700A40 /* Maker+Configurations.swift in Sources */,
 				11FB41451D844F8F00700A40 /* Maker.swift in Sources */,
+				8497C0111E59EB7700447E2F /* Number.swift in Sources */,
 				11FB41471D844F8F00700A40 /* MakerHelper.swift in Sources */,
+				8497C0131E59FA4B00447E2F /* Array+Stack.swift in Sources */,
 				11FB41481D844F8F00700A40 /* UIView+Installer.swift in Sources */,
 				11FB41491D844F8F00700A40 /* UIView+Relations.swift in Sources */,
 			);

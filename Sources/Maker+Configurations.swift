@@ -12,19 +12,19 @@ public typealias InstallerBlock = (Maker) -> Void
 
 extension Maker {
     
-    class func configurate(view: UIView, forState state:Int, with installerBlock: InstallerBlock) {
+    class func configure(view: UIView, for state: AnyHashable, with installerBlock: InstallerBlock) {
         
-        if (view.nui_state == state) {
-            let maker = Maker(view)
+        if view.nui_state == state {
+            let maker = Maker(view: view)
             
             maker.newRect = view.frame
             installerBlock(maker)
             
-            maker.configurateFrame()
+            maker.configureFrame()
         }
     }
     
-    private func configurateFrame() {
+    private func configureFrame() {
         
         handlers.sort {
             $0.priority.rawValue <= $1.priority.rawValue
