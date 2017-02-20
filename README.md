@@ -3,9 +3,11 @@
 </p>
 
 [![Build Status](https://travis-ci.org/Otbivnoe/Framezilla.svg?branch=master)](https://travis-ci.org/Otbivnoe/Framezilla)
+[![Version](https://img.shields.io/cocoapods/v/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg)
+[![License](https://img.shields.io/cocoapods/l/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 
 **Everyone wants to see smooth scrolling, that tableview or collectionview scrolls without any lags and it's right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not elegant, beautiful structure.**
 
@@ -55,30 +57,6 @@ github "Otbivnoe/Framezilla"
 
 Run `carthage update` to build the framework and drag the built `Framezilla.framework` into your Xcode project.
 
-### Swift Package Manager (not available at the moment, sorry)
-
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
-
-To integrate Framezilla, just add Framezilla dependency to your `Package.swift`
-
-```swift
-import PackageDescription
-
-let package = Package(
-    name: "{YOUR_PROJECT_NAME}",
-    targets: [],
-    dependencies: [
-        .Package(url: "https://github.com/Otbivnoe/Framezilla.git", majorVersion: 1)
-    ]
-)
-```
-
-and then run 
-
-```bash
-$ swift build
-```
-
 # Features :boom:
 
 - [x] Edges with superview
@@ -100,13 +78,13 @@ There're a few methods for working with view's size.
 You can configure ```width``` and ```height``` separately:
 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.width(200).and.height(200)
     }
 ```
 or together with the same result: 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.size(width: 200, height: 200)
     }
 ```
@@ -114,7 +92,7 @@ Also in some cases you want to equate the sides of two views with some multiplie
 
 For example:
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.width(to: view1.nui_height, multiplier: 0.5)
         maker.height(to: view1.nui_width) // x1 multiplier - default
     }
@@ -129,7 +107,7 @@ Framezilla has two method for comfortable creating edge-relation.
 Either you can create edge relation so
 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.edges(insets: UIEdgeInsetsMake(5, 5, 5, 5)) // UIEdgeInsets.zero - default
     }
 ```
@@ -137,7 +115,7 @@ Either you can create edge relation so
 or
 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.edges(top: 5, left: 5, bottom: 5, right: 5)
     }
 ```
@@ -148,7 +126,7 @@ the second method has optional parameters, so ```maker.edges(top: 5, left: 5, bo
 You can create edge relation, as shown above, but only use side relations.
 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.top(inset: 5).and.bottom(inset: 5)
         maker.left(inset: 5).and.right(inset: 5)
     }
@@ -160,28 +138,10 @@ Also possible to create relations with another view, not a superview:
 
 ```swift
   // Red view
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.size(width: 30, height: 30)
         maker.left(to: self.view1.nui_right, inset: 5)
         maker.bottom(to: self.view1.nui_centerY)
-    }
-```
-
-### NOTE: That's important to point out relations for two views.
-
-###Incorrect:
-
-```swift
-    view.configureFrames { maker in
-        maker.bottom(to: self.view1) //Always specify the relation
-    }
-```
-
-###Correct:
-
-```swift
-    view.configureFrames { maker in
-        maker.bottom(to: self.view1.nui_top)
     }
 ```
 
@@ -190,7 +150,7 @@ Also possible to create relations with another view, not a superview:
 If you just want to center subview relative superview with constant `width` and `height`, this approach specially for you:
 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.centerY().and.centerX()
         maker.size(width: 100, height: 100)
     }
@@ -205,7 +165,7 @@ What if you want to join the center point of the view with the top right point o
 ![](img/centered.png)
 
 ```swift
-    view.configureFrames { maker in
+    view.configureFrame { maker in
         maker.centerX(to: self.view1.nui_right, offset: 0)
         maker.centerY(to: self.view1.nui_top) //Zero offset - default
         maker.size(width: 50, height: 50)
@@ -221,7 +181,7 @@ Very often you should configure labels, so there are some methods for comfortabl
 ![](img/sizeToFit.png)
 
 ```swift
-    label.configureFrames { maker in
+    label.configureFrame { maker in
         maker.sizeToFit() // Configure width and height by text length no limits
         maker.centerX().and.centerY()
     }
@@ -234,7 +194,7 @@ But what if you have to specify edges for label?
 ![](img/sizeThatFits.png)
 
 ```swift
-    label.configureFrames { maker in
+    label.configureFrame { maker in
         maker.sizeThatFits(size: CGSize(width: 200, height: 100))
         maker.centerX().and.centerY()
     }
@@ -253,22 +213,42 @@ Use this method when you want to set `width` and `height` by wrapping all subvie
 ![](img/container.png)
 
 ```swift
-    label1.configureFrames { maker in
+    label1.configureFrame { maker in
         maker.sizeToFit()
         maker.top()
         maker.left(inset: 5)
     }
     
-    label2.configureFrames { maker in
+    label2.configureFrame { maker in
         maker.sizeToFit()
         maker.top(to: label1.nui_bottom, inset: 5)
         maker.left(inset: 5)
     }
     
-    view1.configureFrames { maker in
+    view1.configureFrame { maker in
         maker.centerY().centerX()
         maker.container()
     }
+```
+
+## Cool things:
+
+Sometimes you want to configure a few views with the same size, for examlple. There is a convinience method:
+
+```swift
+    [view1, view2].configureFrames { maker in
+        maker.size(width: 200, height: 100)
+    }
+```       
+
+## Stack
+
+Framezilla allows you configure views like stack behaviour. Important to point out correct views order.
+
+![](img/stack.png)
+
+```swift
+  [view3, view2, view1].stack(axis: .horizontal, spacing: 3)
 ```
 
 ## States
@@ -282,13 +262,13 @@ It's very convenient use many states for animations, because you can just config
       
       super.viewDidLayoutSubviews()
       
-      // state 0
-      view1.configureFrames { maker in
+      // state `DEFAULT_STATE`
+      view1.configureFrame { maker in
           maker.centerX().and.centerY()
           maker.width(50).and.height(50)
       }
       
-      view1.configureFrames(state: 1) { maker in
+      view1.configureFrame(state: 1) { maker in
           maker.centerX().and.centerY()
           maker.width(100).and.height(100)
       }
@@ -298,11 +278,19 @@ It's very convenient use many states for animations, because you can just config
 set new state and animate it:
 
 ```swift
-/* Next time when viewDidLayoutSubviews will be called, `view1` configure frame for state 2. */
-    view1.nui_state = 1
+/* Next time when viewDidLayoutSubviews will be called, `view1` will configure frame for state 1. */
+    view1.nui_state = 1 // Any hashable value
     view.setNeedsLayout()
     UIView.animate(withDuration: 1.0) {
         self.view.layoutIfNeeded()
+    }
+```
+
+Also possible to apply many states in a row:
+
+```swift
+    view1.configureFrame(states: [3, "state"]) { maker in
+        maker.size(width: 200, height: 100)
     }
 ```
 
@@ -314,6 +302,12 @@ Nikita Ermolenko, nikita.ermolenko@rosberry.com
 Thanks [Artem Novichkov](https://github.com/artemnovichkov) for the name of the library!
 
 Thanks [Evgeny Mikhaylov](https://github.com/medvedzzz) for 'state' feature!
+
+Thanks [Anton Kovalev](https://github.com/Antowkos) for improving library!
+
+## Contribute :pray:
+
+I would love you to contribute to **Framezilla**, check the [CONTRIBUTING](https://github.com/Otbivnoe/Framezilla/blob/master/CONTRIBUTING.md) file for more info.
 
 # License :exclamation:
 
