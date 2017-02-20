@@ -16,7 +16,8 @@ fileprivate var stateTypeAssociationKey: UInt8 = 0
 public extension UIView {
     
     /// Apply new configuration state without frame updating.
-    /// Use `DEFAULT_STATE` for setting the state to the default value.
+    ///
+    /// - note: Use `DEFAULT_STATE` for setting the state to the default value.
     
     public var nui_state: AnyHashable? {
         get {
@@ -55,7 +56,7 @@ public extension UIView {
     
     /// Configures frame of current view for special states.
     ///
-    /// - note: When you configure frame without implicit state parameter (default value), frame configures for the `DEFAULT_STATE`.
+    /// - note: Don't forget about `DEFAULT_VALUE`.
     ///
     /// - parameter states:         The states for which you configure frame.
     /// - parameter installerBlock: The installer block within which you can configure frame relations.

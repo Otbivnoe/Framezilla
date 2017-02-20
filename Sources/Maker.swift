@@ -60,7 +60,7 @@ public final class Maker {
                 .right(to: rightView, inset: insets.right)
     }
     
-    /// Creates edge relations with optional parameters.
+    /// Creates edge relations.
     ///
     /// It's useful method for configure some side relations in short form.
     ///
@@ -106,9 +106,9 @@ public final class Maker {
         return self
     }
     
-    /// Creates width relation relatively another view.
+    /// Creates width relation relatively another view = Aspect ration.
     ///
-    /// Uses this method when you want that your view's width equals to another view's height with some multiplier, for example.
+    /// Use this method when you want that your view's width equals to another view's height with some multiplier, for example.
     ///
     /// - note: You can not use this method with other relations except for `nui_width` and `nui_height`.
     ///
@@ -178,9 +178,9 @@ public final class Maker {
         return self
     }
     
-    /// Creates height relation relatively another view.
+    /// Creates height relation relatively another view = Aspect ration.
     ///
-    /// Uses this method when you want that your view's height equals to another view's width with some multiplier, for example.
+    /// Use this method when you want that your view's height equals to another view's width with some multiplier, for example.
     ///
     /// - note: You can not use this method with other relations except for `nui_width` and `nui_height`.
     ///
@@ -306,8 +306,8 @@ public final class Maker {
     ///
     /// - note: You can not use this method with other relations except for `nui_top`, `nui_centerY` and `nui_bottom`.
     ///
-    /// - parameter view:  The view on which you set top relation.
-    /// - parameter inset: The inset for additional space between views. Default value: 0.
+    /// - parameter relationView:  The view on which you set top relation.
+    /// - parameter inset:         The inset for additional space between views. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
     
@@ -446,8 +446,8 @@ public final class Maker {
     ///
     /// - note: You can not use this method with other relations except for `nui_top`, `nui_centerY` and `nui_bottom`.
     ///
-    /// - parameter view:   The view on which you set bottom relation.
-    /// - parameter inset:  The inset for additional space between views. Default value: 0.
+    /// - parameter relationView:   The view on which you set bottom relation.
+    /// - parameter inset:          The inset for additional space between views. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
     
@@ -493,8 +493,8 @@ public final class Maker {
     ///
     /// - note: You can not use this method with other relations except for `nui_left`, `nui_centerX` and `nui_right`.
     //
-    /// - parameter view:     The view on which you set right relation.
-    /// - parameter inset:    The inset for additional space between views. Default value: 0.
+    /// - parameter relationView:     The view on which you set right relation.
+    /// - parameter inset:            The inset for additional space between views. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
     
