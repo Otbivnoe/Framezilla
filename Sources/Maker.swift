@@ -30,7 +30,7 @@ public final class Maker {
         self.newRect = view.frame
     }
     
-    //MARK: Additions
+    // MARK: Additions
     
     ///	Optional semantic property for improvements readability.
     ///
@@ -88,7 +88,7 @@ public final class Maker {
         return (inset != nil) ? f(inset!) : self
     }
     
-    //MARK: High priority
+    // MARK: High priority
     
     /// Installs constant width for current view.
     ///
@@ -129,7 +129,8 @@ public final class Maker {
             }
             else {
                 if let heightParameters = self.relationParameters(relationType: .height) {
-                    
+                    // TODO: Avoid force cast
+                    // swiftlint:disable force_cast
                     let width = heightParameters.argument as! CGFloat
                     self.newRect.setValue(width * multiplier.value, for: .width)
                 }
@@ -146,7 +147,8 @@ public final class Maker {
                     
                     let (topView, topInset, topRelationType) = topParameters.argument as! (UIView, CGFloat, RelationType)
                     let (bottomView, bottomInset, bottomRelationType) = bottomParameters.argument as! (UIView, CGFloat, RelationType)
-
+                    // swiftlint:enable force_cast
+                    
                     let topViewY = self.convertedValue(for: topRelationType, with: topView) + topInset
                     let bottomViewY = self.convertedValue(for: bottomRelationType, with: bottomView) - bottomInset
                     
@@ -199,7 +201,7 @@ public final class Maker {
             }
             else {
                 if let widthParameters = self.relationParameters(relationType: .width) {
-                    
+                    // swiftlint:disable force_cast
                     let height = widthParameters.argument as! CGFloat
                     self.newRect.setValue(height * multiplier.value, for: .height)
                 }
@@ -216,7 +218,7 @@ public final class Maker {
                     
                     let (leftView, leftInset, leftRelationType) = leftParameters.argument as! (UIView, CGFloat, RelationType)
                     let (rightView, rightInset, rightRelationType) = rightParameters.argument as! (UIView, CGFloat, RelationType)
-                    
+                    // swiftlint:enable force_cast
                     let leftViewX = self.convertedValue(for: leftRelationType, with: leftView) + leftInset
                     let rightViewX = self.convertedValue(for: rightRelationType, with: rightView) - rightInset
                     
@@ -397,7 +399,7 @@ public final class Maker {
         return self
     }
     
-    //MARK: Middle priority
+    // MARK: Middle priority
     
     /// Creates edge relations for superview.
     ///
@@ -516,7 +518,7 @@ public final class Maker {
         return self
     }
     
-    //MARK: Low priority
+    // MARK: Low priority
     
     /// Creates centerY relation to superview.
     ///
@@ -628,7 +630,7 @@ public final class Maker {
         return self
     }
     
-    //MARK: Private
+    // MARK: Private
 
     private func setHighPriorityValue(_ value: CGFloat, for type: RelationType) {
         
@@ -639,4 +641,3 @@ public final class Maker {
         relationParameters.append((type, value))
     }
 }
-

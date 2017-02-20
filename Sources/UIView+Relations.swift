@@ -6,7 +6,6 @@
 //  Copyright © 2016 Nikita. All rights reserved.
 //
 
-
 /// Phantom type for `nui_left`, `nui_right`, `nui_centerX` relations.
 
 public protocol HorizontalRelation {}
@@ -18,7 +17,6 @@ public protocol VerticalRelation {}
 /// Phantom type for `nui_height`, `nui_widht` relations.
 
 public protocol SizeRelation {}
-
 
 public final class RelationView<Relation> {
 

@@ -29,4 +29,3 @@ extension Int: Number {
         return CGFloat(self)
     }
 }
-

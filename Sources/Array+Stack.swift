@@ -6,7 +6,7 @@
 //
 //
 
-public enum StackAxis : Int {
+public enum StackAxis: Int {
     case horizontal
     case vertical
 }
