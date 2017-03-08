@@ -403,11 +403,11 @@ public final class Maker {
     
     /// Creates edge relations for superview.
     ///
-    /// - parameter insets: The insets for setting relations for superview. `UIEdgeInsets.zero` - default insets.
+    /// - parameter insets: The insets for setting relations for superview.
     ///
     /// - returns: `Maker` instance for chaining relations.
     
-    @discardableResult public func edges(insets: UIEdgeInsets = .zero) -> Maker {
+    @discardableResult public func edges(insets: UIEdgeInsets) -> Maker {
         
         guard let superview = view.superview else {
             assertionFailure("Can not create edge relations without superview.")
