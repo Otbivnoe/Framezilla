@@ -242,4 +242,21 @@ class MakerCenterTests: BaseTest {
         XCTAssertEqual(testingView.frame, CGRect(x: 5, y: -15, width: 50, height: 50))
     }
     
+    /* center(x and y) */
+    
+    func testThatCorrectlyConfiguresCenterToSuperview() {
+        
+        testingView.configureFrame { maker in
+            maker.center()
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: 225, y: 225, width: 50, height: 50))
+    }
+    
+    func testThatCorrectlyConfiguresCenterToAnotherView() {
+        
+        testingView.configureFrame { maker in
+            maker.center(to: nestedView2)
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: 225, y: 225, width: 50, height: 50))
+    }
 }
