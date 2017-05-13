@@ -24,17 +24,15 @@ public extension Array where Element: UIView {
     public func stack(axis: StackAxis, spacing: Number = 0.0, state: AnyHashable = DEFAULT_STATE) {
         
         for view in self {
-            guard let _ = view.superview else {
+            guard view.superview != nil else {
                 assertionFailure("Can not configure stack relation without superview.")
                 return
             }
         }
 
         let superview = self[0].superview!
-        for view in self {
-            if view.superview != superview {
-                assertionFailure("All views should have the same superview.")
-            }
+        for view in self where view.superview != superview {
+            assertionFailure("All views should have the same superview.")
         }
         
         guard superview.nui_state == state else {
