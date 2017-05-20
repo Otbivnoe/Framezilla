@@ -14,7 +14,7 @@ extension Maker {
     
     class func configure(view: UIView, for state: AnyHashable, with installerBlock: InstallerBlock) {
         
-        if view.nui_state == state {
+        if view.nx_state == state {
             let maker = Maker(view: view)
             
             maker.newRect = view.frame

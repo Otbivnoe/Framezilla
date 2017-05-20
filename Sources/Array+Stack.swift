@@ -15,7 +15,7 @@ public extension Array where Element: UIView {
     
     /// Arranges views in the order of list along a vertical or horizontal axis, with spacing property.
     ///
-    /// - note: You have to change the `nui_state` of the container, not the arranged subviews.
+    /// - note: You have to change the `nx_state` of the container, not the arranged subviews.
     ///
     /// - parameter axis:      A stack with a horizontal axis is a row of arranged subviews, and a stack with a vertical axis is a column of arranged subviews.
     /// - parameter spacing:   Spacing between arranged subviews.
@@ -35,7 +35,7 @@ public extension Array where Element: UIView {
             assertionFailure("All views should have the same superview.")
         }
         
-        guard superview.nui_state == state else {
+        guard superview.nx_state == state else {
             return
         }
         

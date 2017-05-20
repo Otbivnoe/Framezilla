@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.nx_state = "123"
         // Do any additional setup after loading the view, typically from a nib.
     }
 

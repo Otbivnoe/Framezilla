@@ -280,7 +280,7 @@ set new state and animate it:
 
 ```swift
 /* Next time when viewDidLayoutSubviews will be called, `view1` will configure frame for state 1. */
-    view1.nui_state = 1 // Any hashable value
+    view1.nx_state = 1 // Any hashable value
     view.setNeedsLayout()
     UIView.animate(withDuration: 1.0) {
         self.view.layoutIfNeeded()
