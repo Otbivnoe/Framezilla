@@ -94,7 +94,7 @@ class MakerStackTests: BaseTest {
     func testThatCorrectlyConfiguresStackForOtherStates() {
         
         containterView.frame = CGRect(x: 0, y: 0, width: 90, height: 200)
-        containterView.nui_state = "STATE"
+        containterView.nx_state = "STATE"
         configuresFrames()
         
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 30, height: 200))
@@ -102,7 +102,7 @@ class MakerStackTests: BaseTest {
         XCTAssertEqual(view3.frame, CGRect(x: 60, y: 0, width: 30, height: 200))
         
         containterView.frame = CGRect(x: 0, y: 0, width: 200, height: 90)
-        containterView.nui_state = DEFAULT_STATE
+        containterView.nx_state = DEFAULT_STATE
         configuresFrames()
         
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 200, height: 30))

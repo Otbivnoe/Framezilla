@@ -12,6 +12,7 @@ import ObjectiveC
 public let DEFAULT_STATE = "DEFAULT STATE"
 
 fileprivate var stateTypeAssociationKey: UInt8 = 0
+fileprivate var nxStateTypeAssociationKey: UInt8 = 1
 
 public extension UIView {
     
@@ -19,7 +20,8 @@ public extension UIView {
     ///
     /// - note: Use `DEFAULT_STATE` for setting the state to the default value.
     
-    public var nui_state: AnyHashable? {
+    @available(*, message: "Renamed due to conflict with Objective-C library - Framer", unavailable, renamed: "nx_state")
+    public var nui_state: AnyHashable {
         get {
             if let value = objc_getAssociatedObject(self, &stateTypeAssociationKey) as? AnyHashable {
                 return value
@@ -29,7 +31,25 @@ public extension UIView {
             }
         }
         set {
-            objc_setAssociatedObject(self, &stateTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &stateTypeAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    /// Apply new configuration state without frame updating.
+    ///
+    /// - note: Use `DEFAULT_STATE` for setting the state to the default value.
+    
+    public var nx_state: AnyHashable {
+        get {
+            if let value = objc_getAssociatedObject(self, &nxStateTypeAssociationKey) as? AnyHashable {
+                return value
+            }
+            else {
+                return DEFAULT_STATE
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, &nxStateTypeAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

@@ -520,7 +520,34 @@ public final class Maker {
     
     // MARK: Low priority
     
-    /// Creates centerY relation to superview.
+    /// Creates center relation to superview.
+    ///
+    /// Use this method when you want to center view by both axis relativity superview.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func center() -> Maker {
+        guard let superview = view.superview else {
+            assertionFailure("Can not configure center relation to superview without superview.")
+            return self
+        }
+        return center(to: superview)
+    }
+    
+    /// Creates center relation.
+    ///
+    /// Use this method when you want to center view by both axis relativity another view.
+    ///
+    /// - parameter view: The view on which you set center relation.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func center(to view: UIView) -> Maker {
+        return centerX(to: RelationView<HorizontalRelation>(view: view, relation: .centerX))
+                .centerY(to: RelationView<VerticalRelation>(view: view, relation: .centerY))
+    }
+    
+    /// Creates centerY relation.
     ///
     /// Use this method when you want to join centerY of current view with centerY of superview.
     ///

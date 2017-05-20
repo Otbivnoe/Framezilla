@@ -24,19 +24,19 @@ class StateTests: BaseTest {
     
     func testThatCorrectlyConfiguresFrameForSingleView() {
         
-        view1.nui_state = 1
+        view1.nx_state = 1
         configureFramesForSingleView()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 40, height: 20))
         
-        view1.nui_state = DEFAULT_STATE
+        view1.nx_state = DEFAULT_STATE
         configureFramesForSingleView()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 10, height: 10))
         
-        view1.nui_state = 2
+        view1.nx_state = 2
         configureFramesForSingleView()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 5, height: 5))
         
-        view1.nui_state = 3
+        view1.nx_state = 3
         configureFramesForSingleView()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 5, height: 5))
     }
@@ -65,26 +65,26 @@ class StateTests: BaseTest {
     
     func testThatCorrectlyConfiguresFramesForArrayOfViews() {
         
-        view1.nui_state = 1
-        view2.nui_state = 1
+        view1.nx_state = 1
+        view2.nx_state = 1
         configureFramesForArrayOfViews()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 20, height: 20))
         XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 20, height: 20))
         
-        view1.nui_state = DEFAULT_STATE
-        view2.nui_state = DEFAULT_STATE
+        view1.nx_state = DEFAULT_STATE
+        view2.nx_state = DEFAULT_STATE
         configureFramesForArrayOfViews()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 10, height: 10))
         XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 10, height: 10))
         
-        view1.nui_state = 2
-        view2.nui_state = 2
+        view1.nx_state = 2
+        view2.nx_state = 2
         configureFramesForArrayOfViews()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
         XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
         
-        view1.nui_state = 3
-        view2.nui_state = 3
+        view1.nx_state = 3
+        view2.nx_state = 3
         configureFramesForArrayOfViews()
         XCTAssertEqual(view1.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
         XCTAssertEqual(view2.frame, CGRect(x: 0, y: 0, width: 30, height: 30))
