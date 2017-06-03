@@ -19,26 +19,27 @@ class ViewController: UIViewController {
         content.backgroundColor = .red
         
         scrollView.addSubview(content)
+        scrollView.backgroundColor = .yellow
         scrollView.contentSize = CGSize(width: 1000, height: 1000)
         
         view.addSubview(scrollView)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        }
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        scrollView.frame = view.bounds
-        
-        content.configureFrame { maker in
+        scrollView.configureFrame { maker in
             maker.size(width: 100, height: 100)
             maker.center()
         }
+        
+        content.configureFrame { maker in
+            maker.edges(top: 10, left: 10, bottom: 10, right: 10)
+//            maker.size(width: 100, height: 100)
+//            maker.center()
+        }
+        
+        print(content.frame)
     }
-
 }
 
