@@ -27,7 +27,17 @@ extension Maker {
 
     func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
 
-        let convertedRect = self.view.superview!.convert(view.frame, from: view.superview)
+        var convertedRect: CGRect {
+            if let scrollView = self.view.superview as? UIScrollView {
+                return CGRect(x: 0,
+                              y: 0,
+                              width: scrollView.contentSize.width,
+                              height: scrollView.contentSize.height)
+            }
+            else {
+                return self.view.superview!.convert(view.frame, from: view.superview)
+            }
+        }
 
         switch type {
             case .top:        return convertedRect.minY
