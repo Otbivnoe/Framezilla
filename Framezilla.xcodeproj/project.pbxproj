@@ -21,6 +21,7 @@
 		8442F9431EC75A8500B72551 /* MakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F93B1EC75A8500B72551 /* MakerTests.swift */; };
 		8442F9441EC75A8500B72551 /* MakerWidthHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F93C1EC75A8500B72551 /* MakerWidthHeightTests.swift */; };
 		8442F9451EC75A8500B72551 /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F93D1EC75A8500B72551 /* StateTests.swift */; };
+		845108071EE2F5BC006DC1C8 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */; };
 		8497C0111E59EB7700447E2F /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0101E59EB7700447E2F /* Number.swift */; };
 		8497C0131E59FA4B00447E2F /* Array+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0121E59FA4B00447E2F /* Array+Stack.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		8442F93B1EC75A8500B72551 /* MakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerTests.swift; sourceTree = "<group>"; };
 		8442F93C1EC75A8500B72551 /* MakerWidthHeightTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakerWidthHeightTests.swift; sourceTree = "<group>"; };
 		8442F93D1EC75A8500B72551 /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTests.swift; sourceTree = "<group>"; };
+		845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
 		8497C0101E59EB7700447E2F /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		8497C0121E59FA4B00447E2F /* Array+Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Stack.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +131,7 @@
 				8442F93B1EC75A8500B72551 /* MakerTests.swift */,
 				8442F93C1EC75A8500B72551 /* MakerWidthHeightTests.swift */,
 				8442F93D1EC75A8500B72551 /* StateTests.swift */,
+				845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				8442F9411EC75A8500B72551 /* MakerCenterTests.swift in Sources */,
 				8442F9421EC75A8500B72551 /* MakerStackTests.swift in Sources */,
 				8442F9401EC75A8500B72551 /* MakerBothSideRelationsTests.swift in Sources */,
+				845108071EE2F5BC006DC1C8 /* ScrollViewTests.swift in Sources */,
 				8442F9431EC75A8500B72551 /* MakerTests.swift in Sources */,
 				8442F93E1EC75A8500B72551 /* BaseTest.swift in Sources */,
 			);

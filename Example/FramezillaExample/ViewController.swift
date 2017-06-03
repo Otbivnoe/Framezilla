@@ -34,7 +34,10 @@ class ViewController: UIViewController {
         }
         
         content.configureFrame { maker in
-            maker.edges(top: 10, left: 10, bottom: 10, right: 10)
+            maker.edges(top: 20, left: 10, bottom: 40, right: 30)
+            
+//            maker.edges(top: 10, left: 10, bottom: 10, right: 10)
+            
 //            maker.size(width: 100, height: 100)
 //            maker.center()
         }
