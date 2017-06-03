@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name           = "Framezilla"
-    spec.version        = "2.1.1"
+    spec.version        = "2.1.2"
     spec.summary        = "Comfortable syntax for working with frames."
 
     spec.homepage       = "https://github.com/Otbivnoe/Framezilla"
