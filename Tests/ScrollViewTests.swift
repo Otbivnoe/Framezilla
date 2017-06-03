@@ -43,4 +43,30 @@ final class ScrollViewTests: XCTestCase {
         XCTAssertEqual(view.frame, CGRect(x: 125, y: 130, width: 50, height: 40))
         view.removeFromSuperview()
     }
+    
+    func testThanCorrectlyConfiguresFewSubviewTogeter() {
+        
+        let view1 = UIView(frame: .zero)
+        let view2 = UIView(frame: .zero)
+        
+        scrollView.addSubview(view1)
+        scrollView.addSubview(view2)
+        
+        view1.configureFrame { maker in
+            maker.center()
+            maker.size(width: 50, height: 40)
+        }
+        
+        view2.configureFrame { maker in
+            maker.centerX()
+            maker.top(to: view1.nui_bottom, inset: 10)
+            maker.size(width: 30, height: 30)
+        }
+        
+        XCTAssertEqual(view1.frame, CGRect(x: 125, y: 130, width: 50, height: 40))
+        XCTAssertEqual(view2.frame, CGRect(x: 135, y: 180, width: 30, height: 30))
+        
+        view1.removeFromSuperview()
+        view2.removeFromSuperview()
+    }
 }
