@@ -11,17 +11,34 @@ import Framezilla
 
 class ViewController: UIViewController {
 
+    let scrollView = UIScrollView()
+    let content = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.nx_state = "123"
-        // Do any additional setup after loading the view, typically from a nib.
+        content.backgroundColor = .red
+        
+        scrollView.addSubview(content)
+        scrollView.contentSize = CGSize(width: 1000, height: 1000)
+        
+        view.addSubview(scrollView)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        scrollView.frame = view.bounds
+        
+        content.configureFrame { maker in
+            maker.size(width: 100, height: 100)
+            maker.center()
+        }
     }
-
 
 }
 
