@@ -10,6 +10,66 @@ import XCTest
 
 class MakerCenterTests: BaseTest {
     
+    /* center - between views */
+    
+    func testThanCorrectlyConfigures_centerX_betweenTwoViews() {
+        
+        let view1 = UIView()
+        let view2 = UIView()
+        let view3 = UIView()
+        
+        mainView.addSubview(view1)
+        mainView.addSubview(view2)
+        mainView.addSubview(view3)
+        
+        view1.configureFrame { maker in
+            maker.edges(top: 0, left: 0, bottom: 0)
+            maker.width(100)
+        }
+        
+        view2.configureFrame { maker in
+            maker.edges(top: 0, bottom: 0, right: 0)
+            maker.width(200)
+        }
+        
+        view3.configureFrame { maker in
+            maker.size(width: 20, height: 30)
+            maker.centerX(between: view1, view2)
+            maker.centerY()
+        }
+        
+        XCTAssertEqual(view3.frame, CGRect(x: 190, y: 235, width: 20, height: 30))
+    }
+    
+    func testThanCorrectlyConfigures_centerY_betweenTwoViews() {
+        
+        let view1 = UIView()
+        let view2 = UIView()
+        let view3 = UIView()
+        
+        mainView.addSubview(view1)
+        mainView.addSubview(view2)
+        mainView.addSubview(view3)
+        
+        view1.configureFrame { maker in
+            maker.edges(top: 0, left: 0, right: 0)
+            maker.height(100)
+        }
+        
+        view2.configureFrame { maker in
+            maker.edges(left: 0, bottom: 0, right: 0)
+            maker.height(200)
+        }
+        
+        view3.configureFrame { maker in
+            maker.size(width: 30, height: 20)
+            maker.centerY(between: view1, view2)
+            maker.centerX()
+        }
+        
+        XCTAssertEqual(view3.frame, CGRect(x: 235, y: 190, width: 30, height: 20))
+    }
+    
     /* super centerX without superview for related view */
     
     func testThatCorrectlyConfigures_centerX_forRelativelySuperViewWithoutOwnSuperView() {

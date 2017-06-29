@@ -23,48 +23,46 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         content1.backgroundColor = .red
         content2.backgroundColor = .green
-        content3.backgroundColor = .gray
-        testView.backgroundColor = .black
+        content3.backgroundColor = .black
         
-        scrollView.addSubview(content1)
-        scrollView.addSubview(content2)
-        scrollView.addSubview(content3)
-        
-        scrollView.backgroundColor = .yellow
-        scrollView.contentSize = CGSize(width: 1000, height: 1000)
-        
-        view.addSubview(scrollView)
-        content2.addSubview(testView)
+        view.addSubview(content1)
+        view.addSubview(content2)
+        view.addSubview(content3)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        scrollView.configureFrame { maker in
-            maker.size(width: 200, height: 200)
-            maker.center()
-        }
+//        content1.configureFrame { maker in
+//            maker.edges(top: 0, left: 0, right: 0)
+//            maker.height(50)
+//        }
+//        
+//        content2.configureFrame { maker in
+//            maker.edges(left: 0, bottom: 0, right: 0)
+//            maker.height(200)
+//        }
+//        
+//        content3.configureFrame { maker in
+//            maker.size(width: 20, height: 70)
+//            maker.centerY(between: content2, content1)
+//            maker.centerX()
+//        }
         
         content1.configureFrame { maker in
-            maker.size(width: 100, height: 100)
-            maker.center()
+            maker.edges(top: 0, left: 0, bottom: 0)
+            maker.width(50)
         }
         
         content2.configureFrame { maker in
-            maker.size(width: 100, height: 100)
-            maker.centerX()
-            maker.top(to: content1.nui_bottom, inset: 10)
-        }
-        
-        testView.configureFrame { maker in
-            maker.size(width: 10, height: 10)
-            maker.center()
+            maker.edges(top: 0, bottom: 0, right: 0)
+            maker.width(200)
         }
         
         content3.configureFrame { maker in
-            maker.size(width: 50, height: 50)
-            maker.left(to: testView.nui_right, inset: 10)
-            maker.centerY(to: content2.nui_centerY)
+            maker.size(width: 20, height: 70)
+            maker.centerX(between: content1, content2)
+            maker.centerY()
         }
     }
 }
