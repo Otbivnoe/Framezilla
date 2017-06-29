@@ -401,6 +401,18 @@ public final class Maker {
     
     // MARK: Middle priority
     
+    /// Creates margin relation for superview.
+    ///
+    /// - parameter inset: The inset for setting top, left, bottom and right relations for superview.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func margin(_ inset: Number) -> Maker {
+        
+        let inset = inset.value
+        return edges(insets: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+    }
+    
     /// Creates edge relations for superview.
     ///
     /// - parameter insets: The insets for setting relations for superview.
