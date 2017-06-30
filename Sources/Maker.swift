@@ -17,14 +17,23 @@ enum HandlerPriority: Int {
 public final class Maker {
     
     typealias HandlerType = () -> Void
-    typealias RelationParametersType = (type: RelationType, argument: Any)
 
     unowned let view: UIView
     
-    var handlers:           [(priority: HandlerPriority, handler: HandlerType)] = []
-    var relationParameters: [RelationParametersType] = []
+    var handlers: [(priority: HandlerPriority, handler: HandlerType)] = []
     var newRect: CGRect
 
+    private var widthParameter: ValueParameter?
+    private var widthToParameter: SideParameter?
+    
+    private var heightParameter: ValueParameter?
+    private var heightToParameter: SideParameter?
+    
+    private var leftParameter: SideParameter?
+    private var topParameter: SideParameter?
+    private var bottomParameter: SideParameter?
+    private var rightParameter: SideParameter?
+    
     init(view: UIView) {
         self.view = view
         self.newRect = view.frame
@@ -48,7 +57,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func equal(to view: UIView, insets: UIEdgeInsets = .zero) -> Maker {
-
         let topView = RelationView<VerticalRelation>(view: view, relation: .top)
         let leftView = RelationView<HorizontalRelation>(view: view, relation: .left)
         let bottomView = RelationView<VerticalRelation>(view: view, relation: .bottom)
@@ -79,12 +87,10 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func edges(top: Number? = nil, left: Number? = nil, bottom: Number? = nil, right: Number? = nil) -> Maker {
-        
         return apply(self.top, top).apply(self.left, left).apply(self.bottom, bottom).apply(self.right, right)
     }
     
     private func apply(_ f: ((Number) -> Maker), _ inset: Number?) -> Maker {
-        
         return (inset != nil) ? f(inset!) : self
     }
     
@@ -97,12 +103,11 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func width(_ width: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(width.value, for: .width)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.width, width.value))
+        widthParameter = ValueParameter(value: width.value)
         return self
     }
     
@@ -118,7 +123,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
 
     @discardableResult public func width(to relationView: RelationView<SizeRelation>, multiplier: Number = 1.0) -> Maker {
-    
         let view = relationView.view
         let relationType = relationView.relationType
         
@@ -128,36 +132,27 @@ public final class Maker {
                 self.newRect.setValue(width, for: .width)
             }
             else {
-                if let heightParameters = self.relationParameters(relationType: .height) {
-                    // TODO: Avoid force cast
-                    // swiftlint:disable force_cast
-                    let width = heightParameters.argument as! CGFloat
-                    self.newRect.setValue(width * multiplier.value, for: .width)
+                if let parameter = self.heightParameter {
+                    self.newRect.setValue(parameter.value * multiplier.value, for: .width)
                 }
-                else if let heightToParameters = self.relationParameters(relationType: .heightTo) {
-
-                    let (tempView, tempMultiplier, tempRelationType) = heightToParameters.argument as! (UIView, CGFloat, RelationType)
-                    let width = self.relationSize(view: tempView, for: tempRelationType) * (tempMultiplier * multiplier.value)
+                else if let parameter = self.heightToParameter {
+                    let width = self.relationSize(view: parameter.view, for: parameter.relationType) * (parameter.value * multiplier.value)
                     self.newRect.setValue(width, for: .width)
                 }
                 else {
-                    guard let topParameters = self.relationParameters(relationType: .top), let bottomParameters = self.relationParameters(relationType: .bottom) else {
+                    guard let topParameter = self.topParameter, let bottomParameter = self.bottomParameter else {
                         return
                     }
+
+                    let topViewY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
+                    let bottomViewY = self.convertedValue(for: bottomParameter.relationType, with: bottomParameter.view) - bottomParameter.value
                     
-                    let (topView, topInset, topRelationType) = topParameters.argument as! (UIView, CGFloat, RelationType)
-                    let (bottomView, bottomInset, bottomRelationType) = bottomParameters.argument as! (UIView, CGFloat, RelationType)
-                    // swiftlint:enable force_cast
-                    
-                    let topViewY = self.convertedValue(for: topRelationType, with: topView) + topInset
-                    let bottomViewY = self.convertedValue(for: bottomRelationType, with: bottomView) - bottomInset
-                    
-                    self.newRect.setValue((bottomViewY - topViewY)*multiplier.value, for: .width)
+                    self.newRect.setValue((bottomViewY - topViewY) * multiplier.value, for: .width)
                 }
             }
         }
         handlers.append((.high, handler))
-        relationParameters.append((.widthTo, (view, multiplier.value, relationType)))
+        widthToParameter = SideParameter(view: view, value: multiplier.value, relationType: relationType)
         return self
         
     }
@@ -169,12 +164,11 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
 
     @discardableResult public func height(_ height: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(height.value, for: .height)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.height, height.value))
+        heightParameter = ValueParameter(value: height.value)
         return self
     }
     
@@ -190,7 +184,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func height(to relationView: RelationView<SizeRelation>, multiplier: Number = 1.0) -> Maker {
-        
         let view = relationView.view
         let relationType = relationView.relationType
         
@@ -200,34 +193,27 @@ public final class Maker {
                 self.newRect.setValue(height, for: .height)
             }
             else {
-                if let widthParameters = self.relationParameters(relationType: .width) {
-                    // swiftlint:disable force_cast
-                    let height = widthParameters.argument as! CGFloat
-                    self.newRect.setValue(height * multiplier.value, for: .height)
+                if let parameter = self.widthParameter {
+                    self.newRect.setValue(parameter.value * multiplier.value, for: .height)
                 }
-                else if let widthToParameters = self.relationParameters(relationType: .widthTo) {
-                    
-                    let (tempView, tempMultiplier, tempRelationType) = widthToParameters.argument as! (UIView, CGFloat, RelationType)
-                    let height = self.relationSize(view: tempView, for: tempRelationType) * (tempMultiplier * multiplier.value)
+                else if let parameter = self.widthToParameter {
+                    let height = self.relationSize(view: parameter.view, for: parameter.relationType) * (parameter.value * multiplier.value)
                     self.newRect.setValue(height, for: .height)
                 }
                 else {
-                    guard let leftParameters = self.relationParameters(relationType: .left), let rightParameters = self.relationParameters(relationType: .right) else {
+                    guard let leftParameter = self.leftParameter, let rightParameter = self.rightParameter else {
                         return
                     }
+
+                    let leftViewX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
+                    let rightViewX = self.convertedValue(for: rightParameter.relationType, with: rightParameter.view) - rightParameter.value
                     
-                    let (leftView, leftInset, leftRelationType) = leftParameters.argument as! (UIView, CGFloat, RelationType)
-                    let (rightView, rightInset, rightRelationType) = rightParameters.argument as! (UIView, CGFloat, RelationType)
-                    // swiftlint:enable force_cast
-                    let leftViewX = self.convertedValue(for: leftRelationType, with: leftView) + leftInset
-                    let rightViewX = self.convertedValue(for: rightRelationType, with: rightView) - rightInset
-                    
-                    self.newRect.setValue((rightViewX - leftViewX)*multiplier.value, for: .height)
+                    self.newRect.setValue((rightViewX - leftViewX) * multiplier.value, for: .height)
                 }
             }
         }
         handlers.append((.high, handler))
-        relationParameters.append((.heightTo, (view, multiplier.value, relationType)))
+        heightToParameter = SideParameter(view: view, value: multiplier.value, relationType: relationType)
         return self
     }
     
@@ -239,7 +225,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func size(width: Number, height: Number) -> Maker {
-        
         return self.width(width).height(height)
     }
 
@@ -271,16 +256,15 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func left(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
-       
         let view = relationView.view
-        let type = relationView.relationType
+        let relationType = relationView.relationType
 
         let handler = { [unowned self] in
-            let x = self.convertedValue(for: type, with: view) + inset.value
+            let x = self.convertedValue(for: relationType, with: view) + inset.value
             self.newRect.setValue(x, for: .left)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.left, (view, inset.value, type)))
+        leftParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
         return self
     }
     
@@ -312,16 +296,15 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func top(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
-        
         let view = relationView.view
-        let type = relationView.relationType
+        let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            let y = self.convertedValue(for: type, with: view) + inset.value
+            let y = self.convertedValue(for: relationType, with: view) + inset.value
             self.newRect.setValue(y, for: .top)
         }
         handlers.append((.high, handler))
-        relationParameters.append((.top, (view, inset.value, type)))
+        topParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
         return self
     }
 
@@ -336,7 +319,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func container() -> Maker {
-        
         var frame = CGRect.zero
         for subview in view.subviews {
             frame = frame.union(subview.frame)
@@ -351,7 +333,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func sizeToFit() -> Maker {
-        
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, for: .width)
         setHighPriorityValue(view.bounds.height, for: .height)
@@ -363,7 +344,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func heightToFit() -> Maker {
-        
         view.sizeToFit()
         setHighPriorityValue(view.bounds.height, for: .height)
         return self
@@ -374,7 +354,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func widthToFit() -> Maker {
-        
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, for: .width)
         return self
@@ -390,7 +369,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func sizeThatFits(size: CGSize) -> Maker {
-        
         let fitSize = view.sizeThatFits(size)
         let width = min(size.width, fitSize.width)
         let height = min(size.height, fitSize.height)
@@ -401,6 +379,17 @@ public final class Maker {
     
     // MARK: Middle priority
     
+    /// Creates margin relation for superview.
+    ///
+    /// - parameter inset: The inset for setting top, left, bottom and right relations for superview.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func margin(_ inset: Number) -> Maker {
+        let inset = inset.value
+        return edges(insets: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+    }
+    
     /// Creates edge relations for superview.
     ///
     /// - parameter insets: The insets for setting relations for superview.
@@ -408,7 +397,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func edges(insets: UIEdgeInsets) -> Maker {
-        
         guard let superview = view.superview else {
             assertionFailure("Can not create edge relations without superview.")
             return self
@@ -452,22 +440,21 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func bottom(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
-
         let view = relationView.view
-        let type = relationView.relationType
+        let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            if self.isExistsRelationParameters(relationType: .top) {
-                let height = fabs(self.newRect.minY - self.convertedValue(for: type, with: view)) - inset.value
+            if self.topParameter != nil {
+                let height = fabs(self.newRect.minY - self.convertedValue(for: relationType, with: view)) - inset.value
                 self.newRect.setValue(height, for: .height)
             }
             else {
-                let y = self.convertedValue(for: type, with: view) - inset.value - self.newRect.height
+                let y = self.convertedValue(for: relationType, with: view) - inset.value - self.newRect.height
                 self.newRect.setValue(y, for: .top)
             }
         }
         handlers.append((.middle, handler))
-        relationParameters.append((.bottom, (view, inset.value, type)))
+        bottomParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
         return self
     }
     
@@ -499,22 +486,21 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func right(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
-        
         let view = relationView.view
-        let type = relationView.relationType
+        let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            if self.isExistsRelationParameters(relationType: .left) {
-                let width = fabs(self.newRect.minX - self.convertedValue(for: type, with: view)) - inset.value
+            if self.leftParameter != nil {
+                let width = fabs(self.newRect.minX - self.convertedValue(for: relationType, with: view)) - inset.value
                 self.newRect.setValue(width, for: .width)
             }
             else {
-                let x = self.convertedValue(for: type, with: view) - inset.value - self.newRect.width
+                let x = self.convertedValue(for: relationType, with: view) - inset.value - self.newRect.width
                 self.newRect.setValue(x, for: .left)
             }
         }
         handlers.append((.middle, handler))
-        relationParameters.append((.right, (view, inset.value, type)))
+        rightParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
         return self
     }
     
@@ -575,12 +561,35 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerY(to relationView: RelationView<VerticalRelation>, offset: Number = 0.0) -> Maker {
- 
         let view = relationView.view
-        let type = relationView.relationType
+        let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            let y = self.convertedValue(for: type, with: view) - self.newRect.height/2 - offset.value
+            let y = self.convertedValue(for: relationType, with: view) - self.newRect.height/2 - offset.value
+            self.newRect.setValue(y, for: .top)
+        }
+        handlers.append((.low, handler))
+        return self
+    }
+    
+    /// Creates centerY relation between two views.
+    ///
+    /// Use this method when you want to configure centerY point between two following views.
+    ///
+    /// - parameter view1: The first view between which you set `centerY` relation.
+    /// - parameter view2: The second view between which you set `centerY` relation.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func centerY(between view1: UIView, _ view2: UIView) -> Maker {
+        let handler = { [unowned self] in
+            let bottomView = view1.frame.minY > view2.frame.minY ? view1 : view2
+            let topView = bottomView === view1 ? view2 : view1
+            
+            let topY = self.convertedValue(for: .bottom, with: topView)
+            let bottomY = self.convertedValue(for: .top, with: bottomView)
+            
+            let y = bottomY - (bottomY - topY)/2 - self.newRect.height/2
             self.newRect.setValue(y, for: .top)
         }
         handlers.append((.low, handler))
@@ -615,12 +624,35 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerX(to relationView: RelationView<HorizontalRelation>, offset: Number = 0.0) -> Maker {
-
         let view = relationView.view
-        let type = relationView.relationType
+        let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            let x = self.convertedValue(for: type, with: view) - self.newRect.width/2 - offset.value
+            let x = self.convertedValue(for: relationType, with: view) - self.newRect.width/2 - offset.value
+            self.newRect.setValue(x, for: .left)
+        }
+        handlers.append((.low, handler))
+        return self
+    }
+    
+    /// Creates centerX relation between two views.
+    ///
+    /// Use this method when you want to configure centerX point between two following views.
+    ///
+    /// - parameter view1: The first view between which you set `centerX` relation.
+    /// - parameter view2: The second view between which you set `centerX` relation.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func centerX(between view1: UIView, _ view2: UIView) -> Maker {
+        let handler = { [unowned self] in
+            let rightView = view1.frame.minX > view2.frame.minX ? view1 : view2
+            let leftView = rightView === view1 ? view2 : view1
+            
+            let leftX = self.convertedValue(for: .right, with: leftView)
+            let rightX = self.convertedValue(for: .left, with: rightView)
+            
+            let x = rightX - (rightX - leftX)/2 - self.newRect.width/2
             self.newRect.setValue(x, for: .left)
         }
         handlers.append((.low, handler))
@@ -634,7 +666,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func setCenterX(value: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(value.value, for: .centerX)
         }
@@ -649,7 +680,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func setCenterY(value: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(value.value, for: .centerY)
         }
@@ -659,12 +689,16 @@ public final class Maker {
     
     // MARK: Private
 
-    private func setHighPriorityValue(_ value: CGFloat, for type: RelationType) {
-        
+    private func setHighPriorityValue(_ value: CGFloat, for relationType: RelationType) {
         let handler = { [unowned self] in
-            self.newRect.setValue(value, for: type)
+            self.newRect.setValue(value, for: relationType)
         }
         handlers.append((.high, handler))
-        relationParameters.append((type, value))
+        
+        switch relationType {
+        case .width:  widthParameter = ValueParameter(value: value)
+        case .height: heightParameter = ValueParameter(value: value)
+        default: break
+        }
     }
 }

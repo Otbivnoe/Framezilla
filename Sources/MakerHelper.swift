@@ -10,12 +10,12 @@ import Foundation
 
 fileprivate extension UIView {
     
-    func contains(view: UIView) -> Bool {
+    func contains(_ view: UIView) -> Bool {
         if subviews.contains(view) {
             return true
         }
         for subview in subviews {
-            if subview.contains(view: view) {
+            if subview.contains(view) {
                 return true
             }
         }
@@ -26,7 +26,6 @@ fileprivate extension UIView {
 extension Maker {
 
     func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
-
         var convertedRect: CGRect {
             if let superScrollView = self.view.superview as? UIScrollView, view is UIScrollView {
                 return CGRect(x: 0,
@@ -42,8 +41,8 @@ extension Maker {
         switch type {
             case .top:        return convertedRect.minY
             case .bottom:     return convertedRect.maxY
-            case .centerY:    return view.contains(view: self.view) ? convertedRect.height / 2 : convertedRect.midY
-            case .centerX:    return view.contains(view: self.view) ? convertedRect.width / 2 : convertedRect.midX
+            case .centerY:    return view.contains(self.view) ? convertedRect.height / 2 : convertedRect.midY
+            case .centerX:    return view.contains(self.view) ? convertedRect.width / 2 : convertedRect.midX
             case .right:      return convertedRect.maxX
             case .left:       return convertedRect.minX
             default:          return 0
@@ -51,29 +50,17 @@ extension Maker {
     }
     
     func relationSize(view: UIView, for type: RelationType) -> CGFloat {
-
         switch type {
             case .width:  return view.bounds.width
             case .height: return view.bounds.height
             default:      return 0
         }
     }
-    
-    func relationParameters(relationType: RelationType) -> RelationParametersType? {
-        
-        return relationParameters.filter { type, _ in type == relationType }.first
-    }
-    
-    func isExistsRelationParameters(relationType: RelationType) -> Bool {
-        
-        return relationParameters(relationType: relationType) != nil
-    }
 }
 
 extension CGRect {
     
     mutating func setValue(_ value: CGFloat, for type: RelationType) {
-        
         var frame = self
         switch type {
             case .width:   frame.size.width = value

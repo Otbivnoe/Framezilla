@@ -326,6 +326,15 @@ class MakerTests: BaseTest {
     
     /* edges */
     
+    func testThatCorrectlyConfigures_margin_relation() {
+        
+        let inset: CGFloat = 5
+        testingView.configureFrame { maker in
+            maker.margin(inset)
+        }
+        XCTAssertEqual(testingView.frame, CGRect(x: inset, y: inset, width: 490, height: 490))
+    }
+    
     func testThatCorrectlyConfigures_equal_to_relationForNearSubview() {
         
         let insets = UIEdgeInsetsMake(5, 10, 15, 20)

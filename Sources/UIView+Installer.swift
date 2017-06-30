@@ -58,8 +58,7 @@ public extension UIView {
     
     @available(*, deprecated, renamed: "configureFrame(state:installerBlock:)")
     public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
-
-        Maker.configure(view: self, for: state, with: installerBlock)
+        Maker.configure(view: self, for: state, installerBlock: installerBlock)
     }
     
     /// Configures frame of current view for special state.
@@ -70,8 +69,7 @@ public extension UIView {
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrame(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
-        
-        Maker.configure(view: self, for: state, with: installerBlock)
+        Maker.configure(view: self, for: state, installerBlock: installerBlock)
     }
     
     /// Configures frame of current view for special states.
@@ -82,9 +80,8 @@ public extension UIView {
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrame(states: [AnyHashable], installerBlock: InstallerBlock) {
-        
         for state in states {
-            Maker.configure(view: self, for: state, with: installerBlock)
+            Maker.configure(view: self, for: state, installerBlock: installerBlock)
         }
     }
 }
@@ -99,7 +96,6 @@ public extension Array where Element: UIView {
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
-        
         for view in self {
             view.configureFrame(state: state, installerBlock: installerBlock)
         }
@@ -113,7 +109,6 @@ public extension Array where Element: UIView {
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrames(states: [AnyHashable], installerBlock: InstallerBlock) {
-        
         for view in self {
             view.configureFrame(states: states, installerBlock: installerBlock)
         }
