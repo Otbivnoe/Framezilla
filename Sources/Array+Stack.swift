@@ -22,7 +22,6 @@ public extension Array where Element: UIView {
     /// - parameter state:     The state for which you configure frame.
     
     public func stack(axis: StackAxis, spacing: Number = 0.0, state: AnyHashable = DEFAULT_STATE) {
-        
         for view in self {
             guard view.superview != nil else {
                 assertionFailure("Can not configure stack relation without superview.")

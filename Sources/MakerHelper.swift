@@ -26,7 +26,6 @@ fileprivate extension UIView {
 extension Maker {
 
     func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
-
         var convertedRect: CGRect {
             if let superScrollView = self.view.superview as? UIScrollView, view is UIScrollView {
                 return CGRect(x: 0,
@@ -51,7 +50,6 @@ extension Maker {
     }
     
     func relationSize(view: UIView, for type: RelationType) -> CGFloat {
-
         switch type {
             case .width:  return view.bounds.width
             case .height: return view.bounds.height
@@ -60,12 +58,10 @@ extension Maker {
     }
     
     func relationParameters(relationType: RelationType) -> RelationParametersType? {
-        
         return relationParameters.filter { type, _ in type == relationType }.first
     }
     
     func isExistsRelationParameters(relationType: RelationType) -> Bool {
-        
         return relationParameters(relationType: relationType) != nil
     }
 }
@@ -73,7 +69,6 @@ extension Maker {
 extension CGRect {
     
     mutating func setValue(_ value: CGFloat, for type: RelationType) {
-        
         var frame = self
         switch type {
             case .width:   frame.size.width = value

@@ -27,7 +27,6 @@ public postfix func >> (maker: Maker) {
 extension Maker {
     
     class func configure(view: UIView, for state: AnyHashable, with installerBlock: InstallerBlock) {
-        
         if view.nx_state == state {
             let maker = Maker(view: view)
             
@@ -39,7 +38,6 @@ extension Maker {
     }
     
     fileprivate func configureFrame() {
-        
         handlers.sort {
             $0.priority.rawValue <= $1.priority.rawValue
         }

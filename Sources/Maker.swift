@@ -48,7 +48,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func equal(to view: UIView, insets: UIEdgeInsets = .zero) -> Maker {
-
         let topView = RelationView<VerticalRelation>(view: view, relation: .top)
         let leftView = RelationView<HorizontalRelation>(view: view, relation: .left)
         let bottomView = RelationView<VerticalRelation>(view: view, relation: .bottom)
@@ -79,12 +78,10 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func edges(top: Number? = nil, left: Number? = nil, bottom: Number? = nil, right: Number? = nil) -> Maker {
-        
         return apply(self.top, top).apply(self.left, left).apply(self.bottom, bottom).apply(self.right, right)
     }
     
     private func apply(_ f: ((Number) -> Maker), _ inset: Number?) -> Maker {
-        
         return (inset != nil) ? f(inset!) : self
     }
     
@@ -97,7 +94,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func width(_ width: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(width.value, for: .width)
         }
@@ -118,7 +114,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
 
     @discardableResult public func width(to relationView: RelationView<SizeRelation>, multiplier: Number = 1.0) -> Maker {
-    
         let view = relationView.view
         let relationType = relationView.relationType
         
@@ -169,7 +164,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
 
     @discardableResult public func height(_ height: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(height.value, for: .height)
         }
@@ -190,7 +184,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func height(to relationView: RelationView<SizeRelation>, multiplier: Number = 1.0) -> Maker {
-        
         let view = relationView.view
         let relationType = relationView.relationType
         
@@ -239,7 +232,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func size(width: Number, height: Number) -> Maker {
-        
         return self.width(width).height(height)
     }
 
@@ -271,7 +263,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func left(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
-       
         let view = relationView.view
         let type = relationView.relationType
 
@@ -312,7 +303,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func top(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
-        
         let view = relationView.view
         let type = relationView.relationType
         
@@ -336,7 +326,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func container() -> Maker {
-        
         var frame = CGRect.zero
         for subview in view.subviews {
             frame = frame.union(subview.frame)
@@ -351,7 +340,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func sizeToFit() -> Maker {
-        
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, for: .width)
         setHighPriorityValue(view.bounds.height, for: .height)
@@ -363,7 +351,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func heightToFit() -> Maker {
-        
         view.sizeToFit()
         setHighPriorityValue(view.bounds.height, for: .height)
         return self
@@ -374,7 +361,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func widthToFit() -> Maker {
-        
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, for: .width)
         return self
@@ -390,7 +376,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func sizeThatFits(size: CGSize) -> Maker {
-        
         let fitSize = view.sizeThatFits(size)
         let width = min(size.width, fitSize.width)
         let height = min(size.height, fitSize.height)
@@ -408,7 +393,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func margin(_ inset: Number) -> Maker {
-        
         let inset = inset.value
         return edges(insets: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
     }
@@ -420,7 +404,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func edges(insets: UIEdgeInsets) -> Maker {
-        
         guard let superview = view.superview else {
             assertionFailure("Can not create edge relations without superview.")
             return self
@@ -464,7 +447,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func bottom(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
-
         let view = relationView.view
         let type = relationView.relationType
         
@@ -511,7 +493,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func right(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
-        
         let view = relationView.view
         let type = relationView.relationType
         
@@ -587,7 +568,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerY(to relationView: RelationView<VerticalRelation>, offset: Number = 0.0) -> Maker {
- 
         let view = relationView.view
         let type = relationView.relationType
         
@@ -609,7 +589,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerY(between view1: UIView, _ view2: UIView) -> Maker {
-
         let handler = { [unowned self] in
             let bottomView = view1.frame.minY > view2.frame.minY ? view1 : view2
             let topView = bottomView === view1 ? view2 : view1
@@ -652,7 +631,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerX(to relationView: RelationView<HorizontalRelation>, offset: Number = 0.0) -> Maker {
-
         let view = relationView.view
         let type = relationView.relationType
         
@@ -674,7 +652,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerX(between view1: UIView, _ view2: UIView) -> Maker {
-        
         let handler = { [unowned self] in
             let rightView = view1.frame.minX > view2.frame.minX ? view1 : view2
             let leftView = rightView === view1 ? view2 : view1
@@ -696,7 +673,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func setCenterX(value: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(value.value, for: .centerX)
         }
@@ -711,7 +687,6 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func setCenterY(value: Number) -> Maker {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(value.value, for: .centerY)
         }
@@ -722,7 +697,6 @@ public final class Maker {
     // MARK: Private
 
     private func setHighPriorityValue(_ value: CGFloat, for type: RelationType) {
-        
         let handler = { [unowned self] in
             self.newRect.setValue(value, for: type)
         }
