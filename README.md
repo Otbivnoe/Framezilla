@@ -62,11 +62,11 @@ Run `carthage update` to build the framework and drag the built `Framezilla.fram
 - [x] Edges with superview
 - [x] Width / Height
 - [x] Top / Left / Bottom / Right 
-- [x] CenterX / CenterY
-- [x] SizeToFit / SizeThatFits
+- [x] CenterX / CenterY / Center (between views)
+- [x] SizeToFit / SizeThatFits / WidthToFit / HeightToFit
 - [x] Container
 - [x] Stack
-- [x] Some optional semantic (and, naprimer)
+- [x] Optional semantic - `and`
 - [x] Side relations: `nui_left`, `nui_bottom`, `nui_width`, `nui_centerX` and so on.
 - [x] States
 
