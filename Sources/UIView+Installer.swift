@@ -58,7 +58,7 @@ public extension UIView {
     
     @available(*, deprecated, renamed: "configureFrame(state:installerBlock:)")
     public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
-        Maker.configure(view: self, for: state, with: installerBlock)
+        Maker.configure(view: self, for: state, installerBlock: installerBlock)
     }
     
     /// Configures frame of current view for special state.
@@ -69,7 +69,7 @@ public extension UIView {
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
     public func configureFrame(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
-        Maker.configure(view: self, for: state, with: installerBlock)
+        Maker.configure(view: self, for: state, installerBlock: installerBlock)
     }
     
     /// Configures frame of current view for special states.
@@ -81,7 +81,7 @@ public extension UIView {
     
     public func configureFrame(states: [AnyHashable], installerBlock: InstallerBlock) {
         for state in states {
-            Maker.configure(view: self, for: state, with: installerBlock)
+            Maker.configure(view: self, for: state, installerBlock: installerBlock)
         }
     }
 }
