@@ -89,6 +89,12 @@ or together with the same result:
         maker.size(width: 200, height: 200)
     }
 ```
+
+**For simplify configuration use `<<` and `>>` operators:**
+```swift
+    view<<.size(width: 200, height: 200)>>
+```
+
 Also in some cases you want to equate the sides of two views with some multiplier.
 
 For example:
