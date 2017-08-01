@@ -21,13 +21,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        scrollView.backgroundColor = .yellow
+        scrollView.contentSize = CGSize(width: 500, height: 1000)
+
         content1.backgroundColor = .red
         content2.backgroundColor = .green
         content3.backgroundColor = .black
         
-        view.addSubview(content1)
-        view.addSubview(content2)
-        view.addSubview(content3)
+        view.addSubview(scrollView)
+        scrollView.addSubview(content2)
+
+//        view.addSubview(content3)
     }
 
     override func viewDidLayoutSubviews() {
@@ -48,20 +53,31 @@ class ViewController: UIViewController {
 //            maker.centerY(between: content2, content1)
 //            maker.centerX()
 //        }
-        
-        content1.configureFrame { maker in
-            maker.edges(top: 0, left: 0, bottom: 0)
-            maker.width(50)
+
+
+//        content1.configureFrame { maker in
+//            maker.edges(top: 0, left: 0, bottom: 0)
+//            maker.width(50)
+//        }
+//        
+//        content2.configureFrame { maker in
+//            maker.edges(top: 0, bottom: 0, right: 0)
+//            maker.width(200)
+//        }
+//        
+//        content3.configureFrame { maker in
+//            maker.size(width: 20, height: 70)
+//            maker.centerX(between: content1, content2)
+//            maker.centerY()
+//        }
+
+        scrollView.configureFrame { maker in
+            maker.margin(20)
         }
-        
+
         content2.configureFrame { maker in
-            maker.edges(top: 0, bottom: 0, right: 0)
-            maker.width(200)
-        }
-        
-        content3.configureFrame { maker in
-            maker.size(width: 20, height: 70)
-            maker.centerX(between: content1, content2)
+            maker.size(width: 100, height: 100)
+            maker.left()
             maker.centerY()
         }
     }

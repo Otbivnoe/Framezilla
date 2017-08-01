@@ -17,7 +17,7 @@ final class ScrollViewTests: XCTestCase {
         scrollView.contentSize = CGSize(width: 300, height: 300)
     }
     
-    func testThanCorrectlyConfigures_edges_relativelyScrollView() {
+    func testThanCorrectlyConfigures_edges_relativelyScrollViewWithNonZeroContentSize() {
         
         let view = UIView(frame: .zero)
         scrollView.addSubview(view)
@@ -29,7 +29,21 @@ final class ScrollViewTests: XCTestCase {
         XCTAssertEqual(view.frame, CGRect(x: 10, y: 20, width: 260, height: 240))
         view.removeFromSuperview()
     }
-    
+
+    func testThanCorrectlyConfigures_edges_relativelyScrollViewWithZeroContentSize() {
+        scrollView.contentSize = .zero
+
+        let view = UIView(frame: .zero)
+        scrollView.addSubview(view)
+
+        view.configureFrame { maker in
+            maker.edges(top: 20, left: 10, bottom: 40, right: 30)
+        }
+
+        XCTAssertEqual(view.frame, CGRect(x: 10, y: 20, width: 60, height: 40))
+        view.removeFromSuperview()
+    }
+
     func testThanCorrectlyConfigures_center_relativelyScrollView() {
         
         let view = UIView(frame: .zero)
@@ -44,7 +58,7 @@ final class ScrollViewTests: XCTestCase {
         view.removeFromSuperview()
     }
     
-    func testThanCorrectlyConfiguresFewSubviewTogeter() {
+    func testThanCorrectlyConfiguresFewSubviewTogether() {
         
         let view1 = UIView(frame: .zero)
         let view2 = UIView(frame: .zero)
