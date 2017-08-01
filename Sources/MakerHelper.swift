@@ -26,16 +26,18 @@ fileprivate extension UIView {
 extension Maker {
 
     func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
-        var convertedRect: CGRect {
-            if let superScrollView = self.view.superview as? UIScrollView, view is UIScrollView {
-                return CGRect(x: 0,
-                              y: 0,
-                              width: superScrollView.contentSize.width,
-                              height: superScrollView.contentSize.height)
+
+        var rect: CGRect {
+            if let superview = self.view.superview, superview === view, superview.superview == nil {
+                return CGRect(origin: .zero, size: superview.frame.size)
             }
-            else {
-                return self.view.superview!.convert(view.frame, from: view.superview)
-            }
+            return self.view.superview!.convert(view.frame, from: view.superview)
+        }
+
+        var convertedRect = rect
+        if let superScrollView = self.view.superview as? UIScrollView, view is UIScrollView, superScrollView.contentSize != .zero {
+            convertedRect.size.width = superScrollView.contentSize.width
+            convertedRect.size.height = superScrollView.contentSize.height
         }
 
         switch type {
