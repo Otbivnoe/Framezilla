@@ -9,7 +9,7 @@
 ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg)
 [![License](https://img.shields.io/cocoapods/l/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 
-**Everyone wants to see smooth scrolling, that tableview or collectionview scrolls without any lags and it's right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not elegant, beautiful structure.**
+**Everyone wants to see a smooth scrolling, that tableview or collectionview scrolls without any lags and it's a right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not an elegant, beautiful structure.**
 
 **So, it's library for those, who want to see smooth scrolling with elegant code under the hood!**
 
@@ -79,30 +79,30 @@ There're a few methods for working with view's size.
 You can configure ```width``` and ```height``` separately:
 
 ```swift
-    view.configureFrame { maker in
-        maker.width(200).and.height(200)
-    }
+  view.configureFrame { maker in
+      maker.width(200).and.height(200)
+  }
 ```
 or together with the same result: 
 ```swift
-    view.configureFrame { maker in
-        maker.size(width: 200, height: 200)
-    }
+  view.configureFrame { maker in
+      maker.size(width: 200, height: 200)
+  }
 ```
 
 **For simplify configuration use `<<` and `>>` operators:**
 ```swift
-    view<<.size(width: 200, height: 200)>>
+  view<<.size(width: 200, height: 200)>>
 ```
 
 Also in some cases you want to equate the sides of two views with some multiplier.
 
 For example:
 ```swift
-    view.configureFrame { maker in
-        maker.width(to: view1.nui_height, multiplier: 0.5)
-        maker.height(to: view1.nui_width) // x1 multiplier - default
-    }
+  view.configureFrame { maker in
+      maker.width(to: view1.nui_height, multiplier: 0.5)
+      maker.height(to: view1.nui_width) // x1 multiplier - default
+  }
 ```
 
 ## Edges
@@ -114,17 +114,17 @@ Framezilla has two method for comfortable creating edge-relation.
 Either you can create edge relation so
 
 ```swift
-    view.configureFrame { maker in
-        maker.edges(insets: UIEdgeInsetsMake(5, 5, 5, 5)) // UIEdgeInsets.zero - default
-    }
+  view.configureFrame { maker in
+      maker.edges(insets: UIEdgeInsetsMake(5, 5, 5, 5))
+  }
 ```
 
 or
 
 ```swift
-    view.configureFrame { maker in
-        maker.edges(top: 5, left: 5, bottom: 5, right: 5)
-    }
+  view.configureFrame { maker in
+      maker.edges(top: 5, left: 5, bottom: 5, right: 5)
+  }
 ```
 the second method has optional parameters, so ```maker.edges(top: 5, left: 5, bottom: 5)``` also works correct, but does not create ```right``` relation, that in some cases is very useful.
 
@@ -133,10 +133,10 @@ the second method has optional parameters, so ```maker.edges(top: 5, left: 5, bo
 You can create edge relation, as shown above, but only use side relations.
 
 ```swift
-    view.configureFrame { maker in
-        maker.top(inset: 5).and.bottom(inset: 5)
-        maker.left(inset: 5).and.right(inset: 5)
-    }
+  view.configureFrame { maker in
+      maker.top(inset: 5).and.bottom(inset: 5)
+      maker.left(inset: 5).and.right(inset: 5)
+  }
 ```
 
 Also possible to create relations with another view, not a superview:
@@ -145,11 +145,11 @@ Also possible to create relations with another view, not a superview:
 
 ```swift
   // Red view
-    view.configureFrame { maker in
-        maker.size(width: 30, height: 30)
-        maker.left(to: self.view1.nui_right, inset: 5)
-        maker.bottom(to: self.view1.nui_centerY)
-    }
+  view.configureFrame { maker in
+      maker.size(width: 30, height: 30)
+      maker.left(to: self.view1.nui_right, inset: 5)
+      maker.bottom(to: self.view1.nui_centerY)
+  }
 ```
 
 ## Center relations
@@ -157,10 +157,10 @@ Also possible to create relations with another view, not a superview:
 If you just want to center subview relative superview with constant `width` and `height`, this approach specially for you:
 
 ```swift
-    view.configureFrame { maker in
-        maker.centerY().and.centerX()
-        maker.size(width: 100, height: 100)
-    }
+  view.configureFrame { maker in
+      maker.centerY().and.centerX()
+      maker.size(width: 100, height: 100)
+  }
 ```
 
 Also possible to set manually centerX and centerY. Just call ```setCenterX``` and ```setCenterY```.
@@ -172,11 +172,11 @@ What if you want to join the center point of the view with the top right point o
 ![](img/centered.png)
 
 ```swift
-    view.configureFrame { maker in
-        maker.centerX(to: self.view1.nui_right, offset: 0)
-        maker.centerY(to: self.view1.nui_top) //Zero offset - default
-        maker.size(width: 50, height: 50)
-    }
+  view.configureFrame { maker in
+      maker.centerX(to: self.view1.nui_right, offset: 0)
+      maker.centerY(to: self.view1.nui_top) //Zero offset - default
+      maker.size(width: 50, height: 50)
+  }
 ```
 
 ## SizeToFit and SizeThatFits
@@ -188,10 +188,10 @@ Very often you should configure labels, so there are some methods for comfortabl
 ![](img/sizeToFit.png)
 
 ```swift
-    label.configureFrame { maker in
-        maker.sizeToFit() // Configure width and height by text length no limits
-        maker.centerX().and.centerY()
-    }
+  label.configureFrame { maker in
+      maker.sizeToFit() // Configure width and height by text length no limits
+      maker.centerX().and.centerY()
+  }
 ```
 
 #### SizeThatFits
@@ -201,10 +201,10 @@ But what if you have to specify edges for label?
 ![](img/sizeThatFits.png)
 
 ```swift
-    label.configureFrame { maker in
-        maker.sizeThatFits(size: CGSize(width: 200, height: 100))
-        maker.centerX().and.centerY()
-    }
+  label.configureFrame { maker in
+      maker.sizeThatFits(size: CGSize(width: 200, height: 100))
+      maker.centerX().and.centerY()
+  }
 ```
 
 ## Container
@@ -220,22 +220,22 @@ Use this method when you want to set `width` and `height` by wrapping all subvie
 ![](img/container.png)
 
 ```swift
-    label1.configureFrame { maker in
-        maker.sizeToFit()
-        maker.top()
-        maker.left(inset: 5)
-    }
-    
-    label2.configureFrame { maker in
-        maker.sizeToFit()
-        maker.top(to: label1.nui_bottom, inset: 5)
-        maker.left(inset: 5)
-    }
-    
-    view1.configureFrame { maker in
-        maker.centerY().centerX()
-        maker.container()
-    }
+  label1.configureFrame { maker in
+      maker.sizeToFit()
+      maker.top()
+      maker.left(inset: 5)
+  }
+
+  label2.configureFrame { maker in
+      maker.sizeToFit()
+      maker.top(to: label1.nui_bottom, inset: 5)
+      maker.left(inset: 5)
+  }
+
+  view1.configureFrame { maker in
+      maker.centerY().centerX()
+      maker.container()
+  }
 ```
 
 ## Cool things:
@@ -243,9 +243,9 @@ Use this method when you want to set `width` and `height` by wrapping all subvie
 Sometimes you want to configure a few views with the same size, for examlple. There is a convinience method:
 
 ```swift
-    [view1, view2].configureFrames { maker in
-        maker.size(width: 200, height: 100)
-    }
+  [view1, view2].configureFrames { maker in
+      maker.size(width: 200, height: 100)
+  }
 ```       
 
 ## Stack
@@ -265,40 +265,40 @@ It's very convenient use many states for animations, because you can just config
 ![demo](img/animating.gif)
 
 ```swift
-  override func viewDidLayoutSubviews() {
-      
-      super.viewDidLayoutSubviews()
-      
-      // state `DEFAULT_STATE`
-      view1.configureFrame { maker in
-          maker.centerX().and.centerY()
-          maker.width(50).and.height(50)
-      }
-      
-      view1.configureFrame(state: 1) { maker in
-          maker.centerX().and.centerY()
-          maker.width(100).and.height(100)
-      }
-  }
+override func viewDidLayoutSubviews() {
+
+    super.viewDidLayoutSubviews()
+
+    // state `DEFAULT_STATE`
+    view1.configureFrame { maker in
+        maker.centerX().and.centerY()
+        maker.width(50).and.height(50)
+    }
+
+    view1.configureFrame(state: 1) { maker in
+        maker.centerX().and.centerY()
+        maker.width(100).and.height(100)
+    }
+}
 ```
 
 set new state and animate it:
 
 ```swift
 /* Next time when viewDidLayoutSubviews will be called, `view1` will configure frame for state 1. */
-    view1.nx_state = 1 // Any hashable value
-    view.setNeedsLayout()
-    UIView.animate(withDuration: 1.0) {
-        self.view.layoutIfNeeded()
-    }
+  view1.nx_state = 1 // Any hashable value
+  view.setNeedsLayout()
+  UIView.animate(withDuration: 1.0) {
+      self.view.layoutIfNeeded()
+  }
 ```
 
 Also possible to apply many states in a row:
 
 ```swift
-    view1.configureFrame(states: [3, "state"]) { maker in
-        maker.size(width: 200, height: 100)
-    }
+  view1.configureFrame(states: [3, "state"]) { maker in
+      maker.size(width: 200, height: 100)
+  }
 ```
 
 # Author :muscle:
