@@ -6,7 +6,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
-![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg)
+![Swift 4.0](https://img.shields.io/badge/Swift-4.0-orange.svg)
 [![License](https://img.shields.io/cocoapods/l/Framezilla.svg?style=flat)](http://cocoadocs.org/docsets/Framezilla)
 
 **Everyone wants to see smooth scrolling, that tableview or collectionview scrolls without any lags and it's right choice. But the constraints do not give it for us. Therefore, we have to choose manual calculation frames, but sometimes, when cell has a complex structure, code has not elegant, beautiful structure.**
