@@ -25,6 +25,7 @@
 		845108071EE2F5BC006DC1C8 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */; };
 		8497C0111E59EB7700447E2F /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0101E59EB7700447E2F /* Number.swift */; };
 		8497C0131E59FA4B00447E2F /* Array+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497C0121E59FA4B00447E2F /* Array+Stack.swift */; };
+		84EDCC241F9B3AB10091FAB9 /* MakerSafeAreaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EDCC231F9B3AB10091FAB9 /* MakerSafeAreaTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
 		8497C0101E59EB7700447E2F /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		8497C0121E59FA4B00447E2F /* Array+Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Stack.swift"; sourceTree = "<group>"; };
+		84EDCC231F9B3AB10091FAB9 /* MakerSafeAreaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerSafeAreaTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				8442F93A1EC75A8500B72551 /* MakerStackTests.swift */,
 				8442F93B1EC75A8500B72551 /* MakerTests.swift */,
 				8442F93C1EC75A8500B72551 /* MakerWidthHeightTests.swift */,
+				84EDCC231F9B3AB10091FAB9 /* MakerSafeAreaTests.swift */,
 				8442F93D1EC75A8500B72551 /* StateTests.swift */,
 				845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */,
 			);
@@ -276,6 +279,7 @@
 				845108071EE2F5BC006DC1C8 /* ScrollViewTests.swift in Sources */,
 				8442F9431EC75A8500B72551 /* MakerTests.swift in Sources */,
 				8442F93E1EC75A8500B72551 /* BaseTest.swift in Sources */,
+				84EDCC241F9B3AB10091FAB9 /* MakerSafeAreaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -69,6 +69,7 @@ Run `carthage update` to build the framework and drag the built `Framezilla.fram
 - [x] Optional semantic - `and`
 - [x] Side relations: `nui_left`, `nui_bottom`, `nui_width`, `nui_centerX` and so on.
 - [x] States
+- [x] Safe area support 😱
 
 # Usage :rocket:
 
@@ -145,6 +146,21 @@ Also possible to create relations with another view, not a superview:
         maker.bottom(to: self.view1.nui_centerY)
     }
 ```
+
+In iOS 11 Apple has introduced the safe area, similar to `topLayoutGuide` and `bottomLayoutGuide`. Framezilla supports this new api as well:
+
+```swift
+content.configureFrame { maker in
+    maker.top(to: nui_safeArea)
+    maker.bottom(to: nui_safeArea)
+    maker.right(to: nui_safeArea, inset: 10)
+    maker.left(to: nui_safeArea, inset: 10)
+}
+```
+
+<img src="img/safe_area.png" width="260">
+
+**Note**: In earlier versions of OS than iOS 11, these methods create a relation to a superview, not the safe area.
 
 ## Center relations
 
