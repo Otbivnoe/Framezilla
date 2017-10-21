@@ -31,7 +31,12 @@ extension Maker {
             if let superview = self.view.superview, superview === view, superview.superview == nil {
                 return CGRect(origin: .zero, size: superview.frame.size)
             }
-            return self.view.superview!.convert(view.frame, from: view.superview)
+
+            if let supervew = self.view.superview {
+                return supervew.convert(view.frame, from: view.superview)
+            }
+            assertionFailure("Can't configure a frame for view: \(self.view) without superview.")
+            return .zero
         }
 
         var convertedRect = rect
