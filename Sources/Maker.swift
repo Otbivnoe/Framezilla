@@ -249,9 +249,9 @@ public final class Maker {
         return left(to: RelationView(view: superview, relation: .left), inset: inset)
     }
 
-    /// Creates a left relation to the safe area.
+    /// Creates a left relation to the superview's safe area.
     ///
-    /// Use this method when you want to join a left side of current view with left edge of the safe area.
+    /// Use this method when you want to join a left side of current view with left edge of the superview's safe area.
     ///
     /// - note: In earlier versions of OS than iOS 11, it creates a left relation to a superview.
     ///
@@ -313,9 +313,9 @@ public final class Maker {
         return top(to: RelationView(view: superview, relation: .top), inset: inset.value)
     }
 
-    /// Creates a top relation to the safe area.
+    /// Creates a top relation to the superview's safe area.
     ///
-    /// Use this method when you want to join a top side of current view with top edge of the safe area.
+    /// Use this method when you want to join a top side of current view with top edge of the superview's safe area.
     ///
     /// - note: In earlier versions of OS than iOS 11, it creates a top relation to a superview.
     ///
@@ -481,9 +481,9 @@ public final class Maker {
         return bottom(to: RelationView(view: superview, relation: .bottom), inset: inset)
     }
 
-    /// Creates a bottom relation to the safe area.
+    /// Creates a bottom relation to the superview's safe area.
     ///
-    /// Use this method when you want to join a bottom side of current view with bottom edge of the safe area.
+    /// Use this method when you want to join a bottom side of current view with bottom edge of the superview's safe area.
     ///
     /// - note: In earlier versions of OS than iOS 11, it creates a bottom relation to a superview.
     ///
@@ -551,9 +551,9 @@ public final class Maker {
         return right(to: RelationView(view: superview, relation: .right), inset: inset.value)
     }
 
-    /// Creates a right relation to the safe area.
+    /// Creates a right relation to the superview's safe area.
     ///
-    /// Use this method when you want to join a right side of current view with right edge of the safe area.
+    /// Use this method when you want to join a right side of current view with right edge of the superview's safe area.
     ///
     /// - note: In earlier versions of OS than iOS 11, it creates a right relation to a superview.
     ///
