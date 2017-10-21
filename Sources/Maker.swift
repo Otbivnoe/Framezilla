@@ -249,13 +249,13 @@ public final class Maker {
         return left(to: RelationView(view: superview, relation: .left), inset: inset)
     }
 
-    /// Creates a left relation to safe area.
+    /// Creates a left relation to the safe area.
     ///
-    /// Use this method when you want to join a left side of current view with left edge of safe area.
+    /// Use this method when you want to join a left side of current view with left edge of the safe area.
     ///
-    /// - note: In earlier versions of OS than iOS 11, it creates a left relation to superview.
+    /// - note: In earlier versions of OS than iOS 11, it creates a left relation to a superview.
     ///
-    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` global property.
+    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
     /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
@@ -263,7 +263,7 @@ public final class Maker {
     @discardableResult public func left(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
         if #available(iOS 11.0, *) {
             guard let superview = view.superview else {
-                assertionFailure("Can not configure a left relation to safe area without superview.")
+                assertionFailure("Can not configure a left relation to the safe area without superview.")
                 return self
             }
             return left(inset: superview.safeAreaInsets.left + inset.value)
@@ -313,13 +313,13 @@ public final class Maker {
         return top(to: RelationView(view: superview, relation: .top), inset: inset.value)
     }
 
-    /// Creates a top relation to safe area.
+    /// Creates a top relation to the safe area.
     ///
-    /// Use this method when you want to join a top side of current view with top of safe area.
+    /// Use this method when you want to join a top side of current view with top edge of the safe area.
     ///
-    /// - note: In earlier versions of OS than iOS 11, it creates a right relation to superview.
+    /// - note: In earlier versions of OS than iOS 11, it creates a top relation to a superview.
     ///
-    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` global property.
+    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
     /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
@@ -327,7 +327,7 @@ public final class Maker {
     @discardableResult public func top(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
         if #available(iOS 11.0, *) {
             guard let superview = view.superview else {
-                assertionFailure("Can not configure a top relation to safe area without superview.")
+                assertionFailure("Can not configure a top relation to the safe area without superview.")
                 return self
             }
             return top(inset: superview.safeAreaInsets.top + inset.value)
@@ -481,13 +481,13 @@ public final class Maker {
         return bottom(to: RelationView(view: superview, relation: .bottom), inset: inset)
     }
 
-    /// Creates a bottom relation to safe area.
+    /// Creates a bottom relation to the safe area.
     ///
-    /// Use this method when you want to join a bottom side of current view with bottom edge of safe area.
+    /// Use this method when you want to join a bottom side of current view with bottom edge of the safe area.
     ///
-    /// - note: In earlier versions of OS than iOS 11, it creates a bottom relation to superview.
+    /// - note: In earlier versions of OS than iOS 11, it creates a bottom relation to a superview.
     ///
-    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` global property.
+    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
     /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
@@ -495,7 +495,7 @@ public final class Maker {
     @discardableResult public func bottom(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
         if #available(iOS 11.0, *) {
             guard let superview = view.superview else {
-                assertionFailure("Can not configure a bottom relation to safe area without superview.")
+                assertionFailure("Can not configure a bottom relation to the safe area without superview.")
                 return self
             }
             return bottom(inset: superview.safeAreaInsets.bottom + inset.value)
@@ -551,13 +551,13 @@ public final class Maker {
         return right(to: RelationView(view: superview, relation: .right), inset: inset.value)
     }
 
-    /// Creates a right relation to safe area.
+    /// Creates a right relation to the safe area.
     ///
-    /// Use this method when you want to join a right side of current view with right edge of safe area.
+    /// Use this method when you want to join a right side of current view with right edge of the safe area.
     ///
-    /// - note: In earlier versions of OS than iOS 11, it creates a right relation to superview.
+    /// - note: In earlier versions of OS than iOS 11, it creates a right relation to a superview.
     ///
-    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` global property.
+    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
     /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
@@ -565,7 +565,7 @@ public final class Maker {
     @discardableResult public func right(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
         if #available(iOS 11.0, *) {
             guard let superview = view.superview else {
-                assertionFailure("Can not configure a right relation to safe area without superview.")
+                assertionFailure("Can not configure a right relation to the safe area without superview.")
                 return self
             }
             return right(inset: superview.safeAreaInsets.right + inset.value)
