@@ -20,7 +20,7 @@ type_body_length:
  - 400 # error
 
 file_length:
-  warning: 800
+  warning: 1000
   error: 1200
 
 colon:
