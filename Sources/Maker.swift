@@ -14,7 +14,7 @@ enum HandlerPriority: Int {
     case low
 }
 
-public class SafeArea {}
+public struct SafeArea {}
 public var nui_safeArea: SafeArea {
     return SafeArea()
 }
