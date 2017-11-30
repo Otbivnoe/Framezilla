@@ -699,9 +699,15 @@ public final class Maker {
 
     @discardableResult public func centerY(between relationView1: RelationView<VerticalRelation>,
                                            _ relationView2: RelationView<VerticalRelation>) -> Maker {
+        let view1 = relationView1.view
+        let view2 = relationView2.view
+
+        let relationType1 = relationView1.relationType
+        let relationType2 = relationView2.relationType
+
         let handler = { [unowned self] in
-            let y1 = self.convertedValue(for: relationView1.relationType, with: relationView1.view)
-            let y2 = self.convertedValue(for: relationView2.relationType, with: relationView2.view)
+            let y1 = self.convertedValue(for: relationType1, with: view1)
+            let y2 = self.convertedValue(for: relationType2, with: view2)
 
             let topY = y1 < y2 ? y1 : y2
             let bottomY = y1 >= y2 ? y1 : y2
@@ -778,9 +784,15 @@ public final class Maker {
 
     @discardableResult public func centerX(between relationView1: RelationView<HorizontalRelation>,
                                            _ relationView2: RelationView<HorizontalRelation>) -> Maker {
+        let view1 = relationView1.view
+        let view2 = relationView2.view
+
+        let relationType1 = relationView1.relationType
+        let relationType2 = relationView2.relationType
+
         let handler = { [unowned self] in
-            let x1 = self.convertedValue(for: relationView1.relationType, with: relationView1.view)
-            let x2 = self.convertedValue(for: relationView2.relationType, with: relationView2.view)
+            let x1 = self.convertedValue(for: relationType1, with: view1)
+            let x2 = self.convertedValue(for: relationType2, with: view2)
 
             let rightX = x1 < x2 ? x1 : x2
             let leftX = x1 >= x2 ? x1 : x2
