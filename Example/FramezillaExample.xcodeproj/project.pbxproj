@@ -7,14 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841354611FCFEC02009F2947 /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8413545E1FCFEA51009F2947 /* Framezilla.framework */; };
+		841354621FCFEC02009F2947 /* Framezilla.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8413545E1FCFEA51009F2947 /* Framezilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8442F9531EC75C9C00B72551 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F9521EC75C9C00B72551 /* AppDelegate.swift */; };
 		8442F9551EC75C9C00B72551 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F9541EC75C9C00B72551 /* ViewController.swift */; };
 		8442F9581EC75C9C00B72551 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8442F9561EC75C9C00B72551 /* Main.storyboard */; };
 		8442F95A1EC75C9C00B72551 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8442F9591EC75C9C00B72551 /* Assets.xcassets */; };
 		8442F95D1EC75C9C00B72551 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8442F95B1EC75C9C00B72551 /* LaunchScreen.storyboard */; };
-		8442F96B1EC75CC400B72551 /* Framezilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8442F96A1EC75CC400B72551 /* Framezilla.framework */; };
-		8442F96C1EC75CC400B72551 /* Framezilla.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8442F96A1EC75CC400B72551 /* Framezilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8413545D1FCFEA51009F2947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 841354581FCFEA51009F2947 /* Framezilla.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FB41321D844D2C00700A40;
+			remoteInfo = "Framezilla iOS";
+		};
+		8413545F1FCFEA51009F2947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 841354581FCFEA51009F2947 /* Framezilla.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 115972141D8450F500BC5C20;
+			remoteInfo = FramezillaTests;
+		};
+		841354631FCFEC02009F2947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 841354581FCFEA51009F2947 /* Framezilla.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 11FB41311D844D2B00700A40;
+			remoteInfo = "Framezilla iOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8442F96D1EC75CC400B72551 /* Embed Frameworks */ = {
@@ -23,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8442F96C1EC75CC400B72551 /* Framezilla.framework in Embed Frameworks */,
+				841354621FCFEC02009F2947 /* Framezilla.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		841354581FCFEA51009F2947 /* Framezilla.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Framezilla.xcodeproj; path = ../Framezilla.xcodeproj; sourceTree = "<group>"; };
 		8442F94F1EC75C9C00B72551 /* FramezillaExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FramezillaExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8442F9521EC75C9C00B72551 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8442F9541EC75C9C00B72551 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,7 +63,6 @@
 		8442F9591EC75C9C00B72551 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8442F95C1EC75C9C00B72551 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8442F95E1EC75C9C00B72551 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8442F96A1EC75CC400B72551 /* Framezilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Framezilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,17 +70,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8442F96B1EC75CC400B72551 /* Framezilla.framework in Frameworks */,
+				841354611FCFEC02009F2947 /* Framezilla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841354591FCFEA51009F2947 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8413545E1FCFEA51009F2947 /* Framezilla.framework */,
+				841354601FCFEA51009F2947 /* FramezillaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8442F9461EC75C9C00B72551 = {
 			isa = PBXGroup;
 			children = (
-				8442F96A1EC75CC400B72551 /* Framezilla.framework */,
+				841354581FCFEA51009F2947 /* Framezilla.xcodeproj */,
 				8442F9511EC75C9C00B72551 /* FramezillaExample */,
 				8442F9501EC75C9C00B72551 /* Products */,
 			);
@@ -98,6 +131,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				841354641FCFEC02009F2947 /* PBXTargetDependency */,
 			);
 			name = FramezillaExample;
 			productName = FramezillaExample;
@@ -131,12 +165,35 @@
 			mainGroup = 8442F9461EC75C9C00B72551;
 			productRefGroup = 8442F9501EC75C9C00B72551 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 841354591FCFEA51009F2947 /* Products */;
+					ProjectRef = 841354581FCFEA51009F2947 /* Framezilla.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8442F94E1EC75C9C00B72551 /* FramezillaExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8413545E1FCFEA51009F2947 /* Framezilla.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Framezilla.framework;
+			remoteRef = 8413545D1FCFEA51009F2947 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		841354601FCFEA51009F2947 /* FramezillaTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FramezillaTests.xctest;
+			remoteRef = 8413545F1FCFEA51009F2947 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8442F94D1EC75C9C00B72551 /* Resources */ = {
@@ -162,6 +219,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		841354641FCFEC02009F2947 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Framezilla iOS";
+			targetProxy = 841354631FCFEC02009F2947 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8442F9561EC75C9C00B72551 /* Main.storyboard */ = {
@@ -293,6 +358,7 @@
 		8442F9621EC75C9C00B72551 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FramezillaExample/Info.plist;
@@ -307,6 +373,7 @@
 		8442F9631EC75C9C00B72551 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FramezillaExample/Info.plist;

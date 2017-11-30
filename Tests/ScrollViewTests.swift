@@ -14,7 +14,12 @@ final class ScrollViewTests: XCTestCase {
     var scrollView = UIScrollView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
     
     override func setUp() {
+        mainView.addSubview(scrollView)
         scrollView.contentSize = CGSize(width: 300, height: 300)
+    }
+
+    override func tearDown() {
+        scrollView.removeFromSuperview()
     }
     
     func testThanCorrectlyConfigures_edges_relativelyScrollViewWithNonZeroContentSize() {
@@ -82,5 +87,73 @@ final class ScrollViewTests: XCTestCase {
         
         view1.removeFromSuperview()
         view2.removeFromSuperview()
+    }
+
+    func testThanCorrectlyConfigures_left_relativelyScrollView() {
+
+        let view1 = UIView(frame: .zero)
+        scrollView.addSubview(view1)
+        scrollView.contentOffset.x = 60
+
+        view1.configureFrame { maker in
+            maker.top().left(inset: 10).bottom()
+            maker.width(100)
+        }
+
+        XCTAssertEqual(view1.frame, CGRect(x: 10, y: 0, width: 100, height: scrollView.contentSize.height))
+        view1.removeFromSuperview()
+
+        scrollView.contentOffset.x = 0
+    }
+
+    func testThanCorrectlyConfigures_right_relativelyScrollView() {
+
+        let view1 = UIView(frame: .zero)
+        scrollView.addSubview(view1)
+        scrollView.contentOffset.x = 60
+
+        view1.configureFrame { maker in
+            maker.top().right().bottom()
+            maker.width(100)
+        }
+
+        XCTAssertEqual(view1.frame, CGRect(x: 200, y: 0, width: 100, height: scrollView.contentSize.height))
+        view1.removeFromSuperview()
+
+        scrollView.contentOffset.x = 0
+    }
+
+    func testThanCorrectlyConfigures_top_relativelyScrollView() {
+
+        let view1 = UIView(frame: .zero)
+        scrollView.addSubview(view1)
+        scrollView.contentOffset.y = 60
+
+        view1.configureFrame { maker in
+            maker.top(inset: 10).left().right()
+            maker.height(100)
+        }
+
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 10, width: scrollView.contentSize.width, height: 100))
+        view1.removeFromSuperview()
+
+        scrollView.contentOffset.y = 0
+    }
+
+    func testThanCorrectlyConfigures_bottom_relativelyScrollView() {
+
+        let view1 = UIView(frame: .zero)
+        scrollView.addSubview(view1)
+        scrollView.contentOffset.y = 60
+
+        view1.configureFrame { maker in
+            maker.bottom().right().left()
+            maker.height(100)
+        }
+
+        XCTAssertEqual(view1.frame, CGRect(x: 0, y: 200, width: scrollView.contentSize.width, height: 100))
+        view1.removeFromSuperview()
+
+        scrollView.contentOffset.y = 0
     }
 }
