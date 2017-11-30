@@ -11,59 +11,44 @@ import Framezilla
 
 class ViewController: UIViewController {
 
-    let scrollView = UIScrollView()
-    
     let content1 = UIView()
     let content2 = UIView()
-    let button = UIButton()
-    
+    let content3 = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        button.backgroundColor = .black
-        button.addTarget(self, action: #selector(action), for: .touchUpInside)
-        button.setTitle("L", for: .normal)
-
-        scrollView.backgroundColor = .yellow
-        scrollView.contentSize = CGSize(width: 800, height: 300)
+        view.backgroundColor = .white
 
         content1.backgroundColor = .red
-        content2.backgroundColor = .green
+        content2.backgroundColor = .black
+        content3.backgroundColor = .green
 
-        scrollView.addSubview(content1)
-        scrollView.addSubview(content2)
-
-        view.addSubview(scrollView)
-        view.addSubview(button)
+        view.addSubview(content1)
+        view.addSubview(content2)
+        view.addSubview(content3)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        button.configureFrame { maker in
-            maker.top(inset: 50)
-            maker.right(inset: 50)
+        content3.configureFrame { maker in
             maker.size(width: 50, height: 50)
-        }
-
-        scrollView.configureFrame { maker in
-            maker.bottom().right().left()
-            maker.height(300)
+            maker.top(inset: 100)
+            maker.centerX(between: view.nui_left, view.nui_right)
         }
 
         content1.configureFrame { maker in
-            maker.top(inset: 10)
-            maker.bottom(inset: 10)
-            maker.right(inset: 10)
-            maker.width(300)
+            maker.bottom(inset: 100)
+            maker.right().left()
+            maker.height(10)
         }
 
-        print(content1.frame)
-    }
-
-    @objc private func action() {
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+        content2.configureFrame { maker in
+            maker.size(width: 50, height: 50)
+            maker.centerX()
+            maker.centerY(between: content1.nui_bottom, view.nui_bottom)
+        }
     }
 }
 

@@ -683,20 +683,36 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerY(between view1: UIView, _ view2: UIView) -> Maker {
+        let topView = view1.frame.maxY > view2.frame.minY ? view2 : view1
+        let bottomView = topView === view1 ? view2 : view1
+        return self.centerY(between: topView.nui_bottom, bottomView.nui_top)
+    }
+
+    /// Creates centerY relation between two relation views.
+    ///
+    /// Use this method when you want to configure centerY point between two relations views.
+    ///
+    /// - parameter relationView1: The first relation view between which you set `centerY` relation.
+    /// - parameter relationView2: The second relation view between which you set `centerY` relation.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func centerY(between relationView1: RelationView<VerticalRelation>,
+                                           _ relationView2: RelationView<VerticalRelation>) -> Maker {
         let handler = { [unowned self] in
-            let bottomView = view1.frame.minY > view2.frame.minY ? view1 : view2
-            let topView = bottomView === view1 ? view2 : view1
-            
-            let topY = self.convertedValue(for: .bottom, with: topView)
-            let bottomY = self.convertedValue(for: .top, with: bottomView)
-            
+            let y1 = self.convertedValue(for: relationView1.relationType, with: relationView1.view)
+            let y2 = self.convertedValue(for: relationView2.relationType, with: relationView2.view)
+
+            let topY = y1 < y2 ? y1 : y2
+            let bottomY = y1 >= y2 ? y1 : y2
+
             let y = bottomY - (bottomY - topY)/2 - self.newRect.height/2
             self.newRect.setValue(y, for: .top)
         }
         handlers.append((.low, handler))
         return self
     }
-    
+
     /// Creates centerX relation to superview.
     ///
     /// Use this method when you want to join centerX of current view with centerX of superview.
@@ -746,20 +762,36 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func centerX(between view1: UIView, _ view2: UIView) -> Maker {
+        let leftView = view1.frame.maxX > view2.frame.minX ? view2 : view1
+        let rightView = leftView === view1 ? view2 : view1
+        return self.centerX(between: leftView.nui_right, rightView.nui_left)
+    }
+
+    /// Creates centerX relation between two relation views.
+    ///
+    /// Use this method when you want to configure centerX point between two relations views.
+    ///
+    /// - parameter relationView1: The first relation view between which you set `centerX` relation.
+    /// - parameter relationView2: The second relation view between which you set `centerX` relation.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func centerX(between relationView1: RelationView<HorizontalRelation>,
+                                           _ relationView2: RelationView<HorizontalRelation>) -> Maker {
         let handler = { [unowned self] in
-            let rightView = view1.frame.minX > view2.frame.minX ? view1 : view2
-            let leftView = rightView === view1 ? view2 : view1
-            
-            let leftX = self.convertedValue(for: .right, with: leftView)
-            let rightX = self.convertedValue(for: .left, with: rightView)
-            
+            let x1 = self.convertedValue(for: relationView1.relationType, with: relationView1.view)
+            let x2 = self.convertedValue(for: relationView2.relationType, with: relationView2.view)
+
+            let rightX = x1 < x2 ? x1 : x2
+            let leftX = x1 >= x2 ? x1 : x2
+
             let x = rightX - (rightX - leftX)/2 - self.newRect.width/2
             self.newRect.setValue(x, for: .left)
         }
         handlers.append((.low, handler))
         return self
     }
-    
+
     /// Just setting centerX.
     ///
     /// - parameter value: The value for setting centerX.
