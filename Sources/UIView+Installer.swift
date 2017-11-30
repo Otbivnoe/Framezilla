@@ -11,8 +11,8 @@ import ObjectiveC
 
 public let DEFAULT_STATE = "DEFAULT STATE"
 
-fileprivate var stateTypeAssociationKey: UInt8 = 0
-fileprivate var nxStateTypeAssociationKey: UInt8 = 1
+private var stateTypeAssociationKey: UInt8 = 0
+private var nxStateTypeAssociationKey: UInt8 = 1
 
 public extension UIView {
     

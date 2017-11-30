@@ -45,21 +45,21 @@ extension Maker {
         }
 
         switch type {
-            case .top:        return convertedRect.minY
-            case .bottom:     return convertedRect.maxY
-            case .centerY:    return view.contains(self.view) ? convertedRect.height / 2 : convertedRect.midY
-            case .centerX:    return view.contains(self.view) ? convertedRect.width / 2 : convertedRect.midX
-            case .right:      return convertedRect.maxX
-            case .left:       return convertedRect.minX
-            default:          return 0
+        case .top:        return convertedRect.minY
+        case .bottom:     return convertedRect.maxY
+        case .centerY:    return view.contains(self.view) ? convertedRect.height / 2 : convertedRect.midY
+        case .centerX:    return view.contains(self.view) ? convertedRect.width / 2 : convertedRect.midX
+        case .right:      return convertedRect.maxX
+        case .left:       return convertedRect.minX
+        default:          return 0
         }
     }
     
     func relationSize(view: UIView, for type: RelationType) -> CGFloat {
         switch type {
-            case .width:  return view.bounds.width
-            case .height: return view.bounds.height
-            default:      return 0
+        case .width:  return view.bounds.width
+        case .height: return view.bounds.height
+        default:      return 0
         }
     }
 }
@@ -69,13 +69,13 @@ extension CGRect {
     mutating func setValue(_ value: CGFloat, for type: RelationType) {
         var frame = self
         switch type {
-            case .width:   frame.size.width = value
-            case .height:  frame.size.height = value
-            case .left:    frame.origin.x = value
-            case .top:     frame.origin.y = value
-            case .centerX: frame.origin.x = value - width/2
-            case .centerY: frame.origin.y = value - height/2
-            default: break
+        case .width:   frame.size.width = value
+        case .height:  frame.size.height = value
+        case .left:    frame.origin.x = value
+        case .top:     frame.origin.y = value
+        case .centerX: frame.origin.x = value - width/2
+        case .centerY: frame.origin.y = value - height/2
+        default: break
         }
         self = frame
     }
