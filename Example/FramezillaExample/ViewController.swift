@@ -11,40 +11,43 @@ import Framezilla
 
 class ViewController: UIViewController {
 
-    let scrollView = UIScrollView()
-    
     let content1 = UIView()
     let content2 = UIView()
     let content3 = UIView()
-    
-    let testView = UIView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if #available(iOS 11.0, *) {
-            additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        }
-        
-        scrollView.backgroundColor = .yellow
-        scrollView.contentSize = CGSize(width: 500, height: 1000)
+        view.backgroundColor = .white
 
         content1.backgroundColor = .red
-        content2.backgroundColor = .green
-        content3.backgroundColor = .black
+        content2.backgroundColor = .black
+        content3.backgroundColor = .green
 
-        view.backgroundColor = .yellow
         view.addSubview(content1)
+        view.addSubview(content2)
+        view.addSubview(content3)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        content3.configureFrame { maker in
+            maker.size(width: 50, height: 50)
+            maker.top(inset: 100)
+            maker.centerX(between: view.nui_left, view.nui_right)
+        }
+
         content1.configureFrame { maker in
-            maker.top(to: nui_safeArea)
-            maker.bottom(to: nui_safeArea)
-            maker.right(to: nui_safeArea)
-            maker.left(to: nui_safeArea)
+            maker.bottom(inset: 100)
+            maker.right().left()
+            maker.height(10)
+        }
+
+        content2.configureFrame { maker in
+            maker.size(width: 50, height: 50)
+            maker.centerX()
+            maker.centerY(between: content1.nui_bottom, view.nui_bottom)
         }
     }
 }

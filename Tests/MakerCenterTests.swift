@@ -39,8 +39,17 @@ class MakerCenterTests: BaseTest {
         }
         
         XCTAssertEqual(view3.frame, CGRect(x: 190, y: 235, width: 20, height: 30))
+
+        view3.frame = .zero
+        view3.configureFrame { maker in
+            maker.size(width: 20, height: 30)
+            maker.centerX(between: view2, view1)
+            maker.centerY()
+        }
+
+        XCTAssertEqual(view3.frame, CGRect(x: 190, y: 235, width: 20, height: 30))
     }
-    
+
     func testThanCorrectlyConfigures_centerY_betweenTwoViews() {
         
         let view1 = UIView()
@@ -68,8 +77,17 @@ class MakerCenterTests: BaseTest {
         }
         
         XCTAssertEqual(view3.frame, CGRect(x: 235, y: 190, width: 30, height: 20))
+
+        view3.frame = .zero
+        view3.configureFrame { maker in
+            maker.size(width: 30, height: 20)
+            maker.centerY(between: view2, view1)
+            maker.centerX()
+        }
+
+        XCTAssertEqual(view3.frame, CGRect(x: 235, y: 190, width: 30, height: 20))
     }
-    
+
     /* super centerX without superview for related view */
     
     func testThatCorrectlyConfigures_centerX_forRelativelySuperViewWithoutOwnSuperView() {

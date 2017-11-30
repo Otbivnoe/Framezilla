@@ -26,9 +26,8 @@ fileprivate extension UIView {
 extension Maker {
 
     func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
-
         var rect: CGRect {
-            if let superview = self.view.superview, superview === view, superview.superview == nil {
+            if let superview = self.view.superview, superview === view {
                 return CGRect(origin: .zero, size: superview.frame.size)
             }
 
