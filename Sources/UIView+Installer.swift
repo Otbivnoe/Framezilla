@@ -86,7 +86,7 @@ public extension UIView {
     }
 }
 
-public extension Array where Element: UIView {
+public extension Sequence where Iterator.Element: UIView {
     
     /// Configures frames of the views for special state.
     ///
