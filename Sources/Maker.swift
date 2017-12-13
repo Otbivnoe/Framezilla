@@ -25,7 +25,7 @@ public final class Maker {
 
     unowned let view: UIView
     
-    var handlers: [(priority: HandlerPriority, handler: HandlerType)] = []
+    var handlers = ContiguousArray<(priority: HandlerPriority, handler: HandlerType)>()
     var newRect: CGRect
 
     private var widthParameter: ValueParameter?
