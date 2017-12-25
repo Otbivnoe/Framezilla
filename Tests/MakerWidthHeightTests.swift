@@ -154,4 +154,80 @@ class MakerWidthHeightTests: BaseTest {
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 125, y: 187.5, width: 250, height: 125))
     }
+
+    /* width / height to fit */
+
+    func testWidthToFit() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.widthToFit()
+        }
+        XCTAssertTrue(label.bounds.width > 0)
+        XCTAssertEqual(label.bounds.height, 0)
+    }
+
+    func testHeightToFit() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.heightToFit()
+        }
+        XCTAssertTrue(label.bounds.height > 0)
+        XCTAssertEqual(label.bounds.width, 0)
+    }
+
+    /* width / height that fits */
+
+    func testThat_widthThatFits_correctlyConfiguresRelativeLowMaxWidth() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.widthThatFits(width: 30)
+        }
+        XCTAssertEqual(label.bounds.width, 30)
+        XCTAssertEqual(label.bounds.height, 0)
+    }
+
+    func testThat_widthThatFits_correctlyConfiguresRelativeHighMaxWidth() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.widthThatFits(width: 300)
+        }
+        XCTAssertTrue(label.bounds.width != 300)
+        XCTAssertEqual(label.bounds.height, 0)
+    }
+
+    func testThat_heightThatFits_correctlyConfiguresRelativeLowMaxHeight() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.heightThatFits(height: 5)
+        }
+        XCTAssertEqual(label.bounds.height, 5)
+        XCTAssertEqual(label.bounds.width, 0)
+    }
+
+    func testThat_heightThatFits_correctlyConfiguresRelativeHighMaxHeight() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.heightThatFits(height: 300)
+        }
+        XCTAssertTrue(label.bounds.height != 300)
+        XCTAssertEqual(label.bounds.width, 0)
+    }
 }
