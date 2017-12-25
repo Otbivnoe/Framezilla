@@ -25,7 +25,7 @@ public final class Maker {
 
     unowned let view: UIView
     
-    var handlers: [(priority: HandlerPriority, handler: HandlerType)] = []
+    var handlers = ContiguousArray<(priority: HandlerPriority, handler: HandlerType)>()
     var newRect: CGRect
 
     private var widthParameter: ValueParameter?
@@ -391,7 +391,25 @@ public final class Maker {
         setHighPriorityValue(view.bounds.height, for: .height)
         return self
     }
-    
+
+    /// Calculates the size that best fits the specified size.
+    ///
+    /// ```
+    ///     maker.sizeThatFits(size: CGSize(width: cell.frame.width, height: cell.frame.height)
+    /// ```
+    /// - parameter size: The size for best-fitting.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func sizeThatFits(size: CGSize) -> Maker {
+        let fitSize = view.sizeThatFits(size)
+        let width = min(size.width, fitSize.width)
+        let height = min(size.height, fitSize.height)
+        setHighPriorityValue(width, for: .width)
+        setHighPriorityValue(height, for: .height)
+        return self
+    }
+
     /// Resizes and moves the receiver view so it just encloses its subviews only for height.
     ///
     /// - returns: `Maker` instance for chaining relations.
@@ -401,7 +419,17 @@ public final class Maker {
         setHighPriorityValue(view.bounds.height, for: .height)
         return self
     }
-    
+
+    /// Calculates the height that best fits the specified size.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func heightThatFits(height: Number) -> Maker {
+        view.sizeToFit()
+        setHighPriorityValue(min(view.bounds.height, height.value), for: .height)
+        return self
+    }
+
     /// Resizes and moves the receiver view so it just encloses its subviews only for width.
     ///
     /// - returns: `Maker` instance for chaining relations.
@@ -411,25 +439,17 @@ public final class Maker {
         setHighPriorityValue(view.bounds.width, for: .width)
         return self
     }
-    
-    /// Calculates the size that best fits the specified size.
-    ///
-    /// ```
-    ///     maker.sizeThatFits(size: CGSize(width: cell.frame.width, height: cell.frame.height)
-    /// ```
-    /// - parameter size: The size for best-fitting.
+
+    /// Calculates the width that best fits the specified size.
     ///
     /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func sizeThatFits(size: CGSize) -> Maker {
-        let fitSize = view.sizeThatFits(size)
-        let width = min(size.width, fitSize.width)
-        let height = min(size.height, fitSize.height)
-        setHighPriorityValue(width, for: .width)
-        setHighPriorityValue(height, for: .height)
+
+    @discardableResult public func widthThatFits(width: Number) -> Maker {
+        view.sizeToFit()
+        setHighPriorityValue(min(view.bounds.width, width.value), for: .width)
         return self
     }
-    
+
     // MARK: Middle priority
     
     /// Creates margin relation for superview.
