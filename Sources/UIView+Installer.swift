@@ -114,3 +114,22 @@ public extension Sequence where Iterator.Element: UIView {
         }
     }
 }
+
+public extension Sequence where Iterator.Element: UIView {
+
+    public func container(in view: UIView, installerBlock: () -> Void) -> UIView {
+        let container = UIView()
+        container.backgroundColor = .yellow
+
+        for view in self {
+            container.addSubview(view)
+        }
+        view.addSubview(container)
+        installerBlock()
+        container.configureFrame { maker in
+            maker.container()
+        }
+        installerBlock()
+        return container
+    }
+}
