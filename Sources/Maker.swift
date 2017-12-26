@@ -369,18 +369,36 @@ public final class Maker {
     /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because
     ///         `container` sets width relatively width of subview and here is some ambiguous.
     ///
+    /// - warning: Please make note that there is a more flexible container method:
+    ///
+    ///  ```
+    ///  let container = [view1, view2].container(in: view) {}
+    ///  ```
+    ///
     /// - returns: `Maker` instance for chaining relations.
-    
+
     @discardableResult public func container() -> Maker {
         var frame = CGRect.zero
-        for subview in view.subviews {
-            let subviewFrame = subview.frame
-            let x = subviewFrame.origin.x < 0 ? 0 : subviewFrame.origin.x
-            let y = subviewFrame.origin.y < 0 ? 0 : subviewFrame.origin.y
 
-            let positiveFrame = CGRect(origin: CGPoint(x: x, y: y), size: subviewFrame.size)
-            frame = frame.union(positiveFrame)
+        var minX: CGFloat = 0
+        var minY: CGFloat = 0
+
+        for subview in view.subviews {
+            if subview.frame.origin.x < minX {
+                minX = subview.frame.origin.x
+            }
+            if subview.frame.origin.y < minY {
+                minY = subview.frame.origin.y
+            }
         }
+
+        for subview in view.subviews {
+            subview.frame.origin.x -= minX
+            subview.frame.origin.y -= minY
+
+            frame = frame.union(subview.frame)
+        }
+
         setHighPriorityValue(frame.width, for: .width)
         setHighPriorityValue(frame.height, for: .height)
         return self
