@@ -25,43 +25,84 @@ class ViewController: UIViewController {
         content2.backgroundColor = .black
         content3.backgroundColor = .green
         content4.backgroundColor = .gray
-
-//        view.addSubview(content1)
-//        view.addSubview(content2)
-//        view.addSubview(content3)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let container = [content1, content2, content3, content4].container(in: view) {
+//        let container = [content1, content2, content3, content4].container(in: view) {
+//            content1.configureFrame { maker in
+//                maker.centerX()
+//                maker.top()
+//                maker.size(width: 50, height: 50)
+//            }
+//
+//            content2.configureFrame { maker in
+//                maker.top(to: content1.nui_bottom, inset: 5)
+//                maker.left()
+//                maker.size(width: 80, height: 80)
+//            }
+//
+//            content3.configureFrame { maker in
+//                maker.top(to: content1.nui_bottom, inset: 15)
+//                maker.left(to: content2.nui_right, inset: 5)
+//                maker.size(width: 80, height: 80)
+//            }
+//
+//            content4.configureFrame { maker in
+//                maker.top(to: content3.nui_bottom, inset: 5)
+//                maker.right()
+//                maker.size(width: 20, height: 20)
+//            }
+//        }
+
+
+        
+        let container = [content1, content2, content3].container(in: view) {
             content1.configureFrame { maker in
-                maker.centerX()
-                maker.top()
+                maker.right()
+                maker.centerY()
                 maker.size(width: 50, height: 50)
             }
 
             content2.configureFrame { maker in
-                maker.top(to: content1.nui_bottom, inset: 5)
-                maker.left()
-                maker.size(width: 80, height: 80)
+                maker.right(to: content1.nui_left, inset: 5)
+                maker.centerY()
+                maker.size(width: 30, height: 140)
             }
 
             content3.configureFrame { maker in
-                maker.top(to: content1.nui_bottom, inset: 15)
-                maker.left(to: content2.nui_right, inset: 5)
+                maker.right(to: content2.nui_left, inset: 15)
+                maker.centerY()
                 maker.size(width: 80, height: 80)
-            }
-
-            content4.configureFrame { maker in
-                maker.top(to: content3.nui_bottom, inset: 5)
-                maker.right()
-                maker.size(width: 20, height: 20)
             }
         }
 
+
+//        let container = [content1, content2, content3].container(in: view) {
+//            content1.configureFrame { maker in
+//                maker.bottom()
+//                maker.centerX()
+//                maker.size(width: 50, height: 50)
+//            }
+//
+//            content2.configureFrame { maker in
+//                maker.bottom(to: content1.nui_top, inset: 5)
+//                maker.centerX()
+//                maker.size(width: 30, height: 140)
+//            }
+//
+//            content3.configureFrame { maker in
+//                maker.left()
+//                maker.bottom(to: content2.nui_top, inset: 15)
+//                maker.size(width: 10, height: 10)
+//            }
+//        }
+
+        container.backgroundColor = .yellow
         container.configureFrame { maker in
-            maker.center()
+            maker.centerX()
+            maker.top()
         }
     }
 }
