@@ -14,6 +14,7 @@
 		11FB41471D844F8F00700A40 /* MakerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41421D844F8F00700A40 /* MakerHelper.swift */; };
 		11FB41481D844F8F00700A40 /* UIView+Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41431D844F8F00700A40 /* UIView+Installer.swift */; };
 		11FB41491D844F8F00700A40 /* UIView+Relations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB41441D844F8F00700A40 /* UIView+Relations.swift */; };
+		841192DD1FF205DC00AB255D /* ContainerInstallerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841192DC1FF205DC00AB255D /* ContainerInstallerTests.swift */; };
 		842BB7FC1F0638E9000D1CFF /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BB7FB1F0638E9000D1CFF /* Parameters.swift */; };
 		8442F93E1EC75A8500B72551 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F9351EC75A8500B72551 /* BaseTest.swift */; };
 		8442F9401EC75A8500B72551 /* MakerBothSideRelationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8442F9381EC75A8500B72551 /* MakerBothSideRelationsTests.swift */; };
@@ -51,6 +52,7 @@
 		11FB414A1D844FFA00700A40 /* Framezilla.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framezilla.podspec; sourceTree = "<group>"; };
 		11FB414B1D844FFA00700A40 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		11FB414C1D844FFA00700A40 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		841192DC1FF205DC00AB255D /* ContainerInstallerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerInstallerTests.swift; sourceTree = "<group>"; };
 		842BB7FB1F0638E9000D1CFF /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		8442F9351EC75A8500B72551 /* BaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTest.swift; sourceTree = "<group>"; };
 		8442F9361EC75A8500B72551 /* FramezillaTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FramezillaTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				84EDCC231F9B3AB10091FAB9 /* MakerSafeAreaTests.swift */,
 				8442F93D1EC75A8500B72551 /* StateTests.swift */,
 				845108061EE2F5BC006DC1C8 /* ScrollViewTests.swift */,
+				841192DC1FF205DC00AB255D /* ContainerInstallerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			files = (
 				8442F9441EC75A8500B72551 /* MakerWidthHeightTests.swift in Sources */,
 				8442F9451EC75A8500B72551 /* StateTests.swift in Sources */,
+				841192DD1FF205DC00AB255D /* ContainerInstallerTests.swift in Sources */,
 				8442F9411EC75A8500B72551 /* MakerCenterTests.swift in Sources */,
 				8442F9421EC75A8500B72551 /* MakerStackTests.swift in Sources */,
 				8442F9401EC75A8500B72551 /* MakerBothSideRelationsTests.swift in Sources */,
