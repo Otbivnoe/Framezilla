@@ -114,3 +114,40 @@ public extension Sequence where Iterator.Element: UIView {
         }
     }
 }
+
+public extension Collection where Iterator.Element: UIView, Self.Index == Int, Self.IndexDistance == Int {
+
+    /// Creates сontainer view and configures all subview within this container.
+    ///
+    /// Use this method when you want to set `width` and `height` by wrapping all subviews.
+    ///
+    /// - note: It atomatically adds all subviews to the container. Don't add subviews manually.
+    /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because
+    ///         `container` sets width relatively width of subview and here is some ambiguous.
+    ///
+    /// - parameter view:           The view where a container will be added.
+    /// - parameter installerBlock: The installer block within which you should configure frames for all subviews.
+    ///
+    /// - returns: Container view.
+
+    public func container(in view: UIView, installerBlock: () -> Void) -> UIView {
+        let container: UIView
+        if let superView = self.first?.superview {
+            container = superView
+        }
+        else {
+            container = UIView()
+        }
+        for view in self {
+            container.addSubview(view)
+        }
+        view.addSubview(container)
+        
+        installerBlock()
+        container.configureFrame { maker in
+            maker.container()
+        }
+        installerBlock()
+        return container
+    }
+}
