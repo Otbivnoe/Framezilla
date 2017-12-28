@@ -9,6 +9,40 @@
 import XCTest
 @testable import Framezilla
 
+final class HeightFitView: UIView {
+
+    let maxHeight: CGFloat = 100
+    let middleHeight: CGFloat = 70
+    let lowHeight: CGFloat = 50
+
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        if size.width > 100 {
+            return CGSize(width: size.width, height: maxHeight)
+        }
+        else if size.width < 50 {
+            return CGSize(width: size.width, height: lowHeight)
+        }
+        return CGSize(width: size.width, height: middleHeight)
+    }
+}
+
+final class WidthFitView: UIView {
+
+    let maxWidth: CGFloat = 100
+    let middleWidth: CGFloat = 70
+    let lowWidth: CGFloat = 50
+
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        if size.height > 100 {
+            return CGSize(width: maxWidth, height: size.height)
+        }
+        else if size.height < 50 {
+            return CGSize(width: lowWidth, height: size.width)
+        }
+        return CGSize(width: middleWidth, height: size.width)
+    }
+}
+
 class MakerWidthHeightTests: BaseTest {
     
     func testThatJustSetting_width_configuresCorrectly() {
@@ -157,18 +191,6 @@ class MakerWidthHeightTests: BaseTest {
 
     /* width / height to fit */
 
-    func testWidthToFit() {
-
-        let label = UILabel()
-        label.text = "HelloHelloHelloHello"
-
-        label.configureFrame { maker in
-            maker.widthToFit()
-        }
-        XCTAssertTrue(label.bounds.width > 0)
-        XCTAssertEqual(label.bounds.height, 0)
-    }
-
     func testHeightToFit() {
 
         let label = UILabel()
@@ -181,6 +203,96 @@ class MakerWidthHeightTests: BaseTest {
         XCTAssertEqual(label.bounds.width, 0)
     }
 
+    func testHeightToFit_withWidthRelation() {
+
+        let view = HeightFitView()
+
+        view.configureFrame { maker in
+            maker.heightToFit()
+            maker.width(120)
+        }
+        XCTAssertEqual(view.frame, CGRect(x: 0, y: 0, width: 120, height: view.maxHeight))
+    }
+
+    func testHeightToFit_withLeftAndRightRelations() {
+
+        let view = HeightFitView()
+        mainView.addSubview(view)
+
+        view.configureFrame { maker in
+            maker.heightToFit()
+            maker.left(inset: 220).right(inset: 220)
+            maker.top()
+        }
+        XCTAssertEqual(view.frame, CGRect(x: 220, y: 0, width: 60, height: view.middleHeight))
+        view.removeFromSuperview()
+    }
+
+    func testHeightToFit_withWidthToRelation() {
+
+        let view = HeightFitView()
+        mainView.addSubview(view)
+
+        view.configureFrame { maker in
+            maker.heightToFit()
+            maker.width(to: mainView.nui_width, multiplier: 0.01)
+            maker.top()
+        }
+        XCTAssertEqual(view.frame, CGRect(x: 0, y: 0, width: 5, height: view.lowHeight))
+        view.removeFromSuperview()
+    }
+
+    func testWidthToFit() {
+
+        let label = UILabel()
+        label.text = "HelloHelloHelloHello"
+
+        label.configureFrame { maker in
+            maker.widthToFit()
+        }
+        XCTAssertTrue(label.bounds.width > 0)
+        XCTAssertEqual(label.bounds.height, 0)
+    }
+
+    func testWidthToFit_withHeightRelation() {
+
+        let view = WidthFitView()
+
+        view.configureFrame { maker in
+            maker.widthToFit()
+            maker.height(120)
+        }
+        XCTAssertEqual(view.frame, CGRect(x: 0, y: 0, width: view.maxWidth, height: 120))
+    }
+
+    func testWidthToFit_withTopAndBottomRelations() {
+
+        let view = WidthFitView()
+        mainView.addSubview(view)
+
+        view.configureFrame { maker in
+            maker.widthToFit()
+            maker.top(inset: 220).bottom(inset: 220)
+            maker.left()
+        }
+        XCTAssertEqual(view.frame, CGRect(x: 0, y: 220, width: view.middleWidth, height: 60))
+        view.removeFromSuperview()
+    }
+
+    func testWidthToFit_withHeightToRelation() {
+
+        let view = WidthFitView()
+        mainView.addSubview(view)
+
+        view.configureFrame { maker in
+            maker.widthToFit()
+            maker.height(to: mainView.nui_width, multiplier: 0.01)
+            maker.left()
+        }
+        XCTAssertEqual(view.frame, CGRect(x: 0, y: 0, width: view.lowWidth, height: 5))
+        view.removeFromSuperview()
+    }
+
     /* width / height that fits */
 
     func testThat_widthThatFits_correctlyConfiguresRelativeLowMaxWidth() {
@@ -189,7 +301,7 @@ class MakerWidthHeightTests: BaseTest {
         label.text = "HelloHelloHelloHello"
 
         label.configureFrame { maker in
-            maker.widthThatFits(width: 30)
+            maker.widthThatFits(maxWidth: 30)
         }
         XCTAssertEqual(label.bounds.width, 30)
         XCTAssertEqual(label.bounds.height, 0)
@@ -201,7 +313,7 @@ class MakerWidthHeightTests: BaseTest {
         label.text = "HelloHelloHelloHello"
 
         label.configureFrame { maker in
-            maker.widthThatFits(width: 300)
+            maker.widthThatFits(maxWidth: 300)
         }
         XCTAssertTrue(label.bounds.width != 300)
         XCTAssertEqual(label.bounds.height, 0)
@@ -213,7 +325,7 @@ class MakerWidthHeightTests: BaseTest {
         label.text = "HelloHelloHelloHello"
 
         label.configureFrame { maker in
-            maker.heightThatFits(height: 5)
+            maker.heightThatFits(maxHeight: 5)
         }
         XCTAssertEqual(label.bounds.height, 5)
         XCTAssertEqual(label.bounds.width, 0)
@@ -225,7 +337,7 @@ class MakerWidthHeightTests: BaseTest {
         label.text = "HelloHelloHelloHello"
 
         label.configureFrame { maker in
-            maker.heightThatFits(height: 300)
+            maker.heightThatFits(maxHeight: 300)
         }
         XCTAssertTrue(label.bounds.height != 300)
         XCTAssertEqual(label.bounds.width, 0)

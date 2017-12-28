@@ -438,18 +438,37 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func heightToFit() -> Maker {
-        view.sizeToFit()
-        setHighPriorityValue(view.bounds.height, for: .height)
-        return self
+        return heightThatFits(maxHeight: CGFloat.greatestFiniteMagnitude)
     }
 
     /// Calculates the height that best fits the specified size.
     ///
     /// - returns: `Maker` instance for chaining relations.
 
-    @discardableResult public func heightThatFits(height: Number) -> Maker {
-        view.sizeToFit()
-        setHighPriorityValue(min(view.bounds.height, height.value), for: .height)
+    @discardableResult public func heightThatFits(maxHeight: Number) -> Maker {
+        let handler = { [unowned self] in
+            let fitWidth: CGFloat
+
+            if let parameter = self.widthParameter {
+                fitWidth = parameter.value
+            }
+            else if let parameter = self.widthToParameter {
+                fitWidth = self.relationSize(view: parameter.view, for: parameter.relationType) * parameter.value
+            }
+            else if let leftParameter = self.leftParameter, let rightParameter = self.rightParameter {
+                let leftViewX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
+                let rightViewX = self.convertedValue(for: rightParameter.relationType, with: rightParameter.view) - rightParameter.value
+
+                fitWidth = rightViewX - leftViewX
+            }
+            else {
+                fitWidth = .greatestFiniteMagnitude
+            }
+
+            let fitSize = self.view.sizeThatFits(CGSize(width: fitWidth, height: .greatestFiniteMagnitude))
+            self.newRect.setValue(min(maxHeight.value, fitSize.height), for: .height)
+        }
+        handlers.append((.high, handler))
         return self
     }
 
@@ -458,18 +477,38 @@ public final class Maker {
     /// - returns: `Maker` instance for chaining relations.
     
     @discardableResult public func widthToFit() -> Maker {
-        view.sizeToFit()
-        setHighPriorityValue(view.bounds.width, for: .width)
-        return self
+        return widthThatFits(maxWidth: CGFloat.greatestFiniteMagnitude)
     }
 
     /// Calculates the width that best fits the specified size.
     ///
     /// - returns: `Maker` instance for chaining relations.
 
-    @discardableResult public func widthThatFits(width: Number) -> Maker {
-        view.sizeToFit()
-        setHighPriorityValue(min(view.bounds.width, width.value), for: .width)
+    @discardableResult public func widthThatFits(maxWidth: Number) -> Maker {
+        let handler = { [unowned self] in
+            let fitHeight: CGFloat
+
+            if let parameter = self.heightParameter {
+                fitHeight = parameter.value
+            }
+            else if let parameter = self.heightToParameter {
+                fitHeight = self.relationSize(view: parameter.view, for: parameter.relationType) * parameter.value
+            }
+            else if let topParameter = self.topParameter, let bottomParameter = self.bottomParameter {
+                let topViewY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
+                let bottomViewY = self.convertedValue(for: bottomParameter.relationType, with: bottomParameter.view) - bottomParameter.value
+
+                fitHeight = bottomViewY - topViewY
+            }
+            else {
+                fitHeight = .greatestFiniteMagnitude
+            }
+
+            let fitSize = self.view.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: fitHeight))
+            self.newRect.setValue(min(maxWidth.value, fitSize.width), for: .width)
+        }
+
+        handlers.append((.high, handler))
         return self
     }
 
@@ -888,5 +927,28 @@ public final class Maker {
         case .height: heightParameter = ValueParameter(value: value)
         default: break
         }
+    }
+}
+
+// MARK: - Deprecated
+
+extension Maker {
+
+    /// Calculates the width that best fits the specified size.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @available(*, unavailable, renamed: "widthThatFits(maxWidth:)")
+    @discardableResult public func widthThatFits(width: Number) -> Maker {
+        return self
+    }
+
+    /// Calculates the height that best fits the specified size.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @available(*, unavailable, renamed: "heightThatFits(maxHeight:)")
+    @discardableResult public func heightThatFits(height: Number) -> Maker {
+        return self
     }
 }
