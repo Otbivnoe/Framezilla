@@ -26,22 +26,24 @@ public final class Maker {
     unowned let view: UIView
     
     var handlers = ContiguousArray<(priority: HandlerPriority, handler: HandlerType)>()
-    var newRect: CGRect
+    var newSize: CGSize
+    var newCenter: CGPoint
 
-    private var widthParameter: ValueParameter?
-    private var widthToParameter: SideParameter?
+    var widthParameter: ValueParameter?
+    var widthToParameter: SideParameter?
     
-    private var heightParameter: ValueParameter?
-    private var heightToParameter: SideParameter?
+    var heightParameter: ValueParameter?
+    var heightToParameter: SideParameter?
     
-    private var leftParameter: SideParameter?
-    private var topParameter: SideParameter?
-    private var bottomParameter: SideParameter?
-    private var rightParameter: SideParameter?
+    var leftParameter: SideParameter?
+    var topParameter: SideParameter?
+    var bottomParameter: SideParameter?
+    var rightParameter: SideParameter?
     
     init(view: UIView) {
         self.view = view
-        self.newRect = view.frame
+        self.newSize = view.bounds.size
+        self.newCenter = view.center
     }
     
     // MARK: Additions
@@ -54,25 +56,61 @@ public final class Maker {
         return self
     }
 
-    /// Creates edge relations.
+    /// Creates margin relation for superview.
+    ///
+    /// - parameter inset: The inset for setting top, left, bottom and right relations for superview.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func margin(_ inset: Number) -> Maker {
+        let inset = inset.value
+        return edges(insets: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+    }
+
+    /// Creates edge relations to another view.
     ///
     /// - parameter view:   The view, against which sets relations.
     /// - parameter insets: The insets for setting relations with `view`. Default value: `UIEdgeInsets.zero`.
     ///
     /// - returns: `Maker` instance for chaining relations.
-    
+
     @discardableResult public func equal(to view: UIView, insets: UIEdgeInsets = .zero) -> Maker {
         let topView = RelationView<VerticalRelation>(view: view, relation: .top)
         let leftView = RelationView<HorizontalRelation>(view: view, relation: .left)
         let bottomView = RelationView<VerticalRelation>(view: view, relation: .bottom)
         let rightView = RelationView<HorizontalRelation>(view: view, relation: .right)
-        
+
         return  top(to: topView, inset: insets.top)
-                .left(to: leftView, inset: insets.left)
-                .bottom(to: bottomView, inset: insets.bottom)
-                .right(to: rightView, inset: insets.right)
+            .left(to: leftView, inset: insets.left)
+            .bottom(to: bottomView, inset: insets.bottom)
+            .right(to: rightView, inset: insets.right)
     }
-    
+
+    /// Creates edge relations to superview.
+    ///
+    /// - parameter insets: The insets for setting relations for superview.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func edges(insets: UIEdgeInsets) -> Maker {
+        guard let superview = view.superview else {
+            assertionFailure("Can not create edge relations without superview.")
+            return self
+        }
+
+        let handler = { [unowned self, unowned superview] in
+            let width = superview.bounds.width - (insets.left + insets.right)
+            let height = superview.bounds.height - (insets.top + insets.bottom)
+            let center = CGPoint(x: insets.left + width / 2.0, y: insets.top + height / 2.0)
+
+            self.change(height: height)
+            self.change(width: width)
+            self.newCenter = center
+        }
+        handlers.append((.high, handler))
+        return self
+    }
+
     /// Creates edge relations.
     ///
     /// It's useful method for configure some side relations in short form.
@@ -109,7 +147,7 @@ public final class Maker {
     
     @discardableResult public func width(_ width: Number) -> Maker {
         let handler = { [unowned self] in
-            self.newRect.setValue(width.value, for: .width)
+            self.change(width: width.value)
         }
         handlers.append((.high, handler))
         widthParameter = ValueParameter(value: width.value)
@@ -134,26 +172,10 @@ public final class Maker {
         let handler = { [unowned self] in
             if view != self.view {
                 let width = self.relationSize(view: view, for: relationType) * multiplier.value
-                self.newRect.setValue(width, for: .width)
+                self.change(width: width.value)
             }
-            else {
-                if let parameter = self.heightParameter {
-                    self.newRect.setValue(parameter.value * multiplier.value, for: .width)
-                }
-                else if let parameter = self.heightToParameter {
-                    let width = self.relationSize(view: parameter.view, for: parameter.relationType) * (parameter.value * multiplier.value)
-                    self.newRect.setValue(width, for: .width)
-                }
-                else {
-                    guard let topParameter = self.topParameter, let bottomParameter = self.bottomParameter else {
-                        return
-                    }
-
-                    let topViewY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
-                    let bottomViewY = self.convertedValue(for: bottomParameter.relationType, with: bottomParameter.view) - bottomParameter.value
-                    
-                    self.newRect.setValue((bottomViewY - topViewY) * multiplier.value, for: .width)
-                }
+            else if let height = self.height {
+                self.change(width: height * multiplier.value)
             }
         }
         handlers.append((.high, handler))
@@ -170,7 +192,7 @@ public final class Maker {
 
     @discardableResult public func height(_ height: Number) -> Maker {
         let handler = { [unowned self] in
-            self.newRect.setValue(height.value, for: .height)
+            self.change(height: height.value)
         }
         handlers.append((.high, handler))
         heightParameter = ValueParameter(value: height.value)
@@ -195,26 +217,10 @@ public final class Maker {
         let handler = { [unowned self] in
             if view != self.view {
                 let height = self.relationSize(view: view, for: relationType) * multiplier.value
-                self.newRect.setValue(height, for: .height)
+                self.change(height: height)
             }
-            else {
-                if let parameter = self.widthParameter {
-                    self.newRect.setValue(parameter.value * multiplier.value, for: .height)
-                }
-                else if let parameter = self.widthToParameter {
-                    let height = self.relationSize(view: parameter.view, for: parameter.relationType) * (parameter.value * multiplier.value)
-                    self.newRect.setValue(height, for: .height)
-                }
-                else {
-                    guard let leftParameter = self.leftParameter, let rightParameter = self.rightParameter else {
-                        return
-                    }
-
-                    let leftViewX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
-                    let rightViewX = self.convertedValue(for: rightParameter.relationType, with: rightParameter.view) - rightParameter.value
-                    
-                    self.newRect.setValue((rightViewX - leftViewX) * multiplier.value, for: .height)
-                }
+            else if let width = self.width {
+                self.change(height: width * multiplier.value)
             }
         }
         handlers.append((.high, handler))
@@ -231,134 +237,6 @@ public final class Maker {
     
     @discardableResult public func size(width: Number, height: Number) -> Maker {
         return self.width(width).height(height)
-    }
-
-    /// Creates left relation to superview.
-    ///
-    /// Use this method when you want to join left side of current view with left side of superview.
-    ///
-    /// - parameter inset: The inset for additional space between views. Default value: 0.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func left(inset: Number = 0.0) -> Maker {
-        guard let superview = view.superview else {
-            assertionFailure("Can not configure left relation to superview without superview.")
-            return self
-        }
-        return left(to: RelationView(view: superview, relation: .left), inset: inset)
-    }
-
-    /// Creates a left relation to the superview's safe area.
-    ///
-    /// Use this method when you want to join a left side of current view with left edge of the superview's safe area.
-    ///
-    /// - note: In earlier versions of OS than iOS 11, it creates a left relation to a superview.
-    ///
-    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
-    /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-
-    @discardableResult public func left(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
-        if #available(iOS 11.0, *) {
-            guard let superview = view.superview else {
-                assertionFailure("Can not configure a left relation to the safe area without superview.")
-                return self
-            }
-            return left(inset: superview.safeAreaInsets.left + inset.value)
-        }
-        else {
-            return left(inset: inset)
-        }
-    }
-
-    /// Creates left relation.
-    ///
-    /// Use this method when you want to join left side of current view with some horizontal side of another view.
-    ///
-    /// - note: You can not use this method with other relations except for `nui_left`, `nui_centerX` and `nui_right`.
-    ///
-    /// - parameter relationView:   The view on which you set left relation.
-    /// - parameter inset:          The inset for additional space between views. Default value: 0.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func left(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
-        let view = relationView.view
-        let relationType = relationView.relationType
-
-        let handler = { [unowned self] in
-            let x = self.convertedValue(for: relationType, with: view) + inset.value
-            self.newRect.setValue(x, for: .left)
-        }
-        handlers.append((.high, handler))
-        leftParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
-        return self
-    }
-    
-    /// Creates top relation to superview.
-    ///
-    /// Use this method when you want to join top side of current view with top side of superview.
-    ///
-    /// - parameter inset: The inset for additional space between views. Default value: 0.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func top(inset: Number = 0.0) -> Maker {
-        guard let superview = view.superview else {
-            assertionFailure("Can not configure a top relation to superview without superview.")
-            return self
-        }
-        return top(to: RelationView(view: superview, relation: .top), inset: inset.value)
-    }
-
-    /// Creates a top relation to the superview's safe area.
-    ///
-    /// Use this method when you want to join a top side of current view with top edge of the superview's safe area.
-    ///
-    /// - note: In earlier versions of OS than iOS 11, it creates a top relation to a superview.
-    ///
-    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
-    /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-
-    @discardableResult public func top(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
-        if #available(iOS 11.0, *) {
-            guard let superview = view.superview else {
-                assertionFailure("Can not configure a top relation to the safe area without superview.")
-                return self
-            }
-            return top(inset: superview.safeAreaInsets.top + inset.value)
-        }
-        else {
-            return top(inset: inset)
-        }
-    }
-
-    /// Creates top relation.
-    ///
-    /// Use this method when you want to join top side of current view with some vertical side of another view.
-    ///
-    /// - note: You can not use this method with other relations except for `nui_top`, `nui_centerY` and `nui_bottom`.
-    ///
-    /// - parameter relationView:  The view on which you set top relation.
-    /// - parameter inset:         The inset for additional space between views. Default value: 0.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func top(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
-        let view = relationView.view
-        let relationType = relationView.relationType
-        
-        let handler = { [unowned self] in
-            let y = self.convertedValue(for: relationType, with: view) + inset.value
-            self.newRect.setValue(y, for: .top)
-        }
-        handlers.append((.high, handler))
-        topParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
-        return self
     }
 
     /// Creates сontainer relation.
@@ -407,7 +285,7 @@ public final class Maker {
     /// Resizes the current view so it just encloses its subviews.
     ///
     /// - returns: `Maker` instance for chaining relations.
-    
+
     @discardableResult public func sizeToFit() -> Maker {
         view.sizeToFit()
         setHighPriorityValue(view.bounds.width, for: .width)
@@ -436,7 +314,7 @@ public final class Maker {
     /// Resizes and moves the receiver view so it just encloses its subviews only for height.
     ///
     /// - returns: `Maker` instance for chaining relations.
-    
+
     @discardableResult public func heightToFit() -> Maker {
         return heightThatFits(maxHeight: CGFloat.greatestFiniteMagnitude)
     }
@@ -447,26 +325,9 @@ public final class Maker {
 
     @discardableResult public func heightThatFits(maxHeight: Number) -> Maker {
         let handler = { [unowned self] in
-            let fitWidth: CGFloat
-
-            if let parameter = self.widthParameter {
-                fitWidth = parameter.value
-            }
-            else if let parameter = self.widthToParameter {
-                fitWidth = self.relationSize(view: parameter.view, for: parameter.relationType) * parameter.value
-            }
-            else if let leftParameter = self.leftParameter, let rightParameter = self.rightParameter {
-                let leftViewX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
-                let rightViewX = self.convertedValue(for: rightParameter.relationType, with: rightParameter.view) - rightParameter.value
-
-                fitWidth = rightViewX - leftViewX
-            }
-            else {
-                fitWidth = .greatestFiniteMagnitude
-            }
-
+            let fitWidth: CGFloat = self.width ?? .greatestFiniteMagnitude
             let fitSize = self.view.sizeThatFits(CGSize(width: fitWidth, height: .greatestFiniteMagnitude))
-            self.newRect.setValue(min(maxHeight.value, fitSize.height), for: .height)
+            self.change(height: min(maxHeight.value, fitSize.height))
         }
         handlers.append((.high, handler))
         return self
@@ -475,7 +336,7 @@ public final class Maker {
     /// Resizes and moves the receiver view so it just encloses its subviews only for width.
     ///
     /// - returns: `Maker` instance for chaining relations.
-    
+
     @discardableResult public func widthToFit() -> Maker {
         return widthThatFits(maxWidth: CGFloat.greatestFiniteMagnitude)
     }
@@ -486,26 +347,9 @@ public final class Maker {
 
     @discardableResult public func widthThatFits(maxWidth: Number) -> Maker {
         let handler = { [unowned self] in
-            let fitHeight: CGFloat
-
-            if let parameter = self.heightParameter {
-                fitHeight = parameter.value
-            }
-            else if let parameter = self.heightToParameter {
-                fitHeight = self.relationSize(view: parameter.view, for: parameter.relationType) * parameter.value
-            }
-            else if let topParameter = self.topParameter, let bottomParameter = self.bottomParameter {
-                let topViewY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
-                let bottomViewY = self.convertedValue(for: bottomParameter.relationType, with: bottomParameter.view) - bottomParameter.value
-
-                fitHeight = bottomViewY - topViewY
-            }
-            else {
-                fitHeight = .greatestFiniteMagnitude
-            }
-
+            let fitHeight: CGFloat = self.height ?? .greatestFiniteMagnitude
             let fitSize = self.view.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: fitHeight))
-            self.newRect.setValue(min(maxWidth.value, fitSize.width), for: .width)
+            self.change(width: min(maxWidth.value, fitSize.width))
         }
 
         handlers.append((.high, handler))
@@ -513,40 +357,153 @@ public final class Maker {
     }
 
     // MARK: Middle priority
-    
-    /// Creates margin relation for superview.
+
+    /// Creates left relation to superview.
     ///
-    /// - parameter inset: The inset for setting top, left, bottom and right relations for superview.
+    /// Use this method when you want to join left side of current view with left side of superview.
     ///
-    /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func margin(_ inset: Number) -> Maker {
-        let inset = inset.value
-        return edges(insets: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
-    }
-    
-    /// Creates edge relations for superview.
-    ///
-    /// - parameter insets: The insets for setting relations for superview.
+    /// - parameter inset: The inset for additional space between views. Default value: 0.
     ///
     /// - returns: `Maker` instance for chaining relations.
-    
-    @discardableResult public func edges(insets: UIEdgeInsets) -> Maker {
+
+    @discardableResult public func left(inset: Number = 0.0) -> Maker {
         guard let superview = view.superview else {
-            assertionFailure("Can not create edge relations without superview.")
+            assertionFailure("Can not configure left relation to superview without superview.")
             return self
         }
-        
-        let handler = { [unowned self, unowned superview] in
-            let width = superview.bounds.width - (insets.left + insets.right)
-            let height = superview.bounds.height - (insets.top + insets.bottom)
-            let frame = CGRect(x: insets.left, y: insets.top, width: width, height: height)
-            self.newRect = frame
+        return left(to: RelationView(view: superview, relation: .left), inset: inset)
+    }
+
+    /// Creates a left relation to the superview's safe area.
+    ///
+    /// Use this method when you want to join a left side of current view with left edge of the superview's safe area.
+    ///
+    /// - note: In earlier versions of OS than iOS 11, it creates a left relation to a superview.
+    ///
+    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
+    /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func left(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
+        if #available(iOS 11.0, *) {
+            guard let superview = view.superview else {
+                assertionFailure("Can not configure a left relation to the safe area without superview.")
+                return self
+            }
+            return left(inset: superview.safeAreaInsets.left + inset.value)
+        }
+        else {
+            return left(inset: inset)
+        }
+    }
+
+    /// Creates left relation.
+    ///
+    /// Use this method when you want to join left side of current view with some horizontal side of another view.
+    ///
+    /// - note: You can not use this method with other relations except for `nui_left`, `nui_centerX` and `nui_right`.
+    ///
+    /// - parameter relationView:   The view on which you set left relation.
+    /// - parameter inset:          The inset for additional space between views. Default value: 0.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func left(to relationView: RelationView<HorizontalRelation>, inset: Number = 0.0) -> Maker {
+        let view = relationView.view
+        let relationType = relationView.relationType
+
+        let handler = { [unowned self] in
+            if self.rightParameter != nil {
+                return
+            }
+            else if let width = self.width {
+                let x = self.convertedValue(for: relationType, with: view) + inset.value + width / 2.0
+                self.newCenter.x = x
+            }
+            else {
+                let x = self.convertedValue(for: relationType, with: view) + inset.value + self.newSize.width / 2.0
+                self.newCenter.x = x
+            }
         }
         handlers.append((.middle, handler))
+        leftParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
         return self
     }
-    
+
+    /// Creates top relation to superview.
+    ///
+    /// Use this method when you want to join top side of current view with top side of superview.
+    ///
+    /// - parameter inset: The inset for additional space between views. Default value: 0.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func top(inset: Number = 0.0) -> Maker {
+        guard let superview = view.superview else {
+            assertionFailure("Can not configure a top relation to superview without superview.")
+            return self
+        }
+        return top(to: RelationView(view: superview, relation: .top), inset: inset.value)
+    }
+
+    /// Creates a top relation to the superview's safe area.
+    ///
+    /// Use this method when you want to join a top side of current view with top edge of the superview's safe area.
+    ///
+    /// - note: In earlier versions of OS than iOS 11, it creates a top relation to a superview.
+    ///
+    /// - parameter safeArea:  The safe area of current view. Use a `nui_safeArea` - global property.
+    /// - parameter inset:     The inset for additional space to safe area. Default value: 0.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func top(to safeArea: SafeArea, inset: Number = 0.0) -> Maker {
+        if #available(iOS 11.0, *) {
+            guard let superview = view.superview else {
+                assertionFailure("Can not configure a top relation to the safe area without superview.")
+                return self
+            }
+            return top(inset: superview.safeAreaInsets.top + inset.value)
+        }
+        else {
+            return top(inset: inset)
+        }
+    }
+
+    /// Creates top relation.
+    ///
+    /// Use this method when you want to join top side of current view with some vertical side of another view.
+    ///
+    /// - note: You can not use this method with other relations except for `nui_top`, `nui_centerY` and `nui_bottom`.
+    ///
+    /// - parameter relationView:  The view on which you set top relation.
+    /// - parameter inset:         The inset for additional space between views. Default value: 0.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func top(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
+        let view = relationView.view
+        let relationType = relationView.relationType
+
+        let handler = { [unowned self] in
+            if self.bottomParameter != nil {
+                return
+            }
+            else if let height = self.height {
+                let y = self.convertedValue(for: relationType, with: view) + inset.value + height / 2.0
+                self.newCenter.y = y
+            }
+            else {
+                let y = self.convertedValue(for: relationType, with: view) + inset.value + self.newSize.height / 2.0
+                self.newCenter.y = y
+            }
+        }
+        handlers.append((.middle, handler))
+        topParameter = SideParameter(view: view, value: inset.value, relationType: relationType)
+        return self
+    }
+
     /// Creates bottom relation to superview.
     ///
     /// Use this method when you want to join bottom side of current view with bottom side of superview.
@@ -603,13 +560,20 @@ public final class Maker {
         let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            if self.topParameter != nil {
-                let height = fabs(self.newRect.minY - self.convertedValue(for: relationType, with: view)) - inset.value
-                self.newRect.setValue(height, for: .height)
+            if let topParameter = self.topParameter {
+                let minY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
+                let maxY = self.convertedValue(for: relationType, with: view) - inset.value
+
+                self.change(height: maxY - minY)
+                self.newCenter.y = maxY - self.newSize.height / 2.0
+            }
+            else if let height = self.height {
+                let y = self.convertedValue(for: relationType, with: view) - inset.value - height / 2.0
+                self.newCenter.y = y
             }
             else {
-                let y = self.convertedValue(for: relationType, with: view) - inset.value - self.newRect.height
-                self.newRect.setValue(y, for: .top)
+                let y = self.convertedValue(for: relationType, with: view) - inset.value - self.newSize.height / 2.0
+                self.newCenter.y = y
             }
         }
         handlers.append((.middle, handler))
@@ -662,7 +626,7 @@ public final class Maker {
     /// Use this method when you want to join right side of current view with some horizontal side of another view.
     ///
     /// - note: You can not use this method with other relations except for `nui_left`, `nui_centerX` and `nui_right`.
-    //
+    ///
     /// - parameter relationView:     The view on which you set right relation.
     /// - parameter inset:            The inset for additional space between views. Default value: 0.
     ///
@@ -673,13 +637,20 @@ public final class Maker {
         let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            if self.leftParameter != nil {
-                let width = fabs(self.newRect.minX - self.convertedValue(for: relationType, with: view)) - inset.value
-                self.newRect.setValue(width, for: .width)
+            if let leftParameter = self.leftParameter {
+                let minX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
+                let maxX = self.convertedValue(for: relationType, with: view) - inset.value
+
+                self.change(width: maxX - minX)
+                self.newCenter.x = maxX - self.newSize.width / 2.0
+            }
+            else if let width = self.width {
+                let x = self.convertedValue(for: relationType, with: view) - inset.value - width / 2.0
+                self.newCenter.x = x
             }
             else {
-                let x = self.convertedValue(for: relationType, with: view) - inset.value - self.newRect.width
-                self.newRect.setValue(x, for: .left)
+                let x = self.convertedValue(for: relationType, with: view) - inset.value - self.newSize.width / 2.0
+                self.newCenter.x = x
             }
         }
         handlers.append((.middle, handler))
@@ -748,8 +719,8 @@ public final class Maker {
         let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            let y = self.convertedValue(for: relationType, with: view) - self.newRect.height/2 - offset.value
-            self.newRect.setValue(y, for: .top)
+            let y = self.convertedValue(for: relationType, with: view) - offset.value
+            self.newCenter.y = y
         }
         handlers.append((.low, handler))
         return self
@@ -794,8 +765,8 @@ public final class Maker {
             let topY = y1 < y2 ? y1 : y2
             let bottomY = y1 >= y2 ? y1 : y2
 
-            let y = bottomY - (bottomY - topY)/2 - self.newRect.height/2
-            self.newRect.setValue(y, for: .top)
+            let y = bottomY - (bottomY - topY) / 2.0
+            self.newCenter.y = y
         }
         handlers.append((.low, handler))
         return self
@@ -833,8 +804,8 @@ public final class Maker {
         let relationType = relationView.relationType
         
         let handler = { [unowned self] in
-            let x = self.convertedValue(for: relationType, with: view) - self.newRect.width/2 - offset.value
-            self.newRect.setValue(x, for: .left)
+            let x = self.convertedValue(for: relationType, with: view) - offset.value
+            self.newCenter.x = x
         }
         handlers.append((.low, handler))
         return self
@@ -879,8 +850,8 @@ public final class Maker {
             let rightX = x1 < x2 ? x1 : x2
             let leftX = x1 >= x2 ? x1 : x2
 
-            let x = rightX - (rightX - leftX)/2 - self.newRect.width/2
-            self.newRect.setValue(x, for: .left)
+            let x = rightX - (rightX - leftX) / 2.0
+            self.newCenter.x = x
         }
         handlers.append((.low, handler))
         return self
@@ -894,7 +865,7 @@ public final class Maker {
     
     @discardableResult public func setCenterX(value: Number) -> Maker {
         let handler = { [unowned self] in
-            self.newRect.setValue(value.value, for: .centerX)
+            self.newCenter.x = value.value
         }
         handlers.append((.low, handler))
         return self
@@ -908,7 +879,7 @@ public final class Maker {
     
     @discardableResult public func setCenterY(value: Number) -> Maker {
         let handler = { [unowned self] in
-            self.newRect.setValue(value.value, for: .centerY)
+            self.newCenter.y = value.value
         }
         handlers.append((.low, handler))
         return self
@@ -918,7 +889,11 @@ public final class Maker {
 
     private func setHighPriorityValue(_ value: CGFloat, for relationType: RelationType) {
         let handler = { [unowned self] in
-            self.newRect.setValue(value, for: relationType)
+            switch relationType {
+            case .width:  self.change(width: value)
+            case .height: self.change(height: value)
+            default: break
+            }
         }
         handlers.append((.high, handler))
         

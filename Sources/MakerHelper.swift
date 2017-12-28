@@ -64,19 +64,52 @@ extension Maker {
     }
 }
 
-extension CGRect {
-    
-    mutating func setValue(_ value: CGFloat, for type: RelationType) {
-        var frame = self
-        switch type {
-        case .width:   frame.size.width = value
-        case .height:  frame.size.height = value
-        case .left:    frame.origin.x = value
-        case .top:     frame.origin.y = value
-        case .centerX: frame.origin.x = value - width/2
-        case .centerY: frame.origin.y = value - height/2
-        default: break
+extension Maker {
+
+    var height: CGFloat? {
+        if let parameter = self.heightParameter {
+            return parameter.value
         }
-        self = frame
+        else if let parameter = self.heightToParameter {
+            let width = self.relationSize(view: parameter.view, for: parameter.relationType) * parameter.value
+            return width
+        }
+        else if let topParameter = self.topParameter, let bottomParameter = self.bottomParameter {
+            let topViewY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
+            let bottomViewY = self.convertedValue(for: bottomParameter.relationType, with: bottomParameter.view) - bottomParameter.value
+
+            return bottomViewY - topViewY
+        }
+        return nil
+    }
+
+    var width: CGFloat? {
+        if let parameter = self.widthParameter {
+            return parameter.value
+        }
+        else if let parameter = self.widthToParameter {
+            let height = self.relationSize(view: parameter.view, for: parameter.relationType) * parameter.value
+            return height
+        }
+        else if let leftParameter = self.leftParameter, let rightParameter = self.rightParameter {
+            let leftViewX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
+            let rightViewX = self.convertedValue(for: rightParameter.relationType, with: rightParameter.view) - rightParameter.value
+
+            return rightViewX - leftViewX
+        }
+        return nil
+    }
+}
+
+extension Maker {
+
+    func change(width: CGFloat) {
+        newCenter.x += (width - newSize.width) / 2.0
+        newSize.width = width
+    }
+
+    func change(height: CGFloat) {
+        newCenter.y += (height - newSize.height) / 2.0
+        newSize.height = height
     }
 }

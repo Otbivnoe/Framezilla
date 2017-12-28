@@ -21,7 +21,8 @@ postfix operator >>
 
 public postfix func << (view: UIView) -> Maker {
     let maker = Maker(view: view)
-    maker.newRect = view.frame
+    maker.newCenter = view.center
+    maker.newSize = view.bounds.size
     return maker
 }
 
@@ -40,8 +41,9 @@ extension Maker {
     class func configure(view: UIView, for state: AnyHashable, installerBlock: InstallerBlock) {
         if view.nx_state == state {
             let maker = Maker(view: view)
-            
-            maker.newRect = view.frame
+            maker.newCenter = view.center
+            maker.newSize = view.bounds.size
+
             installerBlock(maker)
             
             maker.configureFrame()
@@ -55,6 +57,7 @@ extension Maker {
             $0.handler()
         }
 
-        view.frame = newRect
+        view.bounds.size = newSize
+        view.center = newCenter
     }
 }
