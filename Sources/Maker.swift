@@ -26,7 +26,14 @@ public final class Maker {
     unowned let view: UIView
     
     var handlers = ContiguousArray<(priority: HandlerPriority, handler: HandlerType)>()
-    var newSize: CGSize
+
+    var newSize: CGSize {
+        didSet {
+            newCenter.x += (newSize.width - oldValue.width) / 2.0
+            newCenter.y += (newSize.height - oldValue.height) / 2.0
+        }
+    }
+    
     var newCenter: CGPoint
 
     var widthParameter: ValueParameter?
@@ -103,8 +110,8 @@ public final class Maker {
             let height = superview.bounds.height - (insets.top + insets.bottom)
             let center = CGPoint(x: insets.left + width / 2.0, y: insets.top + height / 2.0)
 
-            self.change(height: height)
-            self.change(width: width)
+            self.newSize.height = height
+            self.newSize.width = width
             self.newCenter = center
         }
         handlers.append((.high, handler))
@@ -147,7 +154,7 @@ public final class Maker {
     
     @discardableResult public func width(_ width: Number) -> Maker {
         let handler = { [unowned self] in
-            self.change(width: width.value)
+            self.newSize.width = width.value
         }
         handlers.append((.high, handler))
         widthParameter = ValueParameter(value: width.value)
@@ -172,10 +179,10 @@ public final class Maker {
         let handler = { [unowned self] in
             if view != self.view {
                 let width = self.relationSize(view: view, for: relationType) * multiplier.value
-                self.change(width: width.value)
+                self.newSize.width = width.value
             }
             else if let height = self.height {
-                self.change(width: height * multiplier.value)
+                self.newSize.width = height * multiplier.value
             }
         }
         handlers.append((.high, handler))
@@ -192,7 +199,7 @@ public final class Maker {
 
     @discardableResult public func height(_ height: Number) -> Maker {
         let handler = { [unowned self] in
-            self.change(height: height.value)
+            self.newSize.height = height.value
         }
         handlers.append((.high, handler))
         heightParameter = ValueParameter(value: height.value)
@@ -217,10 +224,10 @@ public final class Maker {
         let handler = { [unowned self] in
             if view != self.view {
                 let height = self.relationSize(view: view, for: relationType) * multiplier.value
-                self.change(height: height)
+                self.newSize.height = height
             }
             else if let width = self.width {
-                self.change(height: width * multiplier.value)
+                self.newSize.height = width * multiplier.value
             }
         }
         handlers.append((.high, handler))
@@ -327,7 +334,7 @@ public final class Maker {
         let handler = { [unowned self] in
             let fitWidth: CGFloat = self.width ?? .greatestFiniteMagnitude
             let fitSize = self.view.sizeThatFits(CGSize(width: fitWidth, height: .greatestFiniteMagnitude))
-            self.change(height: min(maxHeight.value, fitSize.height))
+            self.newSize.height = min(maxHeight.value, fitSize.height)
         }
         handlers.append((.high, handler))
         return self
@@ -349,7 +356,7 @@ public final class Maker {
         let handler = { [unowned self] in
             let fitHeight: CGFloat = self.height ?? .greatestFiniteMagnitude
             let fitSize = self.view.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: fitHeight))
-            self.change(width: min(maxWidth.value, fitSize.width))
+            self.newSize.width = min(maxWidth.value, fitSize.width)
         }
 
         handlers.append((.high, handler))
@@ -564,7 +571,7 @@ public final class Maker {
                 let minY = self.convertedValue(for: topParameter.relationType, with: topParameter.view) + topParameter.value
                 let maxY = self.convertedValue(for: relationType, with: view) - inset.value
 
-                self.change(height: maxY - minY)
+                self.newSize.height = maxY - minY
                 self.newCenter.y = maxY - self.newSize.height / 2.0
             }
             else if let height = self.height {
@@ -641,7 +648,7 @@ public final class Maker {
                 let minX = self.convertedValue(for: leftParameter.relationType, with: leftParameter.view) + leftParameter.value
                 let maxX = self.convertedValue(for: relationType, with: view) - inset.value
 
-                self.change(width: maxX - minX)
+                self.newSize.width = maxX - minX
                 self.newCenter.x = maxX - self.newSize.width / 2.0
             }
             else if let width = self.width {
@@ -890,8 +897,8 @@ public final class Maker {
     private func setHighPriorityValue(_ value: CGFloat, for relationType: RelationType) {
         let handler = { [unowned self] in
             switch relationType {
-            case .width:  self.change(width: value)
-            case .height: self.change(height: value)
+            case .width:  self.newSize.width = value
+            case .height: self.newSize.height = value
             default: break
             }
         }

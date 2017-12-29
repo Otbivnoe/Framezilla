@@ -28,7 +28,7 @@ extension Maker {
     func convertedValue(for type: RelationType, with view: UIView) -> CGFloat {
         var rect: CGRect {
             if let superview = self.view.superview, superview === view {
-                return CGRect(origin: .zero, size: superview.frame.size)
+                return CGRect(origin: .zero, size: superview.bounds.size)
             }
 
             if let supervew = self.view.superview {
@@ -98,18 +98,5 @@ extension Maker {
             return rightViewX - leftViewX
         }
         return nil
-    }
-}
-
-extension Maker {
-
-    func change(width: CGFloat) {
-        newCenter.x += (width - newSize.width) / 2.0
-        newSize.width = width
-    }
-
-    func change(height: CGFloat) {
-        newCenter.y += (height - newSize.height) / 2.0
-        newSize.height = height
     }
 }
