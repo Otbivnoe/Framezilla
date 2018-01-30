@@ -76,4 +76,49 @@ class ContainerInstallerTests: BaseTest {
         XCTAssertEqual(content2.frame, CGRect(x: 95, y: 0, width: 30, height: 140))
         XCTAssertEqual(content3.frame, CGRect(x: 0, y: 30, width: 80, height: 80))
     }
+
+    func testContainerConfigurationWithCenterYRelation() {
+        let content1 = UIView()
+        let content2 = UIView()
+
+        let container = [content1, content2].container(in: mainView) {
+            content1.configureFrame { maker in
+                maker.top(inset: 10)
+                maker.centerX()
+                maker.size(width: 180, height: 50)
+            }
+
+            content2.configureFrame { maker in
+                maker.top(to: content1.nui_bottom, inset: 10)
+                maker.left()
+                maker.size(width: 250, height: 200)
+            }
+        }
+
+        XCTAssertEqual(container.frame, CGRect(x: 0, y: 0, width: 250, height: 270))
+        XCTAssertEqual(content1.frame, CGRect(x: 35, y: 10, width: 180, height: 50))
+        XCTAssertEqual(content2.frame, CGRect(x: 0, y: 70, width: 250, height: 200))
+    }
+
+    func testContainerConfigurationWithCenterXRelation() {
+        let content1 = UIView()
+        let content2 = UIView()
+
+        let container = [content1, content2].container(in: mainView) {
+            content2.configureFrame { maker in
+                maker.top().left(inset: 10)
+                maker.size(width: 200, height: 250)
+            }
+
+            content1.configureFrame { maker in
+                maker.left(to: content2.nui_right, inset: 10)
+                maker.centerY()
+                maker.size(width: 50, height: 180)
+            }
+        }
+
+        XCTAssertEqual(container.frame, CGRect(x: 0, y: 0, width: 270, height: 250))
+        XCTAssertEqual(content1.frame, CGRect(x: 220, y: 35, width: 50, height: 180))
+        XCTAssertEqual(content2.frame, CGRect(x: 10, y: 0, width: 200, height: 250))
+    }
 }

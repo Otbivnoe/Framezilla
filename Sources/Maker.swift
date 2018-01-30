@@ -384,6 +384,14 @@ public final class Maker {
         var minY: CGFloat = 0
 
         for subview in view.subviews {
+            if subview.frame.origin.x < 0 {
+                subview.frame.origin.x = 0
+            }
+
+            if subview.frame.origin.y < 0 {
+                subview.frame.origin.y = 0
+            }
+
             if subview.frame.origin.x < minX {
                 minX = subview.frame.origin.x
             }
