@@ -101,27 +101,28 @@ class ViewController: UIViewController {
 //        }
 
 
-        let container = [content1, content2, content3, content4].container(in: view, height: 200) {
+        let container = [content1, content2, content3, content4].container(in: view, insets: UIEdgeInsets(top: 5, left: 20, bottom: 8, right: 4)) {
             content1.configureFrame { maker in
-                maker.left(inset: 10)
-                maker.size(width: 60, height: 100)
-                maker.centerY()
+                maker.top()
+                maker.size(width: 150, height: 50)
+                maker.centerX()
             }
 
             content2.configureFrame { maker in
-                maker.top().bottom().left(to: content1.nui_right, inset: 10)
-                maker.width(50)
+                maker.top(to: content1.nui_bottom, inset: 10)
+                maker.size(width: 50, height: 50)
+                maker.centerX()
             }
 
             content3.configureFrame { maker in
-                maker.top().bottom().left(to: content2.nui_right, inset: 10)
-                maker.width(70)
+                maker.left().top(to: content2.nui_bottom, inset: 5)
+                maker.size(width: 20, height: 20)
             }
 
             content4.configureFrame { maker in
-                maker.left(to: content3.nui_right, inset: 20)
-                maker.size(width: 30, height: 30)
-                maker.centerY()
+                maker.top(to: content3.nui_bottom, inset: 40)
+                maker.size(width: 60, height: 60)
+                maker.right()
             }
         }
 

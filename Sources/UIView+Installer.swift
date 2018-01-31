@@ -123,14 +123,21 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
     ///
     /// - note: It automatically adds all subviews to the container. Don't add subviews manually.
     /// - note: If you don't use a static width for instance, important to understand, that it's not correct to call 'left' and 'right' relations together by subviews,
-    ///         because `container` sets width relatively width of subview and here is some ambiguous.
+    ///         because `container` sets width relatively width of subviews and here is some ambiguous.
     ///
     /// - parameter view:           The view where a container will be added.
     /// - parameter width:          The width of a container. If you specify a width only a dynamic height will be calculated.
     /// - parameter height:         The height of a container. If you specify a height only a dynamic width will be calculated.
+    /// - parameter padding:        The padding of a container.
     /// - parameter installerBlock: The installer block within which you should configure frames for all subviews.
 
-    public func configure(container: UIView, width: Number? = nil, height: Number? = nil, installerBlock: () -> Void) {
+    public func configure(container: UIView,
+                          width: Number? = nil,
+                          height: Number? = nil,
+                          padding: UIEdgeInsets = .zero,
+                          installerBlock: () -> Void) {
+        container.frame = .zero
+
         if let width = width?.value {
             container.frame.size.width = width
         }
@@ -148,6 +155,38 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
             maker.container()
         }
         installerBlock()
+
+        if padding != .zero {
+            let containerCenterX = container.frame.width / 2.0
+            let containerCenterY = container.frame.height / 2.0
+
+            let subviewsWithCenterXRelation = self.filter { subview in
+                subview.center.x == containerCenterX
+            }
+
+            let subviewsWithCenterYRelation = self.filter { subview in
+                subview.center.x == containerCenterY
+            }
+
+            container.frame.size.width += padding.left + padding.right
+            container.frame.size.height += padding.top + padding.bottom
+
+            for subview in self {
+                subview.frame.origin.x += padding.left
+                subview.frame.origin.y += padding.top
+            }
+
+            let centerX = container.frame.width / 2.0
+            let centerY = container.frame.height / 2.0
+
+            for subview in subviewsWithCenterXRelation {
+                subview.center.x = centerX
+            }
+
+            for subview in subviewsWithCenterYRelation {
+                subview.center.y = centerY
+            }
+        }
     }
 
     /// Creates a сontainer view and configures all subview within this container.
@@ -156,16 +195,21 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
     ///
     /// - note: It automatically adds all subviews to the container. Don't add subviews manually. A generated container is automatically added to a `view` as well.
     /// - note: If you don't use a static width for instance, important to understand, that it's not correct to call 'left' and 'right' relations together by subviews,
-    ///         because `container` sets width relatively width of subview and here is some ambiguous.
+    ///         because `container` sets width relatively width of subviews and here is some ambiguous.
     ///
     /// - parameter view:           The view where a container will be added.
     /// - parameter width:          The width of a container. If you specify a width only a dynamic height will be calculated.
     /// - parameter height:         The height of a container. If you specify a height only a dynamic width will be calculated.
+    /// - parameter padding:        The padding of a container.
     /// - parameter installerBlock: The installer block within which you should configure frames for all subviews.
     ///
     /// - returns: Container view.
 
-    public func container(in view: UIView, width: Number? = nil, height: Number? = nil, installerBlock: () -> Void) -> UIView {
+    public func container(in view: UIView,
+                          width: Number? = nil,
+                          height: Number? = nil,
+                          padding: UIEdgeInsets = .zero,
+                          installerBlock: () -> Void) -> UIView {
         let container: UIView
         if let superView = self.first?.superview {
             container = superView
@@ -175,7 +219,7 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
         }
 
         view.addSubview(container)
-        configure(container: container, width: width, height: height, installerBlock: installerBlock)
+        configure(container: container, width: width, height: height, padding: padding, installerBlock: installerBlock)
         return container
     }
 }
