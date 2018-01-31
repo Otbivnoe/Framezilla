@@ -60,7 +60,9 @@ class ViewController: UIViewController {
 
 
 
-        let container = [content1, content2, content3].container(in: view) {
+        let container = [content1, content2, content3].container(in: view, configuration: { container in
+            container.backgroundColor = .yellow
+        }, installerBlock: {
             content1.configureFrame { maker in
                 maker.left()
                 maker.centerY()
@@ -78,7 +80,7 @@ class ViewController: UIViewController {
                 maker.centerY()
                 maker.size(width: 80, height: 80)
             }
-        }
+        })
 
         print("")
 
@@ -103,7 +105,7 @@ class ViewController: UIViewController {
 //            }
 //        }
 
-        container.backgroundColor = .yellow
+
         container.configureFrame { maker in
             maker.center()
         }

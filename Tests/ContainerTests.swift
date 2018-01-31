@@ -1,5 +1,5 @@
 //
-//  ContainerInstallerTests.swift
+//  ContainerTests.swift
 //  FramezillaTests
 //
 //  Created by Nikita Ermolenko on 26/12/2017.
@@ -7,7 +7,27 @@
 
 import XCTest
 
-class ContainerInstallerTests: BaseTest {
+class ContainerTests: BaseTest {
+
+    func testContainerConfiguration() {
+        let content1 = UIView()
+        var count = 0
+
+        @discardableResult
+        func configuration() -> UIView {
+            return [content1].container(in: mainView, configuration: { container in
+                count += 1
+                container.backgroundColor = .red
+            }, installerBlock: {})
+        }
+
+        configuration()
+        configuration()
+        let container = configuration()
+
+        XCTAssertEqual(container.backgroundColor, UIColor.red)
+        XCTAssertEqual(count, 1)
+    }
 
     func testContainerConfigurationFromTopToBottom() {
         let content1 = UIView()

@@ -130,13 +130,14 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
     ///
     /// - returns: Container view.
 
-    public func container(in view: UIView, installerBlock: () -> Void) -> UIView {
+    public func container(in view: UIView, configuration: ((UIView) -> Void)? = nil, installerBlock: () -> Void) -> UIView {
         let container: UIView
         if let superView = self.first?.superview {
             container = superView
         }
         else {
             container = UIView()
+            configuration?(container)
         }
         for view in self {
             container.addSubview(view)
