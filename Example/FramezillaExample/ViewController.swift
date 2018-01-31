@@ -11,101 +11,147 @@ import Framezilla
 
 class ViewController: UIViewController {
 
+    let container = UIView()
+
     let content1 = UIView()
     let content2 = UIView()
     let content3 = UIView()
     let content4 = UIView()
+
+    let label1 = UILabel()
+    let label2 = UILabel()
+    let label3 = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
 
+        container.backgroundColor = .yellow
+
         content1.backgroundColor = .red
         content2.backgroundColor = .black
         content3.backgroundColor = .green
         content4.backgroundColor = .gray
+
+        label1.backgroundColor = .red
+        label2.backgroundColor = .green
+        label3.backgroundColor = .gray
+
+        label1.numberOfLines = 0
+        label2.numberOfLines = 0
+        label3.numberOfLines = 0
+
+        label1.text = "Helloe Helloe Helloe Helloe Helloe Helloe Helloe Helloe Helloe Helloe Helloe"
+        label2.text = "Helloe Helloe Helloe Helloe Helloe"
+        label3.text = "Helloe"
+
+        view.addSubview(container)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-//        let container = [content1, content2, content3, content4].container(in: view) {
+//        [content1, label1, label2, label3].configure(container: container, width: 200) {
 //            content1.configureFrame { maker in
+//                maker.top(inset: 10)
+//                maker.size(width: 100, height: 60)
 //                maker.centerX()
-//                maker.top()
-//                maker.size(width: 50, height: 50)
+//            }
+//
+//            label1.configureFrame { maker in
+//                maker.left().right().top(to: content1.nui_bottom, inset: 10)
+//                maker.heightToFit()
+//            }
+//
+//            label2.configureFrame { maker in
+//                maker.left().right().top(to: label1.nui_bottom, inset: 10)
+//                maker.heightToFit()
+//            }
+//
+//            label3.configureFrame { maker in
+//                maker.left().right().top(to: label2.nui_bottom, inset: 20)
+//                maker.heightToFit()
+//            }
+//        }
+
+
+//        [content1, content2, content3, content4].configure(container: container, width: 200) {
+//            content1.configureFrame { maker in
+//                maker.top(inset: 10)
+//                maker.size(width: 100, height: 60)
+//                maker.centerX()
 //            }
 //
 //            content2.configureFrame { maker in
-//                maker.top(to: content1.nui_bottom, inset: 5)
-//                maker.left()
-//                maker.size(width: 80, height: 80)
+//                maker.left().right().top(to: content1.nui_bottom, inset: 10)
+//                maker.height(50)
 //            }
 //
 //            content3.configureFrame { maker in
-//                maker.top(to: content1.nui_bottom, inset: 15)
-//                maker.left(to: content2.nui_right, inset: 5)
-//                maker.size(width: 80, height: 80)
+//                maker.left().right().top(to: content2.nui_bottom, inset: 10)
+//                maker.height(70)
 //            }
 //
 //            content4.configureFrame { maker in
-//                maker.top(to: content3.nui_bottom, inset: 5)
-//                maker.right()
-//                maker.size(width: 20, height: 20)
+//                maker.top(to: content3.nui_bottom, inset: 20)
+//                maker.size(width: 30, height: 30)
+//                maker.centerX()
 //            }
 //        }
-//
-//        print("")
 
 
-
-        let container = [content1, content2, content3].container(in: view, configuration: { container in
-            container.backgroundColor = .yellow
-        }, installerBlock: {
+        let container = [content1, content2, content3, content4].container(in: view, height: 200) {
             content1.configureFrame { maker in
-                maker.left()
+                maker.left(inset: 10)
+                maker.size(width: 60, height: 100)
                 maker.centerY()
-                maker.size(width: 50, height: 50)
             }
 
             content2.configureFrame { maker in
-                maker.left(to: content1.nui_right, inset: 5)
-                maker.centerY()
-                maker.size(width: 30, height: 140)
+                maker.top().bottom().left(to: content1.nui_right, inset: 10)
+                maker.width(50)
             }
 
             content3.configureFrame { maker in
-                maker.left(to: content2.nui_right, inset: 15)
-                maker.centerY()
-                maker.size(width: 80, height: 80)
+                maker.top().bottom().left(to: content2.nui_right, inset: 10)
+                maker.width(70)
             }
-        })
+
+            content4.configureFrame { maker in
+                maker.left(to: content3.nui_right, inset: 20)
+                maker.size(width: 30, height: 30)
+                maker.centerY()
+            }
+        }
 
         print("")
 
 
-//        let container = [content1, content2, content3].container(in: view) {
+//        let container = [content1, label1, label2, label3].container(in: view, width: 100) {
 //            content1.configureFrame { maker in
-//                maker.bottom()
+//                maker.top(inset: 10)
+//                maker.size(width: 100, height: 60)
 //                maker.centerX()
-//                maker.size(width: 50, height: 50)
 //            }
 //
-//            content2.configureFrame { maker in
-//                maker.bottom(to: content1.nui_top, inset: 5)
-//                maker.centerX()
-//                maker.size(width: 30, height: 140)
+//            label1.configureFrame { maker in
+//                maker.left().right().top(to: content1.nui_bottom, inset: 10)
+//                maker.heightToFit()
 //            }
 //
-//            content3.configureFrame { maker in
-//                maker.left()
-//                maker.bottom(to: content2.nui_top, inset: 15)
-//                maker.size(width: 10, height: 10)
+//            label2.configureFrame { maker in
+//                maker.left().right().top(to: label1.nui_bottom, inset: 10)
+//                maker.heightToFit()
+//            }
+//
+//            label3.configureFrame { maker in
+//                maker.left().right().top(to: label2.nui_bottom, inset: 20)
+//                maker.heightToFit()
 //            }
 //        }
 
-
+        container.backgroundColor = .yellow
         container.configureFrame { maker in
             maker.center()
         }

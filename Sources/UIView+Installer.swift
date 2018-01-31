@@ -117,38 +117,65 @@ public extension Sequence where Iterator.Element: UIView {
 
 public extension Collection where Iterator.Element: UIView, Self.Index == Int, Self.IndexDistance == Int {
 
-    /// Creates сontainer view and configures all subview within this container.
+    /// Configures all subview within a passed container.
     ///
-    /// Use this method when you want to set `width` and `height` by wrapping all subviews.
+    /// Use this method when you want to calculate width and height by wrapping all subviews. Or use static parameters.
     ///
-    /// - note: It atomatically adds all subviews to the container. Don't add subviews manually.
-    /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because
-    ///         `container` sets width relatively width of subview and here is some ambiguous.
+    /// - note: It automatically adds all subviews to the container. Don't add subviews manually.
+    /// - note: If you don't use a static width for instance, important to understand, that it's not correct to call 'left' and 'right' relations together by subviews,
+    ///         because `container` sets width relatively width of subview and here is some ambiguous.
     ///
     /// - parameter view:           The view where a container will be added.
+    /// - parameter width:          The width of a container. If you specify a width only a dynamic height will be calculated.
+    /// - parameter height:         The height of a container. If you specify a height only a dynamic width will be calculated.
+    /// - parameter installerBlock: The installer block within which you should configure frames for all subviews.
+
+    public func configure(container: UIView, width: Number? = nil, height: Number? = nil, installerBlock: () -> Void) {
+        if let width = width?.value {
+            container.frame.size.width = width
+        }
+
+        if let height = height?.value {
+            container.frame.size.height = height
+        }
+
+        for subview in self {
+            container.addSubview(subview)
+        }
+
+        installerBlock()
+        container.configureFrame { maker in
+            maker.container()
+        }
+        installerBlock()
+    }
+
+    /// Creates a сontainer view and configures all subview within this container.
+    ///
+    /// Use this method when you want to calculate `width` and `height` by wrapping all subviews. Or use static parameters.
+    ///
+    /// - note: It automatically adds all subviews to the container. Don't add subviews manually. A generated container is automatically added to a `view` as well.
+    /// - note: If you don't use a static width for instance, important to understand, that it's not correct to call 'left' and 'right' relations together by subviews,
+    ///         because `container` sets width relatively width of subview and here is some ambiguous.
+    ///
+    /// - parameter view:           The view where a container will be added.
+    /// - parameter width:          The width of a container. If you specify a width only a dynamic height will be calculated.
+    /// - parameter height:         The height of a container. If you specify a height only a dynamic width will be calculated.
     /// - parameter installerBlock: The installer block within which you should configure frames for all subviews.
     ///
     /// - returns: Container view.
 
-    public func container(in view: UIView, configuration: ((UIView) -> Void)? = nil, installerBlock: () -> Void) -> UIView {
+    public func container(in view: UIView, width: Number? = nil, height: Number? = nil, installerBlock: () -> Void) -> UIView {
         let container: UIView
         if let superView = self.first?.superview {
             container = superView
         }
         else {
             container = UIView()
-            configuration?(container)
         }
-        for view in self {
-            container.addSubview(view)
-        }
+
         view.addSubview(container)
-        
-        installerBlock()
-        container.configureFrame { maker in
-            maker.container()
-        }
-        installerBlock()
+        configure(container: container, width: width, height: height, installerBlock: installerBlock)
         return container
     }
 }
