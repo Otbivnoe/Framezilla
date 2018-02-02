@@ -670,7 +670,7 @@ public final class Maker {
     /// Use this method when you want to join right side of current view with some horizontal side of another view.
     ///
     /// - note: You can not use this method with other relations except for `nui_left`, `nui_centerX` and `nui_right`.
-    //
+    ///
     /// - parameter relationView:     The view on which you set right relation.
     /// - parameter inset:            The inset for additional space between views. Default value: 0.
     ///

@@ -101,7 +101,7 @@ class ViewController: UIViewController {
 //        }
 
 
-        let container = [content1, content2, content3, content4].container(in: view, insets: UIEdgeInsets(top: 5, left: 20, bottom: 8, right: 4)) {
+        let container = [content1, content2, content3, content4].container(in: view, r) {
             content1.configureFrame { maker in
                 maker.top()
                 maker.size(width: 150, height: 50)
