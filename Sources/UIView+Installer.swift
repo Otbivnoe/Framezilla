@@ -138,17 +138,30 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
     ///     - `height`:                  The height of a container. If you specify a height only a dynamic width will be calculated.
     ///     - `horizontal(left, right)`: The left and right insets of a container. If you specify these parameters only a dynamic height will be calculated.
     ///     - `vertical(top, bottom)`:   The top and bototm insets of a container. If you specify these parameters only a dynamic width will be calculated.
-    /// - parameter padding:             The padding of a container.
     /// - parameter installerBlock:      The installer block within which you should configure frames for all subviews.
 
-    public func configure(container: UIView,
-                          relation: ContainerRelation? = nil,
-                          padding: UIEdgeInsets = .zero,
-                          installerBlock: () -> Void) {
+    public func configure(container: UIView, relation: ContainerRelation? = nil, installerBlock: () -> Void) {
         container.frame = .zero
 
         if let relation = relation {
-            configure(container: container, for: relation)
+            switch relation {
+            case let .width(width): container.frame.size.width = width.value
+            case let .height(height): container.frame.size.height = height.value
+            case let .horizontal(lInset, rInset):
+                container.configureFrame { maker in
+                    maker.left(inset: lInset).right(inset: rInset)
+                }
+                let width = container.frame.width
+                container.frame = .zero
+                container.frame.size.width = width
+            case let .vertical(tInset, bInset):
+                container.configureFrame { maker in
+                    maker.top(inset: tInset).bottom(inset: bInset)
+                }
+                let height = container.frame.height
+                container.frame = .zero
+                container.frame.size.height = height
+            }
         }
 
         for subview in self {
@@ -160,59 +173,6 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
             maker.container()
         }
         installerBlock()
-
-        if padding != .zero {
-            let containerCenterX = container.frame.width / 2.0
-            let containerCenterY = container.frame.height / 2.0
-
-            let subviewsWithCenterXRelation = self.filter { subview in
-                subview.center.x == containerCenterX
-            }
-
-            let subviewsWithCenterYRelation = self.filter { subview in
-                subview.center.x == containerCenterY
-            }
-
-            container.frame.size.width += padding.left + padding.right
-            container.frame.size.height += padding.top + padding.bottom
-
-            for subview in self {
-                subview.frame.origin.x += padding.left
-                subview.frame.origin.y += padding.top
-            }
-
-            let centerX = container.frame.width / 2.0
-            let centerY = container.frame.height / 2.0
-
-            for subview in subviewsWithCenterXRelation {
-                subview.center.x = centerX
-            }
-
-            for subview in subviewsWithCenterYRelation {
-                subview.center.y = centerY
-            }
-        }
-    }
-
-    private func configure(container: UIView, for relation: ContainerRelation) {
-        switch relation {
-        case let .width(width): container.frame.size.width = width.value
-        case let .height(height): container.frame.size.height = height.value
-        case let .horizontal(lInset, rInset):
-            container.configureFrame { maker in
-                maker.left(inset: lInset).right(inset: rInset)
-            }
-            let width = container.frame.width
-            container.frame = .zero
-            container.frame.size.width = width
-        case let .vertical(tInset, bInset):
-            container.configureFrame { maker in
-                maker.top(inset: tInset).bottom(inset: bInset)
-            }
-            let height = container.frame.height
-            container.frame = .zero
-            container.frame.size.height = height
-        }
     }
 
     /// Creates a сontainer view and configures all subview within this container.
@@ -229,15 +189,11 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
     ///     - `height`:                  The height of a container. If you specify a height only a dynamic width will be calculated.
     ///     - `horizontal(left, right)`: The left and right insets of a container. If you specify these parameters only a dynamic height will be calculated.
     ///     - `vertical(top, bottom)`:   The top and bototm insets of a container. If you specify these parameters only a dynamic width will be calculated.
-    /// - parameter padding:             The padding of a container.
     /// - parameter installerBlock:      The installer block within which you should configure frames for all subviews.
     ///
     /// - returns: Container view.
 
-    public func container(in view: UIView,
-                          relation: ContainerRelation? = nil,
-                          padding: UIEdgeInsets = .zero,
-                          installerBlock: () -> Void) -> UIView {
+    public func container(in view: UIView, relation: ContainerRelation? = nil, installerBlock: () -> Void) -> UIView {
         let container: UIView
         if let superView = self.first?.superview {
             container = superView
@@ -247,7 +203,7 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
         }
 
         view.addSubview(container)
-        configure(container: container, relation: relation, padding: padding, installerBlock: installerBlock)
+        configure(container: container, relation: relation, installerBlock: installerBlock)
         return container
     }
 }
