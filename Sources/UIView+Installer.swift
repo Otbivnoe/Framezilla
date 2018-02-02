@@ -115,22 +115,85 @@ public extension Sequence where Iterator.Element: UIView {
     }
 }
 
+public enum ContainerRelation {
+    case width(Number)
+    case height(Number)
+    case horizontal(left: Number, right: Number)
+    case vertical(top: Number, bottom: Number)
+}
+
 public extension Collection where Iterator.Element: UIView, Self.Index == Int, Self.IndexDistance == Int {
 
-    /// Creates сontainer view and configures all subview within this container.
+    /// Configures all subview within a passed container.
     ///
-    /// Use this method when you want to set `width` and `height` by wrapping all subviews.
+    /// Use this method when you want to calculate width and height by wrapping all subviews. Or use static parameters.
     ///
-    /// - note: It atomatically adds all subviews to the container. Don't add subviews manually.
-    /// - note: Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because
-    ///         `container` sets width relatively width of subview and here is some ambiguous.
+    /// - note: It automatically adds all subviews to the container. Don't add subviews manually.
+    /// - note: If you don't use a static width for instance, important to understand, that it's not correct to call 'left' and 'right' relations together by subviews,
+    ///         because `container` sets width relatively width of subviews and here is some ambiguous.
     ///
-    /// - parameter view:           The view where a container will be added.
-    /// - parameter installerBlock: The installer block within which you should configure frames for all subviews.
+    /// - parameter view:                The view where a container will be added.
+    /// - parameter relation:            The relation of `ContainerRelation` type.
+    ///     - `width`:                   The width of a container. If you specify a width only a dynamic height will be calculated.
+    ///     - `height`:                  The height of a container. If you specify a height only a dynamic width will be calculated.
+    ///     - `horizontal(left, right)`: The left and right insets of a container. If you specify these parameters only a dynamic height will be calculated.
+    ///     - `vertical(top, bottom)`:   The top and bototm insets of a container. If you specify these parameters only a dynamic width will be calculated.
+    /// - parameter installerBlock:      The installer block within which you should configure frames for all subviews.
+
+    public func configure(container: UIView, relation: ContainerRelation? = nil, installerBlock: () -> Void) {
+        container.frame = .zero
+
+        if let relation = relation {
+            switch relation {
+            case let .width(width): container.frame.size.width = width.value
+            case let .height(height): container.frame.size.height = height.value
+            case let .horizontal(lInset, rInset):
+                container.configureFrame { maker in
+                    maker.left(inset: lInset).right(inset: rInset)
+                }
+                let width = container.frame.width
+                container.frame = .zero
+                container.frame.size.width = width
+            case let .vertical(tInset, bInset):
+                container.configureFrame { maker in
+                    maker.top(inset: tInset).bottom(inset: bInset)
+                }
+                let height = container.frame.height
+                container.frame = .zero
+                container.frame.size.height = height
+            }
+        }
+
+        for subview in self {
+            container.addSubview(subview)
+        }
+
+        installerBlock()
+        container.configureFrame { maker in
+            maker.container()
+        }
+        installerBlock()
+    }
+
+    /// Creates a сontainer view and configures all subview within this container.
+    ///
+    /// Use this method when you want to calculate `width` and `height` by wrapping all subviews. Or use static parameters.
+    ///
+    /// - note: It automatically adds all subviews to the container. Don't add subviews manually. A generated container is automatically added to a `view` as well.
+    /// - note: If you don't use a static width for instance, important to understand, that it's not correct to call 'left' and 'right' relations together by subviews,
+    ///         because `container` sets width relatively width of subviews and here is some ambiguous.
+    ///
+    /// - parameter view:                The view where a container will be added.
+    /// - parameter relation:            The relation of `ContainerRelation` type.
+    ///     - `width`:                   The width of a container. If you specify a width only a dynamic height will be calculated.
+    ///     - `height`:                  The height of a container. If you specify a height only a dynamic width will be calculated.
+    ///     - `horizontal(left, right)`: The left and right insets of a container. If you specify these parameters only a dynamic height will be calculated.
+    ///     - `vertical(top, bottom)`:   The top and bototm insets of a container. If you specify these parameters only a dynamic width will be calculated.
+    /// - parameter installerBlock:      The installer block within which you should configure frames for all subviews.
     ///
     /// - returns: Container view.
 
-    public func container(in view: UIView, installerBlock: () -> Void) -> UIView {
+    public func container(in view: UIView, relation: ContainerRelation? = nil, installerBlock: () -> Void) -> UIView {
         let container: UIView
         if let superView = self.first?.superview {
             container = superView
@@ -138,16 +201,9 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
         else {
             container = UIView()
         }
-        for view in self {
-            container.addSubview(view)
-        }
+
         view.addSubview(container)
-        
-        installerBlock()
-        container.configureFrame { maker in
-            maker.container()
-        }
-        installerBlock()
+        configure(container: container, relation: relation, installerBlock: installerBlock)
         return container
     }
 }

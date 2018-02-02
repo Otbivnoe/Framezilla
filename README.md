@@ -222,18 +222,31 @@ label.configureFrame { maker in
 
 ## Container
 
-Use this method when you want to set `width` and `height` by wrapping all subviews.
+Use this method when you want to calculate a `width` and `height` by wrapping all subviews. 
+
+You can also specify a special container relation:
+
+```swift
+public enum ContainerRelation {
+    case width(Number)
+    case height(Number)
+    case horizontal(left: Number, right: Number)
+    case vertical(top: Number, bottom: Number)
+}
+```
+
+For instance, if you set a width for a container, only a dynamic height will be calculated.
 
 ### NOTE:
 
 **It atomatically adds all subviews to the container. Don't add subviews manually.**
 
-**Also important to understand, that it's not correct to call 'left' and 'right' relations together by subview, because `container` sets width relatively width of subview and here is some ambiguous.**
+**If you don't use a static width for instance, important to understand, that it's not correct to call `left` and `right` relations together by subviews, because `container` sets width relatively width of subviews and here is some ambiguous.**
 
 ![](img/container.png)
 
 ```swift
-let container = [content1, content2, content3, content4].container(in: view) {
+let container = [content1, content2, content3, content4].container(in: view, relation: /* if needed */) {
     content1.configureFrame { maker in
         maker.centerX()
         maker.top()
@@ -262,6 +275,14 @@ let container = [content1, content2, content3, content4].container(in: view) {
 // width and height are already configured
 container.configureFrame { maker in
     maker.center()
+}
+```
+
+If you have already configured container, then this method will be more convenient for you:
+
+```swift
+[content1, label1, label2, label3].configure(container: container, relation: .horizontal(left: 20, right: 20)) {
+// do configuration
 }
 ```
 
