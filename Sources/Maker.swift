@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum Size {
+    case width
+    case height
+}
+
 enum HandlerPriority: Int {
     case high
     case middle
@@ -696,7 +701,36 @@ public final class Maker {
     }
     
     // MARK: Low priority
-    
+
+    /// Set up the corner radius value.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func cornerRadius(_ cornerRadius: Number) -> Maker {
+        let handler = { [unowned self] in
+            self.view.layer.cornerRadius = cornerRadius.value
+        }
+        handlers.append((.low, handler))
+        return self
+    }
+
+    /// Set up the corner radius value as either a half-width or half-height.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+
+    @discardableResult public func cornerRadius(byHalf type: Size) -> Maker {
+        let handler = { [unowned self] in
+            if case Size.width = type {
+                self.view.layer.cornerRadius = self.newRect.width / 2
+            }
+            else {
+                self.view.layer.cornerRadius = self.newRect.height / 2
+            }
+        }
+        handlers.append((.low, handler))
+        return self
+    }
+
     /// Creates center relation to superview.
     ///
     /// Use this method when you want to center view by both axis relativity superview.
