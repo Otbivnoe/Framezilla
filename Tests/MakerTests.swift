@@ -414,4 +414,35 @@ class MakerTests: BaseTest {
         XCTAssertEqual(label.bounds.width, 30)
         XCTAssertEqual(label.bounds.height, 0)
     }
+
+    /* corner radius */
+
+    func testThat_cornerRadius_correctlyConfigures() {
+        let view = UIView()
+
+        view.configureFrame { maker in
+            maker.cornerRadius(100)
+        }
+        XCTAssertEqual(view.layer.cornerRadius, 100)
+    }
+
+    func testThat_cornerRadiusWithHalfWidth_correctlyConfigures() {
+        let view = UIView()
+
+        view.configureFrame { maker in
+            maker.width(100)
+            maker.cornerRadius(byHalf: .width)
+        }
+        XCTAssertEqual(view.layer.cornerRadius, 50)
+    }
+
+    func testThat_cornerRadiusWithHalfHeight_correctlyConfigures() {
+        let view = UIView()
+
+        view.configureFrame { maker in
+            maker.height(100)
+            maker.cornerRadius(byHalf: .height)
+        }
+        XCTAssertEqual(view.layer.cornerRadius, 50)
+    }
 }
