@@ -382,7 +382,7 @@ class MakerTests: BaseTest {
         containet.addSubview(view2)
         
         containet.configureFrame { maker in
-            maker.container()
+            maker._container()
         }
         XCTAssertEqual(containet.frame, CGRect(x: 0, y: 0, width: 120, height: 120))
     }

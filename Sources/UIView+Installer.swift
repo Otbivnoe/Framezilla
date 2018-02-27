@@ -122,7 +122,7 @@ public enum ContainerRelation {
     case vertical(top: Number, bottom: Number)
 }
 
-public extension Collection where Iterator.Element: UIView, Self.Index == Int, Self.IndexDistance == Int {
+public extension Collection where Iterator.Element: UIView {
 
     /// Configures all subview within a passed container.
     ///
@@ -182,7 +182,7 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
 
         installerBlock()
         container.configureFrame { maker in
-            maker.container()
+            maker._container()
         }
         
         if let width = relationWidth {
