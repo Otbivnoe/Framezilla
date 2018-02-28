@@ -272,4 +272,60 @@ class ContainerTests: BaseTest {
         XCTAssertEqual(content3.frame, CGRect(x: 140, y: 0, width: 70, height: 200))
         XCTAssertEqual(content4.frame, CGRect(x: 230, y: 85, width: 30, height: 30))
     }
+    
+    func testContainerHaveConstantWidthWithLeftAndRightRelations() {
+        let content1 = UIView()
+
+        let container = [content1].container(in: mainView, relation: .horizontal(left: 50, right: 50)) {
+            content1.configureFrame { maker in
+                maker.top()
+                maker.size(width: 500, height: 100)
+            }
+        }
+        
+        XCTAssertEqual(container.frame, CGRect(x: 0, y: 0, width: 400, height: 100))
+        XCTAssertEqual(content1.frame, CGRect(x: 0, y: 0, width: 500, height: 100))
+    }
+    
+    func testContainerHaveConstantWidthWithWidthRelation() {
+        let content1 = UIView()
+        
+        let container = [content1].container(in: mainView, relation: .width(400)) {
+            content1.configureFrame { maker in
+                maker.top()
+                maker.size(width: 500, height: 100)
+            }
+        }
+        
+        XCTAssertEqual(container.frame, CGRect(x: 0, y: 0, width: 400, height: 100))
+        XCTAssertEqual(content1.frame, CGRect(x: 0, y: 0, width: 500, height: 100))
+    }
+    
+    func testContainerHaveConstantHeightWithTopAndBottomRelations() {
+        let content1 = UIView()
+        
+        let container = [content1].container(in: mainView, relation: .vertical(top: 50, bottom: 50)) {
+            content1.configureFrame { maker in
+                maker.top()
+                maker.size(width: 100, height: 500)
+            }
+        }
+        
+        XCTAssertEqual(container.frame, CGRect(x: 0, y: 0, width: 100, height: 400))
+        XCTAssertEqual(content1.frame, CGRect(x: 0, y: 0, width: 100, height: 500))
+    }
+    
+    func testContainerHaveConstantHeightWithHeightRelation() {
+        let content1 = UIView()
+        
+        let container = [content1].container(in: mainView, relation: .height(400)) {
+            content1.configureFrame { maker in
+                maker.top()
+                maker.size(width: 100, height: 500)
+            }
+        }
+        
+        XCTAssertEqual(container.frame, CGRect(x: 0, y: 0, width: 100, height: 400))
+        XCTAssertEqual(content1.frame, CGRect(x: 0, y: 0, width: 100, height: 500))
+    }
 }

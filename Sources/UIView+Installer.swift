@@ -122,7 +122,7 @@ public enum ContainerRelation {
     case vertical(top: Number, bottom: Number)
 }
 
-public extension Collection where Iterator.Element: UIView, Self.Index == Int, Self.IndexDistance == Int {
+public extension Collection where Iterator.Element: UIView {
 
     /// Configures all subview within a passed container.
     ///
@@ -143,10 +143,19 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
     public func configure(container: UIView, relation: ContainerRelation? = nil, installerBlock: () -> Void) {
         container.frame = .zero
 
+        var relationWidth: CGFloat?
+        var relationHeight: CGFloat?
+        
         if let relation = relation {
             switch relation {
-            case let .width(width): container.frame.size.width = width.value
-            case let .height(height): container.frame.size.height = height.value
+            case let .width(width):
+                container.frame.size.width = width.value
+                relationWidth = width.value
+                
+            case let .height(height):
+                container.frame.size.height = height.value
+                relationHeight = height.value
+                
             case let .horizontal(lInset, rInset):
                 container.configureFrame { maker in
                     maker.left(inset: lInset).right(inset: rInset)
@@ -154,6 +163,8 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
                 let width = container.frame.width
                 container.frame = .zero
                 container.frame.size.width = width
+                relationWidth = width
+                
             case let .vertical(tInset, bInset):
                 container.configureFrame { maker in
                     maker.top(inset: tInset).bottom(inset: bInset)
@@ -161,17 +172,27 @@ public extension Collection where Iterator.Element: UIView, Self.Index == Int, S
                 let height = container.frame.height
                 container.frame = .zero
                 container.frame.size.height = height
+                relationHeight = height
             }
         }
 
-        for subview in self {
+        for subview in self where subview.superview != container {
             container.addSubview(subview)
         }
 
         installerBlock()
         container.configureFrame { maker in
-            maker.container()
+            maker._container()
         }
+        
+        if let width = relationWidth {
+            container.frame.size.width = width
+        }
+        
+        if let height = relationHeight {
+            container.frame.size.height = height
+        }
+        
         installerBlock()
     }
 

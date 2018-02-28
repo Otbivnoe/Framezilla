@@ -382,21 +382,26 @@ public final class Maker {
     ///
     /// - returns: `Maker` instance for chaining relations.
 
+    @available(*, deprecated, message: "there is a more flexible container method - сheck the method description.")
     @discardableResult public func container() -> Maker {
+        return _container()
+    }
+    
+    @discardableResult func _container() -> Maker {
         var frame = CGRect.zero
-
+        
         var minX: CGFloat = 0
         var minY: CGFloat = 0
-
+        
         for subview in view.subviews {
             if subview.frame.origin.x < 0 {
                 subview.frame.origin.x = 0
             }
-
+            
             if subview.frame.origin.y < 0 {
                 subview.frame.origin.y = 0
             }
-
+            
             if subview.frame.origin.x < minX {
                 minX = subview.frame.origin.x
             }
@@ -404,14 +409,14 @@ public final class Maker {
                 minY = subview.frame.origin.y
             }
         }
-
+        
         for subview in view.subviews {
             subview.frame.origin.x -= minX
             subview.frame.origin.y -= minY
-
+            
             frame = frame.union(subview.frame)
         }
-
+        
         setHighPriorityValue(frame.width, for: .width)
         setHighPriorityValue(frame.height, for: .height)
         return self
@@ -969,28 +974,5 @@ public final class Maker {
         case .height: heightParameter = ValueParameter(value: value)
         default: break
         }
-    }
-}
-
-// MARK: - Deprecated
-
-extension Maker {
-
-    /// Calculates the width that best fits the specified size.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-
-    @available(*, unavailable, renamed: "widthThatFits(maxWidth:)")
-    @discardableResult public func widthThatFits(width: Number) -> Maker {
-        return self
-    }
-
-    /// Calculates the height that best fits the specified size.
-    ///
-    /// - returns: `Maker` instance for chaining relations.
-
-    @available(*, unavailable, renamed: "heightThatFits(maxHeight:)")
-    @discardableResult public func heightThatFits(height: Number) -> Maker {
-        return self
     }
 }
