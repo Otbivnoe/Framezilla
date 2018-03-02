@@ -24,7 +24,7 @@ public var nui_safeArea: SafeArea {
     return SafeArea()
 }
 
-public final class Maker {
+public final class Maker<T: UIView> {
     
     typealias HandlerType = () -> Void
 
@@ -48,8 +48,11 @@ public final class Maker {
         self.view = view
         self.newRect = view.frame
     }
-    
-    // MARK: Additions
+}
+
+// MARK: UIView
+
+extension Maker {
     
     ///	Optional semantic property for improvements readability.
     ///
@@ -960,10 +963,26 @@ public final class Maker {
         handlers.append((.low, handler))
         return self
     }
-    
-    // MARK: Private
+}
 
-    private func setHighPriorityValue(_ value: CGFloat, for relationType: RelationType) {
+extension Maker where T: UIScrollView {
+ 
+    // scroll indicator as well
+    
+    @discardableResult public func contentTop(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
+        return self
+    }
+    
+    @discardableResult public func contentBottom(to relationView: RelationView<VerticalRelation>, inset: Number = 0.0) -> Maker {
+        return self
+    }
+}
+
+// MARK: Private
+
+fileprivate extension Maker {
+    
+    func setHighPriorityValue(_ value: CGFloat, for relationType: RelationType) {
         let handler = { [unowned self] in
             self.newRect.setValue(value, for: relationType)
         }

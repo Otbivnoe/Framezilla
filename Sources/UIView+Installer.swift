@@ -54,10 +54,43 @@ public extension UIView {
     }
 }
 
-public extension UIView {
+public protocol Viewable {}
+public protocol Scrollable {}
+
+extension UIView: Viewable {}
+extension UIScrollView: Scrollable {}
+
+postfix operator <<
+postfix operator >>
+
+/// Start frame configuration for `DEFAULT_STATE` state.
+///
+/// - note: Don't forget to call `>>` operator for ending of configuration.
+///
+/// - parameter view: The view you are configuring.
+///
+/// - returns: `Maker` instance for chaining relations.
+
+public postfix func << <T>(view: T) -> Maker<T> {
+    let maker = Maker<T>(view: view)
+    maker.newRect = view.frame
+    return maker
+}
+
+/// End frame configuration.
+
+public postfix func >> <T>(maker: Maker<T>) {
+    if (maker.view.nx_state as? String) == DEFAULT_STATE {
+        maker.configureFrame()
+    }
+}
+
+public typealias InstallerBlock<T: UIView> = (Maker<T>) -> Void
+
+extension Viewable where Self: UIView {
     
     @available(*, deprecated, renamed: "configureFrame(state:installerBlock:)")
-    public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
+    public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock<Self>) {
         Maker.configure(view: self, for: state, installerBlock: installerBlock)
     }
     
@@ -68,7 +101,7 @@ public extension UIView {
     /// - parameter state:          The state for which you configure frame. Default value: `DEFAULT_STATE`.
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
-    public func configureFrame(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
+    public func configureFrame(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock<Self>) {
         Maker.configure(view: self, for: state, installerBlock: installerBlock)
     }
     
@@ -79,14 +112,14 @@ public extension UIView {
     /// - parameter states:         The states for which you configure frame.
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
-    public func configureFrame(states: [AnyHashable], installerBlock: InstallerBlock) {
+    public func configureFrame(states: [AnyHashable], installerBlock: InstallerBlock<Self>) {
         for state in states {
             Maker.configure(view: self, for: state, installerBlock: installerBlock)
         }
     }
 }
 
-public extension Sequence where Iterator.Element: UIView {
+public extension Sequence where Element: UIView {
     
     /// Configures frames of the views for special state.
     ///
@@ -95,7 +128,7 @@ public extension Sequence where Iterator.Element: UIView {
     /// - parameter state:          The state for which you configure frame. Default value: `DEFAULT_STATE`.
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
-    public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock) {
+    public func configureFrames(state: AnyHashable = DEFAULT_STATE, installerBlock: InstallerBlock<Element>) {
         for view in self {
             view.configureFrame(state: state, installerBlock: installerBlock)
         }
@@ -108,7 +141,7 @@ public extension Sequence where Iterator.Element: UIView {
     /// - parameter states:         The states for which you configure frames.
     /// - parameter installerBlock: The installer block within which you can configure frame relations.
     
-    public func configureFrames(states: [AnyHashable], installerBlock: InstallerBlock) {
+    public func configureFrames(states: [AnyHashable], installerBlock: InstallerBlock<Element>) {
         for view in self {
             view.configureFrame(states: states, installerBlock: installerBlock)
         }
