@@ -11,7 +11,7 @@ public enum StackAxis: Int {
     case vertical
 }
 
-public extension Collection where Iterator.Element: UIView, Self.Index == Int, Self.IndexDistance == Int {
+public extension Collection where Iterator.Element: UIView, Self.Index == Int {
     
     /// Arranges views in the order of list along a vertical or horizontal axis, with spacing property.
     ///
