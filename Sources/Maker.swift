@@ -24,6 +24,15 @@ public var nui_safeArea: SafeArea {
     return SafeArea()
 }
 
+public enum Sides {
+    case top
+    case bottom
+    case left
+    case right
+    case vertical
+    case horizontal
+}
+
 public final class Maker {
     
     typealias HandlerType = () -> Void
@@ -565,6 +574,34 @@ public final class Maker {
         return self
     }
     
+    /// Creates edge relations for superview.
+    ///
+    /// - parameter insets: The insets for setting relations for superview.
+    ///
+    /// - parameter sides: The sides which will inculed from edge insets to setting relations.
+    ///
+    /// - returns: `Maker` instance for chaining relations.
+    
+    @discardableResult public func edges(insets: UIEdgeInsets, sides: Sides...) -> Maker {
+        sides.forEach { side in
+            switch side {
+            case .bottom:
+                bottom(inset: insets.bottom)
+            case .left:
+                left(inset: insets.left)
+            case .right:
+                right(inset: insets.right)
+            case .top:
+                top(inset: insets.top)
+            case .horizontal:
+                top(inset: insets.top).bottom(inset: insets.bottom)
+            case .vertical:
+                left(inset: insets.left).right(inset: insets.right)
+            }
+        }
+        return self
+    }
+
     /// Creates bottom relation to superview.
     ///
     /// Use this method when you want to join bottom side of current view with bottom side of superview.
