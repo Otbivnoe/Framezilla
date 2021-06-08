@@ -7,6 +7,7 @@
 //
 
 /// Phantom type for `nui_left`, `nui_right`, `nui_centerX` relations.
+import UIKit
 
 public protocol HorizontalRelation {}
 
@@ -46,49 +47,49 @@ public extension UIView {
     
     /// Width relation of current view.
     
-    public var nui_width: RelationView<SizeRelation> {
+    var nui_width: RelationView<SizeRelation> {
         return RelationView(view: self, relation: .width)
     }
     
     /// Height relation of current view.
     
-    public var nui_height: RelationView<SizeRelation> {
+    var nui_height: RelationView<SizeRelation> {
         return RelationView<SizeRelation>(view: self, relation: .height)
     }
     
     /// Left relation of current view.
 
-    public var nui_left: RelationView<HorizontalRelation> {
+    var nui_left: RelationView<HorizontalRelation> {
         return RelationView<HorizontalRelation>(view: self, relation: .left)
     }
     
     /// Right relation of current view.
     
-    public var nui_right: RelationView<HorizontalRelation> {
+    var nui_right: RelationView<HorizontalRelation> {
         return RelationView<HorizontalRelation>(view: self, relation: .right)
     }
     
     /// Top relation of current view.
     
-    public var nui_top: RelationView<VerticalRelation> {
+    var nui_top: RelationView<VerticalRelation> {
         return RelationView<VerticalRelation>(view: self, relation: .top)
     }
     
     /// Bottom relation of current view.
     
-    public var nui_bottom: RelationView<VerticalRelation> {
+    var nui_bottom: RelationView<VerticalRelation> {
         return RelationView<VerticalRelation>(view: self, relation: .bottom)
     }
     
     /// CenterX relation of current view.
     
-    public var nui_centerX: RelationView<HorizontalRelation> {
+    var nui_centerX: RelationView<HorizontalRelation> {
         return RelationView<HorizontalRelation>(view: self, relation: .centerX)
     }
     
     /// CenterY relation of current view.
     
-    public var nui_centerY: RelationView<VerticalRelation> {
+    var nui_centerY: RelationView<VerticalRelation> {
         return RelationView<VerticalRelation>(view: self, relation: .centerY)
     }
 }

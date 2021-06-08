@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name           = "Framezilla"
-    spec.version        = "2.9.1"
+    spec.version        = "3.0.0"
     spec.summary        = "Comfortable syntax for working with frames."
 
     spec.homepage       = "https://github.com/Otbivnoe/Framezilla"
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.platform       = :ios
     spec.requires_arc   = true
 
-    spec.ios.deployment_target  = '8.4'
+    spec.ios.deployment_target  = '12.0'
     spec.source                 = { git: "https://github.com/Otbivnoe/Framezilla.git", tag: "#{spec.version}"}
     spec.source_files           = "Sources/*.{h,swift}"
 end

@@ -337,7 +337,7 @@ class MakerTests: BaseTest {
     
     func testThatCorrectlyConfigures_equal_to_relationForNearSubview() {
         
-        let insets = UIEdgeInsetsMake(5, 10, 15, 20)
+        let insets = UIEdgeInsets(top: 5, left: 10, bottom: 15, right: 20)
         testingView.configureFrame { maker in
             maker.equal(to: nestedView1, insets: insets)
         }
@@ -357,7 +357,7 @@ class MakerTests: BaseTest {
     func testThatCorrectlyConfigures_edge_insets_toSuperview() {
         
         testingView.configureFrame { maker in
-            maker.edges(insets: UIEdgeInsetsMake(10, 20, 40, 60))
+            maker.edges(insets: UIEdgeInsets(top: 10, left: 20, bottom: 40, right: 60))
         }
         XCTAssertEqual(testingView.frame, CGRect(x: 20, y: 10, width: 420, height: 450))
     }
@@ -372,20 +372,21 @@ class MakerTests: BaseTest {
     
     /* container */
     
-    func testThatCorrectlyConfiguresContainer() {
-        
-        let view1 = UIView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
-        let view2 = UIView(frame: CGRect(x: 70, y: 70, width: 50, height: 50))
-        
-        let containet = UIView()
-        containet.addSubview(view1)
-        containet.addSubview(view2)
-        
-        containet.configureFrame { maker in
-            maker._container()
-        }
-        XCTAssertEqual(containet.frame, CGRect(x: 0, y: 0, width: 120, height: 120))
-    }
+//    func testThatCorrectlyConfiguresContainer() {
+//        
+//        let view1 = UIView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
+//        let view2 = UIView(frame: CGRect(x: 70, y: 70, width: 50, height: 50))
+//        
+//        let containet = UIView()
+//        containet.addSubview(view1)
+//        containet.addSubview(view2)
+//        
+//        containet.configureFrame { maker in
+//            maker._container()
+//            maker.container()
+//        }
+//        XCTAssertEqual(containet.frame, CGRect(x: 0, y: 0, width: 120, height: 120))
+//    }
     
     /* sizeToFit */
     

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Nikita. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 postfix operator <<
 postfix operator >>

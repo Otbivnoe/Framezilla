@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 final class ValueParameter {
     let value: CGFloat
