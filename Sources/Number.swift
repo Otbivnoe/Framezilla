@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 public protocol Number {
     var value: CGFloat { get }
